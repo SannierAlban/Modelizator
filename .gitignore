@@ -2,3 +2,5 @@
 **/.project
 **/.settings/**
 **/bin/**
+**/.idea/**
+**/sources-du-projet.iml/**
