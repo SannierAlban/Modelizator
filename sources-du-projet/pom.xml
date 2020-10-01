@@ -6,7 +6,6 @@
     <groupId>fr.m3105</groupId>
     <artifactId>projetMode</artifactId>
     <version>0.0.1</version>
-
     <build>
         <plugins>
             <plugin>

@@ -1,4 +1,4 @@
-package v1;
+package fr.m3105.projetmode.v1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
