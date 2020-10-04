@@ -1,5 +1,7 @@
 package fr.m3105.projetmode;
 
+import fr.m3105.projetmode.utils.Model;
+import fr.m3105.projetmode.utils.ViewWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -11,30 +13,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        Label l = new Label(welcomeMessage());
-        Label l2 = new Label("0");
-
-        VBox vb = new VBox();
-
-        vb.getChildren().addAll(l,l2);
-        Scene scene = new Scene(new StackPane(vb), 640, 480);
-
-
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    private String welcomeMessage() {
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-
-        return
-                "Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".\n" +
-                        "             (and powered by maven)\n";
+    	ViewWindow vw = new ViewWindow(800, 600, new Model());
+    	try {
+			vw.start(stage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public static void main(String[] args) {
-        launch();
+    	
+        Application.launch();
     }
 }
