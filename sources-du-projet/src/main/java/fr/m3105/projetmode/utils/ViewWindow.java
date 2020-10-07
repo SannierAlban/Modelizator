@@ -9,7 +9,7 @@ public class ViewWindow extends Application{
 
 	private int height = 800;
 	private int width = 600;
-	private Model model = new Model();
+	private Model model;
 	
 	public ViewWindow(int height, int width, Model model) {
 		this.height = height;
@@ -20,8 +20,8 @@ public class ViewWindow extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		
-		
+		System.out.println(model.toString());
+		/*
 		HBox root = new HBox();
         root.getChildren().addAll();
         // Set Spacing of the HBox
@@ -46,5 +46,6 @@ public class ViewWindow extends Application{
         primaryStage.setTitle("J'ai tant envie de dormir");
         // Display the Stage
         primaryStage.show();
+        */
 	}
 }

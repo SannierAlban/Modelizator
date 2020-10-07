@@ -5,15 +5,25 @@ import java.awt.Polygon;
 public class Face extends Polygon{
 	
 	private static final long serialVersionUID = 1L;
-	private Point3[] points;
-	private int r, g, b, alpha;
+	private Point[] points;
+	private int r=1, g=1, b=1, alpha=1;
 	
-	public Face(Point3[] points, int r, int g, int b, int alpha) {
+	public Face(Point[] points, int r, int g, int b, int alpha) {
 		super();
 		this.points = points;
+		this.alpha = alpha;
 		this.r = r;
 		this.g = g;
 		this.b = b;
-		this.alpha = alpha;
+	}
+	public Face(Point[] points) {
+		super();
+		this.points = points;
+	}
+	@Override
+	public String toString() {
+		StringBuilder res = new StringBuilder("Face [");
+		for(int i=0;i<points.length;i++) res.append(points[i].toString(true)+" | ");
+		return res.toString()+"R = "+r +" G = "+g +" B = "+b +" alpha = "+alpha;
 	}
 }
