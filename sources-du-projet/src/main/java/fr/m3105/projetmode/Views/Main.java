@@ -1,7 +1,5 @@
 package fr.m3105.projetmode.Views;
 
-import fr.m3105.projetmode.utils.Model;
-import fr.m3105.projetmode.utils.ViewWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
