@@ -25,11 +25,58 @@ public class Model {
 		PATH = "exemples/cube.ply";
 		points = new ArrayList<Point>();
 		faces = new ArrayList<Face>();
-		points.add(new Point(0, 0, 0));
-		points.add(new Point(0, 4, 0));
-		points.add(new Point(4, 0, 0));
-		points.add(new Point(4, 4, 0));
-		faces.add(new Face(new Point[] {points.get(0),points.get(1),points.get(2),points.get(3)}));
+		
+		points.add(new Point(0,0,0));		//stock tout les point lu dans une arraylist
+		points.add(new Point(0,4,0));
+		points.add(new Point(4,0,4));
+		points.add(new Point(0,4,4));
+		points.add(new Point(0,0,4));
+		points.add(new Point(4,4,0));
+		points.add(new Point(4,0,0));
+		points.add(new Point(4,4,4));
+		
+		ArrayList<Point> a = new ArrayList<Point>(); 
+		a.add(new Point(points.get(0)));				//distribut les points dans leur face correspondante
+		a.add(new Point(points.get(6)));
+		a.add(new Point(points.get(2)));
+		a.add(new Point(points.get(4)));
+		faces.add(new Face(a));
+
+		ArrayList<Point> b = new ArrayList<Point>(); 
+		b.add(new Point(points.get(1)));				
+		b.add(new Point(points.get(3)));
+		b.add(new Point(points.get(7)));
+		b.add(new Point(points.get(5)));
+		faces.add(new Face(b));
+
+		
+		ArrayList<Point> c = new ArrayList<Point>(); 
+		c.add(new Point(points.get(5)));				
+		c.add(new Point(points.get(7)));
+		c.add(new Point(points.get(2)));
+		c.add(new Point(points.get(6)));
+		faces.add(new Face(c));
+
+		ArrayList<Point> d = new ArrayList<Point>(); 
+		d.add(new Point(points.get(1)));				
+		d.add(new Point(points.get(0)));
+		d.add(new Point(points.get(4)));
+		d.add(new Point(points.get(3)));
+		faces.add(new Face(d));
+
+		ArrayList<Point> e = new ArrayList<Point>(); 
+		e.add(new Point(points.get(3)));				
+		e.add(new Point(points.get(4)));
+		e.add(new Point(points.get(2)));
+		e.add(new Point(points.get(7)));
+		faces.add(new Face(e));
+		
+		ArrayList<Point> p = new ArrayList<Point>(); 
+		p.add(new Point(points.get(1)));				
+		p.add(new Point(points.get(5)));
+		p.add(new Point(points.get(6)));
+		p.add(new Point(points.get(0)));
+		faces.add(new Face(p));
 	}
 
 	@Override
@@ -40,4 +87,7 @@ public class Model {
 		return res.toString();
 	}
 	
+	public ArrayList<Face> getFaces() {
+		return faces;
+	}
 }
