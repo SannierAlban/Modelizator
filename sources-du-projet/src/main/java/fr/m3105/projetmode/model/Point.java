@@ -14,6 +14,12 @@ public class Point implements Property {
 		this.z = z;
 	}
 
+	public Point(Point p) {
+		x = p.x;
+		y = p.y;
+		z = p.z;
+	}
+	
 	public String toString(boolean compact) {
 		if(compact) return "X="+x+",Y="+y+",Z="+z;
 		else return "X : "+x+" / Y : "+y+" / Z : "+z;
