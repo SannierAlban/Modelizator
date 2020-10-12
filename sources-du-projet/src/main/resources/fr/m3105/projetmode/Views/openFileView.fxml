@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.m3105.projetmode.controller.OpenFileController">
    <children>
@@ -12,5 +14,15 @@
             <Font size="21.0" />
          </font>
       </JFXButton>
+      <Text layoutX="126.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modelizator I6" textAlignment="CENTER">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="helpButton" layoutX="338.0" layoutY="538.0" onMousePressed="#openHelpView">
+         <image>
+            <Image url="@../../images/help_icons.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

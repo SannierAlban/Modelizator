@@ -22,7 +22,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>fr.m3105.projetmode.Views.Main</mainClass>
+                    <mainClass>fr.m3105.projetmode.Views.OpenFileView</mainClass>
                 </configuration>
             </plugin>
         </plugins>
