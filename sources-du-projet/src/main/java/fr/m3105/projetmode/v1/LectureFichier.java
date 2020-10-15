@@ -11,8 +11,10 @@ public class LectureFichier {
 	
 	BufferedReader reader;
 	protected int vertex;
-	protected List<String> props;
+	protected List<String> vertexProps;
 	protected int faces;
+	protected List<String> faceProps;
+	protected List<Double[]> listVertex;
 	
 	LectureFichier(String path) throws IOException{
 		this.lecture(path);
@@ -27,29 +29,31 @@ public class LectureFichier {
 	}
 	
 	private void lecture(String path) throws IOException{
-		
-		
 		try {
 	
 			this.ouvertureFichier(path);
-			String [] format=new String[] {this.getLine(), this.getLine()};
-			
-			if (!verifFormat(format)) System.exit(1);
-			this.vertex=this.lectureVertex(this.getLine());
-			this.props=this.lectureProperties();
-			this.faces=this.lectureFace(this.getLine());
-			
+			this.lectureHeader();
+			this.verifFinHeader(this.getNextLine());
 			
 		}catch(IOException | ErreurFichierException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private void lectureHeader() throws IOException, ErreurFichierException {
+		String [] format=new String[] {this.getNextLine(), this.getNextLine()};
+		if (!verifFormat(format)) System.exit(1);
+		this.vertex=this.lectureVertex(this.getNextLine());
+		this.vertexProps=this.lectureProperties();
+		this.faces=this.lectureFace(this.getNextLine());
+		this.faceProps=this.lectureProperties();
+	}
+	
 	private boolean isComment(String line) {
 		return (line.substring(0,7).toLowerCase().equals("comment")); 
 	}
 	
-	private String getLine() throws IOException {
+	private String getNextLine() throws IOException {
 		String current=reader.readLine();
 		while (this.isComment((current=reader.readLine())));
 		return current;
@@ -82,7 +86,7 @@ public class LectureFichier {
 	private List<String> lectureProperties() throws IOException {
 		List<String> res=new ArrayList<String>();
 		String current;
-		while ((current=this.getLine()).substring(0,8).equals("property")) {
+		while ((current=this.getNextLine()).substring(0,8).toLowerCase().equals("property")) {
 			res.add(current.substring(9));
 		}
 		return res; 
@@ -96,6 +100,27 @@ public class LectureFichier {
 		return res;
 	}
 	
+	private void verifFinHeader(String line) throws ErreurFichierException {
+		if (!line.equals("end_header"))throw new ErreurFichierException("Erreur: le header n'est pas fermé");
+	}
 	
+	private List<Double[]> VertexVacuum(){
+		
+		return null;
+	}
+	
+	private Double[] LineParser(String line) {
+		String current="";
+		int index=0;
+		char c;
+		Double[] res=new Double[3];
+		while ((c=line.charAt(index++))!='\n') {
+			while (c!=' ') {
+				current+=c;
+			}
+			
+		}
+		return null;
+	}
 	
 }
