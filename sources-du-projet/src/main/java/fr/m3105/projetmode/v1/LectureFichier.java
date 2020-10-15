@@ -45,21 +45,25 @@ public class LectureFichier {
 		}
 	}
 	
+	private boolean isComment(String line) {
+		return (line.substring(0,7).toLowerCase().equals("comment")); 
+	}
+	
 	private String getLine() throws IOException {
 		String current=reader.readLine();
 		while (this.isComment((current=reader.readLine())));
 		return current;
 	}
-	
+
 	private boolean verifFormat(String[] lines) throws ErreurFichierException {
 		if (lines[0]==null || lines[1]==null) throw new ErreurFichierException("Erreur: fichier vide");
-		if (!lines[0].equals("ply")) throw new ErreurFichierException("Erreur: format incompatible (format necessaire: ply) -ligne 1-");
-		if (!lines[1].equals("format ascii 1.0")) throw new ErreurFichierException("Erreur: format incompatible (format necessaire: ascii 1.0) -ligne 2-");
+		if (!lines[0].equals("ply")) throw new ErreurFichierException("Erreur: format incompatible (format necessaire: ply)");
+		if (!lines[1].equals("format ascii 1.0")) throw new ErreurFichierException("Erreur: format incompatible (format necessaire: ascii 1.0)");
 		return true;
 	}
 	
 	private int lectureVertex(String line) throws ErreurFichierException{
-		if (!line.substring(0,14).equals("element vertex")) throw new ErreurFichierException("Erreur : mauvaise declaration des points -ligne 3-");
+		if (!line.substring(0,14).equals("element vertex")) throw new ErreurFichierException("Erreur : mauvaise declaration des points");
 		String vertexStr=line.substring(15);
 		int res=this.isInt(vertexStr);
 		if(res<=0) throw new ErreurFichierException("Erreur: le nombre de points doit etre >0");
@@ -85,15 +89,13 @@ public class LectureFichier {
 	}
 	
 	private int lectureFace(String line) throws ErreurFichierException {
-		if (!line.substring(0,12).equals("element face")) throw new ErreurFichierException("Erreur : mauvaise d�claration des faces");
+		if (!line.substring(0,12).equals("element face")) throw new ErreurFichierException("Erreur : mauvaise declaration des faces");
 		String faceStr=line.substring(15);
 		int res=this.isInt(faceStr);
-		if(res<=0) throw new ErreurFichierException("Erreur: le nombre de faces doit �tre >0");
+		if(res<=0) throw new ErreurFichierException("Erreur: le nombre de faces doit etre >0");
 		return res;
 	}
 	
-	private boolean isComment(String line) {
-		return (line.substring(0,7).toLowerCase().equals("comment")); 
-	}
+	
 	
 }
