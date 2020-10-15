@@ -19,7 +19,7 @@ public class MainStage extends Stage {
         ViewWindow vw = new ViewWindow(100, 100,m);
         vw.start(PrimaryStage);
          */
-        this.setTitle("Main frame");
+        this.setTitle("Main frame : " + f.getName());
         this.setScene(new Scene(root));
         this.show();
     }

@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class OpenFileView extends Application {
+    //TODO: liste des fichiers du dossier exemples
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -19,6 +20,7 @@ public class OpenFileView extends Application {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
+
 
         root.setOnMouseDragged(event -> {
             PrimaryStage.setX(event.getScreenX() - xOffset);
