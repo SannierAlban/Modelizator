@@ -18,7 +18,6 @@ import javafx.scene.shape.Polygon;
 
 public class ThreeDView {
 	private final int size = 480;
-	private final int dF = 1; // distance focal
 	
 	private Canvas canvas;
 	private ArrayList<Face> modelFaces;
