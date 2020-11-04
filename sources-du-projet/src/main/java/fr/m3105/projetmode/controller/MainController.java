@@ -1,26 +1,18 @@
 package fr.m3105.projetmode.controller;
 
-import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.application.Platform;
+import fr.m3105.projetmode.Views.HelpView;
+import fr.m3105.projetmode.Views.OpenFileView;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
-public class MainController implements Initializable {
+public class MainController {
     @FXML
     private JFXToggleButton lightActivation;
     @FXML
-    private JFXToggleButton coupeActivation;
-    @FXML
-    private JFXSlider coupeSlider;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        coupeSlider.setVisible(false);
-    }
+    private ImageView helpIcons;
 
     public void lightAction(){
         if (lightActivation.isSelected()){
@@ -28,12 +20,11 @@ public class MainController implements Initializable {
         }
     }
 
-    public void coupeAction(){
-        if (coupeActivation.isSelected()){
-            System.out.println("Activation de la coupe");
-            coupeSlider.setVisible(true);
-        }else if(!coupeActivation.isSelected()){
-            coupeSlider.setVisible(false);
-        }
+    public void openHelpView() throws Exception {
+        new HelpView();
+    }
+
+    public void openOpenFile() throws IOException {
+        new OpenFileView();
     }
 }

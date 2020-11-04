@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.m3105.projetmode.controller.MainController">
+   <children>
+      <Pane layoutX="4.0" layoutY="1.0" prefHeight="800.0" prefWidth="1200.0">
+         <children>
+            <Pane layoutX="386.0" layoutY="25.0" prefHeight="750.0" prefWidth="800.0" styleClass="canvas" />
+            <Canvas height="750.0" layoutX="386.0" layoutY="25.0" width="800.0" />
+            <JFXToggleButton fx:id="lightActivation" layoutX="24.0" layoutY="72.0" onAction="#lightAction" text="Lumières" />
+            <JFXToggleButton layoutX="24.0" layoutY="112.0" text="Coupe" />
+            <JFXToggleButton layoutX="24.0" layoutY="151.0" text="Futur feature" />
+            <ImageView fitHeight="69.0" fitWidth="74.0" layoutX="749.0" layoutY="684.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/play_icons.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="helpIcons" fitHeight="58.0" fitWidth="49.0" layoutX="14.0" layoutY="737.0" onMousePressed="#openHelpView" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/help_icons.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="openFile" fitHeight="58.0" fitWidth="49.0" layoutX="34.0" layoutY="25.0" onMousePressed="#openOpenFile" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/open_icons.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="89.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ouvrir un fichier" wrappingWidth="104.58203125">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
