@@ -22,10 +22,6 @@ import java.util.ResourceBundle;
 
 public class OpenFileController implements Initializable {
     @FXML
-    private JFXButton openButton;
-    @FXML
-    private ImageView helpButton;
-    @FXML
     private VBox fileChooserVBox;
 
     public void fileChooser() throws IOException {
@@ -69,7 +65,6 @@ public class OpenFileController implements Initializable {
                     }
                 });
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
