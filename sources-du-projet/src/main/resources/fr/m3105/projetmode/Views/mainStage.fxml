@@ -13,7 +13,7 @@
       <Pane layoutX="4.0" layoutY="1.0" prefHeight="800.0" prefWidth="1200.0">
          <children>
             <Pane layoutX="386.0" layoutY="25.0" prefHeight="750.0" prefWidth="800.0" styleClass="canvas" />
-            <Canvas height="750.0" layoutX="386.0" layoutY="25.0" width="800.0" />
+            <Canvas fx:id="mainCanvas" height="750.0" layoutX="386.0" layoutY="25.0" width="800.0" />
             <JFXToggleButton fx:id="lightActivation" layoutX="24.0" layoutY="72.0" onAction="#lightAction" text="Lumières" />
             <JFXToggleButton fx:id="coupeActivation" layoutX="24.0" layoutY="112.0" onAction="#coupeAction" text="Coupe" />
             <JFXToggleButton layoutX="24.0" layoutY="155.0" text="Futur feature" />

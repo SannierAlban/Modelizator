@@ -26,14 +26,17 @@ public class Model {
 		points = new ArrayList<Point>();
 		faces = new ArrayList<Face>();
 		
-		points.add(new Point(0,0,0));		//stock tout les point lu dans une arraylist
-		points.add(new Point(0,4,0));
-		points.add(new Point(4,0,4));
-		points.add(new Point(0,4,4));
-		points.add(new Point(0,0,4));
-		points.add(new Point(4,4,0));
-		points.add(new Point(4,0,0));
-		points.add(new Point(4,4,4));
+		int pa = 25;
+		int pb = 100;
+		
+		points.add(new Point(pa,pa,pa));		//stock tout les point lu dans une arraylist
+		points.add(new Point(pa,pb,pa));
+		points.add(new Point(pb,pa,pb));
+		points.add(new Point(pa,pb,pb));
+		points.add(new Point(pa,pa,pb));
+		points.add(new Point(pb,pb,pa));
+		points.add(new Point(pb,pa,pa));
+		points.add(new Point(pb,pb,pb));
 		
 		ArrayList<Point> a = new ArrayList<Point>(); 
 		a.add(new Point(points.get(0)));				//distribut les points dans leur face correspondante
