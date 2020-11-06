@@ -115,17 +115,46 @@ public class Model {
 		} 
 		return new Point(xsum/points.size(),ysum/points.size(),zsum/points.size());
 	}
+	
+	
 	/**
 	 * Rotates the entire Model on the X axis using the double parameter clockwise
 	 * More precisely, it overwrites the previous values of the Model.points array
-	 * WARNING: This method only works with 3 dimensions points
-	 * @param angle the Model will rotate
+	 * WARNING: This method only works with 3d points
+	 * @param angle double value representing how much the Model will rotate
 	 */
 	public void rotateOnXAxis(double angle) {
 		
-		final short NB_DIMENSIONS = 3;
-		final double[][] ROTATION_MATRIX = new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle),0},{0,Math.sin(angle),Math.cos(angle)}};
+		rotate(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
+	}
+	
+	
+	/**
+	 * Rotates the entire Model on the Y axis using the double parameter clockwise
+	 * More precisely, it overwrites the previous values of the Model.points array
+	 * WARNING: This method only works with 3d points
+	 * @param angle double value representing how much the Model will rotate
+	 */
+	public void rotateOnYAxis(double angle) {
 		
+		rotate(new double[][]{ {Math.cos(angle),0,-Math.sin(angle)},{0,1,0},{Math.sin(angle),0,Math.cos(angle)}});
+	}
+	
+	
+	/**
+	 * Rotates the entire Model on the Z axis using the double parameter clockwise
+	 * More precisely, it overwrites the previous values of the Model.points array
+	 * WARNING: This method only works with 3d points
+	 * @param angle double value representing how much the Model will rotate
+	 */
+	public void rotateOnZAxis(double angle) {
+	
+		rotate(new double[][]{ {Math.cos(angle),-Math.sin(angle),0},{Math.sin(angle),-Math.cos(angle),0},{0,0,1}});
+	}
+	
+
+	private void rotate(final double[][] ROTATION_MATRIX) {
+		final short NB_DIMENSIONS = 3;
 		for(int idxPoint=0;idxPoint<points.size();idxPoint++) {
 			
 			Point crtPoint = points.get(idxPoint);
