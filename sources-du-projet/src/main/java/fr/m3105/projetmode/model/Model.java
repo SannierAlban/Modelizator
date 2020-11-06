@@ -1,7 +1,6 @@
 package fr.m3105.projetmode.model;
 
 import java.util.ArrayList;
-import fr.m3105.projetmode.model.Point;
 
 public class Model {
 	
@@ -27,14 +26,17 @@ public class Model {
 		points = new ArrayList<Point>();
 		faces = new ArrayList<Face>();
 		
-		points.add(new Point(0,0,0));		//stock tout les point lu dans une arraylist
-		points.add(new Point(0,4,0));
-		points.add(new Point(4,0,4));
-		points.add(new Point(0,4,4));
-		points.add(new Point(0,0,4));
-		points.add(new Point(4,4,0));
-		points.add(new Point(4,0,0));
-		points.add(new Point(4,4,4));
+		int pa = 25;
+		int pb = 100;
+		
+		points.add(new Point(pa,pa,pa));		//stock tout les point lu dans une arraylist
+		points.add(new Point(pa,pb,pa));
+		points.add(new Point(pb,pa,pb));
+		points.add(new Point(pa,pb,pb));
+		points.add(new Point(pa,pa,pb));
+		points.add(new Point(pb,pb,pa));
+		points.add(new Point(pb,pa,pa));
+		points.add(new Point(pb,pb,pb));
 		
 		ArrayList<Point> a = new ArrayList<Point>(); 
 		a.add(new Point(points.get(0)));				//distribut les points dans leur face correspondante
@@ -78,12 +80,15 @@ public class Model {
 		p.add(new Point(points.get(6)));
 		p.add(new Point(points.get(0)));
 		faces.add(new Face(p));
-		
-		System.out.println(this.toString());
 	}
+	/**
+	 * DO NOT USE : FOR TEST PURPOSES
+	 * @param points
+	 */
 	public Model(ArrayList<Point> points) {
-		this();
 		this.points = points;
+		this.NAME = "";
+		this.PATH = "";
 	}
 
 	@Override
@@ -91,14 +96,12 @@ public class Model {
 		StringBuilder res = new StringBuilder("Model [vertex=" + vertex + ", NAME=" + NAME + ", nbFaces=" + nbFaces + ", PATH=" + PATH + "]\nPOINTS :\n");
 		for(Point tmp:points) res.append(tmp.toString()+"\n");
 		for(Face tmp:faces) res.append(tmp.toString()+"\n");
-		res.append("Center point : "+getCenter().toString());
 		return res.toString();
 	}
 	
 	public ArrayList<Face> getFaces() {
 		return faces;
 	}
-	
 	public ArrayList<Point> getPoints() {
 		return points;
 	}
@@ -119,23 +122,22 @@ public class Model {
 	 * @param angle the Model will rotate
 	 */
 	public void rotateOnXAxis(double angle) {
+		
 		final short NB_DIMENSIONS = 3;
 		final double[][] ROTATION_MATRIX = new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle),0},{0,Math.sin(angle),Math.cos(angle)}};
-		//is the array only composed of Points3 ? 
+		
+		for(int idxPoint=0;idxPoint<points.size();idxPoint++) {
 			
-			//for ligne res
-			for(int idxPoint=0;idxPoint<points.size();idxPoint++) {
-				Point crtPoint = points.get(idxPoint);
-				//creating the new point
-				double[] tmpCoords = new double[NB_DIMENSIONS];
-				for(int idxNewPoint=0;idxNewPoint<NB_DIMENSIONS;idxNewPoint++) {
-					
-					tmpCoords[idxNewPoint] = ROTATION_MATRIX[idxNewPoint][0]*crtPoint.x + ROTATION_MATRIX[idxNewPoint][1]*crtPoint.y + ROTATION_MATRIX[idxNewPoint][2]*crtPoint.z;
-				}
-				System.out.println(
-						"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());
-				points.set(idxPoint,new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]));
-						
-			}
+			Point crtPoint = points.get(idxPoint);
+			
+			//creating the new point
+			double[] tmpCoords = new double[NB_DIMENSIONS];
+			for(int idxNewPoint=0;idxNewPoint<NB_DIMENSIONS;idxNewPoint++) {	
+				tmpCoords[idxNewPoint] = ROTATION_MATRIX[idxNewPoint][0]*crtPoint.x + ROTATION_MATRIX[idxNewPoint][1]*crtPoint.y + ROTATION_MATRIX[idxNewPoint][2]*crtPoint.z;
+			}/*
+			System.out.println(
+					"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());*/
+			points.set(idxPoint,new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]));		
+		}
 	}
 }
