@@ -93,4 +93,43 @@ public class Model {
 	public ArrayList<Face> getFaces() {
 		return faces;
 	}
+	public ArrayList<Point> getPoints() {
+		return points;
+	}
+
+	public Point getCenter() {
+		double xsum=0, ysum=0, zsum=0;
+		for(Point i:points) {
+			xsum+=i.x;
+			ysum+=i.y;
+			zsum+=i.z;
+		} 
+		return new Point(xsum/points.size(),ysum/points.size(),zsum/points.size());
+	}
+	/**
+	 * Rotates the entire Model on the X axis using the double parameter clockwise
+	 * More precisely, it overwrites the previous values of the Model.points array
+	 * WARNING: This method only works with 3 dimensions points
+	 * @param angle the Model will rotate
+	 */
+	public void rotateOnXAxis(double angle) {
+		final short NB_DIMENSIONS = 3;
+		final double[][] ROTATION_MATRIX = new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle),0},{0,Math.sin(angle),Math.cos(angle)}};
+		//is the array only composed of Points3 ? 
+			
+			//for ligne res
+			for(int idxPoint=0;idxPoint<points.size();idxPoint++) {
+				Point crtPoint = points.get(idxPoint);
+				//creating the new point
+				double[] tmpCoords = new double[NB_DIMENSIONS];
+				for(int idxNewPoint=0;idxNewPoint<NB_DIMENSIONS;idxNewPoint++) {
+					
+					tmpCoords[idxNewPoint] = ROTATION_MATRIX[idxNewPoint][0]*crtPoint.x + ROTATION_MATRIX[idxNewPoint][1]*crtPoint.y + ROTATION_MATRIX[idxNewPoint][2]*crtPoint.z;
+				}
+				System.out.println(
+						"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());
+				points.set(idxPoint,new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]));
+						
+			}
+	}
 }
