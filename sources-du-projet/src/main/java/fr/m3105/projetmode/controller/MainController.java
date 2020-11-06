@@ -34,22 +34,32 @@ public class MainController implements Initializable {
         Model modelAAfficher = new Model();
         ArrayList<Face> Faces = modelAAfficher.getFaces();
         
-        g.setFill(Paint.valueOf("Black"));
-        
-        printOnCanvas(g, Faces);
+        //printFillOnCanvas(g, Faces);
+        printBoneOnCanvas(g, Faces);
+        //g.clearRect(0, 0, 800, 750); // Efface tout ce qu'il y a sur le Canvas
                 
     }
 
-	public void printOnCanvas(GraphicsContext graphContext, ArrayList<Face> Faces) {
+	public void printFillOnCanvas(GraphicsContext graphContext, ArrayList<Face> Faces) {
 		for (Face face : Faces) {
         	double[] z = face.getZ();
 			for(int i = 0; i < face.getnbPtn(); i++) {
-	            //Color c = Color.rgb(face.getRed(), face.getGreen(), face.getBlue());
-				//g.setFill();
+				graphContext.setFill(Color.rgb(face.getRed(), face.getGreen(), face.getBlue()));
 				graphContext.fillPolygon(cooTo3d(face.getX(), z),cooTo3d(face.getY(), z), face.getnbPtn());
 			}
 		}
 	}
+	
+	public void printBoneOnCanvas(GraphicsContext graphContext, ArrayList<Face> Faces) {
+		for (Face face : Faces) {
+        	double[] z = face.getZ();
+			for(int i = 0; i < face.getnbPtn(); i++) {
+				graphContext.setFill(Color.rgb(face.getRed(), face.getGreen(), face.getBlue()));
+				graphContext.strokePolygon(cooTo3d(face.getX(), z),cooTo3d(face.getY(), z), face.getnbPtn());
+			}
+		}
+	}
+	
 
     public double[] cooTo3d(double[] x_Ou_Y, double[] z) {
     	int len = x_Ou_Y.length;
