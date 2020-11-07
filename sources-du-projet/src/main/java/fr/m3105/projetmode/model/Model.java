@@ -124,10 +124,12 @@ public class Model {
 	 * @param v Vector representing the directions and distance all the points will translate
 	 */
 	public void translate(Vector v) {
+		ArrayList<Point> tempPoints = new ArrayList<>(points);
 		for(int idxPoints=0;idxPoints<points.size();idxPoints++) {
 			Point tmp = points.get(idxPoints);
 			points.set(idxPoints, new Point(tmp.x+v.x,tmp.y+v.y,tmp.z+v.z));
 		}
+		restructureFace(tempPoints);
 	}
 	
 	
@@ -177,7 +179,6 @@ public class Model {
 
 	private void transformPoints(final double[][] TRANSFORM_MATRIX) {
 		final short NB_DIMENSIONS = 3;
-		ArrayList<Face> tempFaces = new ArrayList<>();
 		ArrayList<Point> tempPoints = new ArrayList<>(points);
 		for(int idxPoint=0;idxPoint<points.size();idxPoint++) {
 			
@@ -188,11 +189,22 @@ public class Model {
 			for(int idxNewPoint=0;idxNewPoint<NB_DIMENSIONS;idxNewPoint++) {	
 				tmpCoords[idxNewPoint] = TRANSFORM_MATRIX[idxNewPoint][0]*crtPoint.x + TRANSFORM_MATRIX[idxNewPoint][1]*crtPoint.y + TRANSFORM_MATRIX[idxNewPoint][2]*crtPoint.z;
 			}
-			System.out.println(
-					"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());
+			//System.out.println(
+			//		"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());
 			points.set(idxPoint,new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]));		
 		}
 
+		restructureFace(tempPoints);
+	}
 
+	public void restructureFace(ArrayList<Point> tempPoints){
+		int i = 0;
+		for (Point p:tempPoints){
+			for (Face f: faces){
+				//System.out.println("p = " + p + " id= " + i + " val= " + points.get(tempPoints.indexOf(p)));
+				f.replace(p,points.get(i));
+			}
+			i++;
+		}
 	}
 }

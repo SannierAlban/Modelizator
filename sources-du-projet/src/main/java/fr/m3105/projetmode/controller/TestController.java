@@ -1,5 +1,6 @@
 package fr.m3105.projetmode.controller;
 
+import fr.m3105.projetmode.model.Face;
 import fr.m3105.projetmode.model.Model;
 import fr.m3105.projetmode.model.Point;
 import fr.m3105.projetmode.model.Vector;
@@ -46,20 +47,39 @@ public class TestController implements Initializable {
 
         Model m = new Model();
 
-        //m.rotateOnXAxis(3.14159/8);
-        //m.rotateOnYAxis(3.14159/8);
-        //m.translate(new Vector(50,50,0));
+        m.rotateOnXAxis(3.14159/8);
+        m.rotateOnYAxis(3.14159/8);
+        m.translate(new Vector(150,150,0));
 
         for (Point p: m.points){
             double newX = p.x * project[0][0] + p.y * project[0][1] + p.z * project[0][2];
             double newY = p.x * project[1][0] + p.y * project[1][1] + p.z * project[1][2];
-            gc.fillPolygon(m.getFaces().get(0).getX(),m.getFaces().get(0).getY(),4);
-            gc.fillPolygon(m.getFaces().get(1).getX(),m.getFaces().get(1).getY(),4);
-            gc.fillPolygon(m.getFaces().get(2).getX(),m.getFaces().get(2).getY(),4);
-            gc.fillPolygon(m.getFaces().get(3).getX(),m.getFaces().get(3).getY(),4);
-            gc.fillPolygon(m.getFaces().get(4).getX(),m.getFaces().get(4).getY(),4);
-            gc.fillPolygon(m.getFaces().get(5).getX(),m.getFaces().get(5).getY(),4);
-            gc.strokeLine(newX,newY,newX,newY);
+//           gc.setFill(Color.YELLOW);
+//           gc.fillPolygon(m.getFaces().get(0).getX(),m.getFaces().get(0).getY(),4);
+//           gc.setFill(Color.RED);
+//           gc.fillPolygon(m.getFaces().get(1).getX(),m.getFaces().get(1).getY(),4);
+//           gc.setFill(Color.GREEN);
+//           gc.fillPolygon(m.getFaces().get(2).getX(),m.getFaces().get(2).getY(),4);
+//           gc.setFill(Color.PINK);
+//           gc.fillPolygon(m.getFaces().get(3).getX(),m.getFaces().get(3).getY(),4);
+//           gc.setFill(Color.BLUE);
+//           gc.fillPolygon(m.getFaces().get(4).getX(),m.getFaces().get(4).getY(),4);
+//
+//           gc.setFill(Color.PURPLE);
+//           gc.fillPolygon(m.getFaces().get(5).getX(),m.getFaces().get(5).getY(),4);
+
+             gc.setFill(Color.BLACK);
+             gc.strokeLine(newX,newY,newX,newY);
+        }
+
+        for (Face f: m.faces){
+            for (int i = 0; i <f.getPoints().size();i++){
+                if (i < f.getPoints().size()- 1){
+                    gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(i+1).x,f.getPoints().get(i+1).y);
+                }else{
+                    gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(0).x,f.getPoints().get(0).y);
+                }
+            }
         }
 
         //gc.strokeLine(50,50,50,50);
@@ -95,4 +115,6 @@ public class TestController implements Initializable {
 
         */
     }
+
+
 }

@@ -2,6 +2,8 @@ package fr.m3105.projetmode.model;
 
 import fr.m3105.projetmode.model.utils.Property;
 
+import java.util.Objects;
+
 public class Point implements Property {
 	
 	public double x;
@@ -35,7 +37,15 @@ public class Point implements Property {
 	public boolean equalsApprox(Point p, double offset) {
 		return x<=p.x+offset && x>=x-offset && y<=p.y+offset && y>=y-offset && z<=p.z+offset && z>=z-offset;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Point point = (Point) o;
+		return this.equalsApprox(point,0.01);
+	}
+
 	public String getType() {
 		return "Point3";
 	}
