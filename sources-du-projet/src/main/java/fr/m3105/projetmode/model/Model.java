@@ -184,9 +184,9 @@ public class Model {
 			double[] tmpCoords = new double[NB_DIMENSIONS];
 			for(int idxNewPoint=0;idxNewPoint<NB_DIMENSIONS;idxNewPoint++) {	
 				tmpCoords[idxNewPoint] = TRANSFORM_MATRIX[idxNewPoint][0]*crtPoint.x + TRANSFORM_MATRIX[idxNewPoint][1]*crtPoint.y + TRANSFORM_MATRIX[idxNewPoint][2]*crtPoint.z;
-			}/*
+			}
 			System.out.println(
-					"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());*/
+					"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());
 			points.set(idxPoint,new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]));		
 		}
 	}

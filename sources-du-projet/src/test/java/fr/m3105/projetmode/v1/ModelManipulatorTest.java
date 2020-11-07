@@ -8,8 +8,81 @@ import org.junit.jupiter.api.Test;
 
 import fr.m3105.projetmode.model.Model;
 import fr.m3105.projetmode.model.Point;
+import fr.m3105.projetmode.model.Vector;
 
 class ModelManipulatorTest {
+	
+	/**
+	 * A junit-test concerning Model zooming/length increasing and decreasing
+	 * Moreover, the values have been manually verified
+	 */
+	@Test
+	void testZoom() {
+		//basic pyramid
+		ArrayList<Point> points0 = new ArrayList<>();
+		points0.add(new Point(1,1,0));
+		points0.add(new Point(1.5,2,0));
+		points0.add(new Point(2,1,0));
+		points0.add(new Point(1.5,1.5,1));
+		Model m = new Model(points0);
+		m.zoom(1);
+		
+		ArrayList<Point> points1 = new ArrayList<>();
+		points1.add(new Point(0.5,0.5,0));
+		points1.add(new Point(1.5,2.5,0));
+		points1.add(new Point(2.5,0.5,0));
+		points1.add(new Point(1.5,1.5,2));
+		
+		assertTrue(pointsArrayListEquals(m.getPoints(),points1));
+	}
+	
+	/**
+	 * A junit-test concerning Model translations
+	 * Moreover, the values have been manually verified
+	 */
+	@Test
+	void testTranslation() {
+		//basic cube
+		ArrayList<Point> points0 = new ArrayList<>();
+		points0.add(new Point(1,2,0));
+		points0.add(new Point(1.5,2.5,1));
+		points0.add(new Point(2.5,2.5,1));
+		points0.add(new Point(2,2,0));
+		points0.add(new Point(2,1,0));
+		points0.add(new Point(1,1,0));
+		points0.add(new Point(1.5,1.5,1));
+		points0.add(new Point(2.5,1.5,1));
+		Model m = new Model(points0);
+		m.translate(new Vector(2, 0, 0));
+		
+		//verifying an horizontal(x) translation of 2 units
+		ArrayList<Point> points1 = new ArrayList<>();
+		points1.add(new Point(3,2,0));
+		points1.add(new Point(3.5,2.5,1));
+		points1.add(new Point(4.5,2.5,1));
+		points1.add(new Point(4,2,0));
+		points1.add(new Point(4,1,0));
+		points1.add(new Point(3,1,0));
+		points1.add(new Point(3.5,1.5,1));
+		points1.add(new Point(4.5,1.5,1));
+		
+		assertTrue(pointsArrayListEquals(m.getPoints(), points1));
+		
+		//verifying complex translation
+		m.translate(new Vector(-4,10,3));
+		ArrayList<Point> points2 = new ArrayList<>();
+		points2.add(new Point(-1,12,3));
+		points2.add(new Point(-0.5,12.5,4));
+		points2.add(new Point(0.5,12.5,4));
+		points2.add(new Point(0,12,3));
+		points2.add(new Point(0,11,3));
+		points2.add(new Point(-1,11,3));
+		points2.add(new Point(-0.5,11.5,4));
+		points2.add(new Point(0.5,11.5,4));
+		
+		assertTrue(pointsArrayListEquals(m.getPoints(), points2));
+		
+	}
 	
 	/**
 	 * A junit-test concerning Model rotations
@@ -28,8 +101,8 @@ class ModelManipulatorTest {
 		points0.add(new Point(4.1,4.1,3.1));
 		points0.add(new Point(4.1,2.6,4.1));
 		points0.add(new Point(2.1,4.1,4.1));
-		Model m1 = new Model(points0);
-		m1.rotateOnXAxis(3.14159/8);
+		Model m = new Model(points0);
+		m.rotateOnXAxis(3.14159/8);
 		
 		ArrayList<Point> points1 = new ArrayList<>();
 		points1.add(new Point(0.1,0.054,0.131));
@@ -43,8 +116,14 @@ class ModelManipulatorTest {
 		points1.add(new Point(4.1,0.828,4.784));
 		points1.add(new Point(2.1,2.214,5.359));
 		
-		assertTrue(pointsArrayListEquals(points0,points1));
+		assertTrue(pointsArrayListEquals(m.getPoints(),points1));
 	}
+	
+	@Test
+	void testCenter() {
+		
+	}
+	
 	/**
 	 * Returns true if the two parameters, which have to be Point ArrayLists, contains equals objects at same positions
 	 * As an exemple, the first Point of array1 has to be equal to the first Point of array2
