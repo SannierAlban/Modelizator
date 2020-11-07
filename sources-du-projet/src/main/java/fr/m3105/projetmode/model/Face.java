@@ -80,4 +80,5 @@ public class Face{
 	public void setBlue(int blue) {
 		this.blue = blue;
 	}
+
 }

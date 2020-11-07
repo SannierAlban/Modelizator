@@ -1,5 +1,6 @@
 package fr.m3105.projetmode.model;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class Model {
@@ -176,6 +177,8 @@ public class Model {
 
 	private void transformPoints(final double[][] TRANSFORM_MATRIX) {
 		final short NB_DIMENSIONS = 3;
+		ArrayList<Face> tempFaces = new ArrayList<>();
+		ArrayList<Point> tempPoints = new ArrayList<>(points);
 		for(int idxPoint=0;idxPoint<points.size();idxPoint++) {
 			
 			Point crtPoint = points.get(idxPoint);
@@ -189,5 +192,7 @@ public class Model {
 					"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());*/
 			points.set(idxPoint,new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]));		
 		}
+
+
 	}
 }
