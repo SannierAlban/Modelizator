@@ -2,8 +2,6 @@ package fr.m3105.projetmode.model;
 
 import fr.m3105.projetmode.model.utils.Property;
 
-import java.util.Objects;
-
 public class Point implements Property {
 	
 	public double x;

@@ -25,7 +25,7 @@ class ModelManipulatorTest {
 		points0.add(new Point(2,1,0));
 		points0.add(new Point(1.5,1.5,1));
 		Model m = new Model(points0);
-		m.zoom(1);
+		m.zoom(2);
 		
 		ArrayList<Point> points1 = new ArrayList<>();
 		points1.add(new Point(0.5,0.5,0));

@@ -7,4 +7,9 @@ public class Vector extends Point implements Property{
 	public Vector(double x, double y, double z) {
 		super(x, y, z);
 	}
+	
+	@Override
+	public String getType() {
+		return "Vector3";
+	}
 }

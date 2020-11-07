@@ -1,6 +1,5 @@
 package fr.m3105.projetmode.model;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class Model {
@@ -88,6 +87,7 @@ public class Model {
 	 */
 	public Model(ArrayList<Point> points) {
 		this.points = points;
+		this.faces = new ArrayList<>();
 		this.NAME = "";
 		this.PATH = "";
 	}
@@ -138,7 +138,10 @@ public class Model {
 	 * @param relation positive double value representing the amount of zoom 
 	 */
 	public void zoom(double relation) {
+		final Point CENTER = getCenter();
+		translate(new Vector(-CENTER.x,-CENTER.y,-CENTER.z));
 		transformPoints(new double[][] {{relation,0,0},{0,relation,0},{0,0,relation}});
+		translate(new Vector(CENTER.x,CENTER.y,CENTER.z));
 	}
 	
 	/**
@@ -195,11 +198,10 @@ public class Model {
 			for(int idxNewPoint=0;idxNewPoint<NB_DIMENSIONS;idxNewPoint++) {	
 				tmpCoords[idxNewPoint] = TRANSFORM_MATRIX[idxNewPoint][0]*crtPoint.x + TRANSFORM_MATRIX[idxNewPoint][1]*crtPoint.y + TRANSFORM_MATRIX[idxNewPoint][2]*crtPoint.z;
 			}
-			//System.out.println(
-			//		"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());
+			System.out.println(
+				"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());
 			points.set(idxPoint,new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]));		
 		}
-
 		restructureFace(tempPoints);
 	}
 
