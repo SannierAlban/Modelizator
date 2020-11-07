@@ -115,7 +115,13 @@ public class Model {
 		} 
 		return new Point(xsum/points.size(),ysum/points.size(),zsum/points.size());
 	}
-	
+	/**
+	 * Increases or decreases the size of the Model (param superior to 0 and inferior to 1 = zoom out, param superior to 1 (excluded) = zoom in)
+	 * @param relation positive double value representing the amount of zoom 
+	 */
+	public void zoom(double relation) {
+		transformPoints(new double[][] {{relation,0,0},{0,relation,0},{0,0,relation}});
+	}
 	
 	/**
 	 * Rotates the entire Model on the X axis using the double parameter clockwise
@@ -125,7 +131,7 @@ public class Model {
 	 */
 	public void rotateOnXAxis(double angle) {
 		
-		rotate(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
+		transformPoints(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
 	}
 	
 	
@@ -137,7 +143,7 @@ public class Model {
 	 */
 	public void rotateOnYAxis(double angle) {
 		
-		rotate(new double[][]{ {Math.cos(angle),0,-Math.sin(angle)},{0,1,0},{Math.sin(angle),0,Math.cos(angle)}});
+		transformPoints(new double[][]{ {Math.cos(angle),0,-Math.sin(angle)},{0,1,0},{Math.sin(angle),0,Math.cos(angle)}});
 	}
 	
 	
@@ -149,11 +155,11 @@ public class Model {
 	 */
 	public void rotateOnZAxis(double angle) {
 	
-		rotate(new double[][]{ {Math.cos(angle),-Math.sin(angle),0},{Math.sin(angle),-Math.cos(angle),0},{0,0,1}});
+		transformPoints(new double[][]{ {Math.cos(angle),-Math.sin(angle),0},{Math.sin(angle),-Math.cos(angle),0},{0,0,1}});
 	}
 	
 
-	private void rotate(final double[][] ROTATION_MATRIX) {
+	private void transformPoints(final double[][] TRANSFORM_MATRIX) {
 		final short NB_DIMENSIONS = 3;
 		for(int idxPoint=0;idxPoint<points.size();idxPoint++) {
 			
@@ -162,7 +168,7 @@ public class Model {
 			//creating the new point
 			double[] tmpCoords = new double[NB_DIMENSIONS];
 			for(int idxNewPoint=0;idxNewPoint<NB_DIMENSIONS;idxNewPoint++) {	
-				tmpCoords[idxNewPoint] = ROTATION_MATRIX[idxNewPoint][0]*crtPoint.x + ROTATION_MATRIX[idxNewPoint][1]*crtPoint.y + ROTATION_MATRIX[idxNewPoint][2]*crtPoint.z;
+				tmpCoords[idxNewPoint] = TRANSFORM_MATRIX[idxNewPoint][0]*crtPoint.x + TRANSFORM_MATRIX[idxNewPoint][1]*crtPoint.y + TRANSFORM_MATRIX[idxNewPoint][2]*crtPoint.z;
 			}/*
 			System.out.println(
 					"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());*/
