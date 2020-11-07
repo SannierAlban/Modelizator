@@ -91,6 +91,16 @@ public class MainController implements Initializable {
         }
     }
 
+    public void zoom(){
+        m.zoom(2);
+        draw();
+    }
+
+    public void deZoom(){
+        m.zoom(0.5);
+        draw();
+    }
+
     public void coupeAction(){
         if (coupeActivation.isSelected()){
             System.out.println("Activation de la coupe");
