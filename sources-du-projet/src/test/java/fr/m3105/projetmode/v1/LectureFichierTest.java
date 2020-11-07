@@ -1,7 +1,5 @@
 package fr.m3105.projetmode.v1;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.BufferedReader;
@@ -18,7 +16,7 @@ class LectureFichierTest {
 	@BeforeAll
 	public void setup() {
 		try {
-			reader_test=new BufferedReader(new FileReader("../../../exemples/meuh/ply"));
+			reader_test=new BufferedReader(new FileReader("./exemples/meuh/ply"));
 			liseuse=new LectureFichier("");
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -32,7 +30,8 @@ class LectureFichierTest {
 	
 	@Test
 	public void ouvertureFichier_test() throws ErreurFichierException {
-		BufferedReader reader=liseuse.ouvertureFichier("../../../exemples/meuh/ply");
+		BufferedReader reader=liseuse.ouvertureFichier("./exemples/meuh/ply");
+		assertEquals(reader_test,reader);
+		System.out.println("yes");
 	}
 }
-
