@@ -148,7 +148,10 @@ public class Model {
 	 * @param angle double value representing how much the Model will rotate
 	 */
 	public void rotateOnXAxis(double angle) {
+		final Point CENTER = getCenter();
+		translate(new Vector(-CENTER.x,-CENTER.y,-CENTER.z));
 		transformPoints(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
+		translate(new Vector(CENTER.x,CENTER.y,CENTER.z));
 	}
 	
 	
@@ -159,7 +162,10 @@ public class Model {
 	 * @param angle double value representing how much the Model will rotate
 	 */
 	public void rotateOnYAxis(double angle) {
+		final Point CENTER = getCenter();
+		translate(new Vector(-CENTER.x,-CENTER.y,-CENTER.z));
 		transformPoints(new double[][]{ {Math.cos(angle),0,-Math.sin(angle)},{0,1,0},{Math.sin(angle),0,Math.cos(angle)}});
+		translate(new Vector(CENTER.x,CENTER.y,CENTER.z));
 	}
 	
 	
@@ -170,8 +176,10 @@ public class Model {
 	 * @param angle double value representing how much the Model will rotate
 	 */
 	public void rotateOnZAxis(double angle) {
-	
+		final Point CENTER = getCenter();
+		translate(new Vector(-CENTER.x,-CENTER.y,-CENTER.z));
 		transformPoints(new double[][]{ {Math.cos(angle),-Math.sin(angle),0},{Math.sin(angle),-Math.cos(angle),0},{0,0,1}});
+		translate(new Vector(CENTER.x,CENTER.y,CENTER.z));
 	}
 	
 
