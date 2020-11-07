@@ -17,15 +17,16 @@ public class LectureFichier {
 	protected List<Double[]> listVertex;
 	
 	LectureFichier(String path) throws IOException{
-		this.lecture(path);
+		//this.lecture(path);
 	}
 	
-	private void ouvertureFichier(String path) throws ErreurFichierException {
+	BufferedReader ouvertureFichier(String path) throws ErreurFichierException {
 		try {
 			reader= new BufferedReader(new FileReader(path));
 		} catch (FileNotFoundException e) {
 			throw new ErreurFichierException("Erreur: fichier introuvable");
 		}
+		return reader;
 	}
 	
 	private void lecture(String path) throws IOException{
