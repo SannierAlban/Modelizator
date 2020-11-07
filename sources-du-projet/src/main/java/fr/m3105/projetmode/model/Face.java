@@ -5,10 +5,8 @@ import java.util.ArrayList;
 public class Face{
 
 	private int red, green, blue, alpha;
-	
-	private double[] x;
-	private double[] y;
-	private double[] z;
+
+	private ArrayList<Point> points;
 	
 	private int nbPtn;
 	
@@ -19,15 +17,7 @@ public class Face{
 		this.alpha = alpha;
 		
 		nbPtn = listePoints.size();
-		x = new double[nbPtn];
-		y = new double[nbPtn];
-		z = new double[nbPtn];
-		
-		for(int i = 0;i < nbPtn;i++) {
-			x[i] = listePoints.get(i).x;
-			y[i] = listePoints.get(i).y;
-			z[i] = listePoints.get(i).z;
-		}
+		points = listePoints;
 	}
 	
 	public Face(ArrayList<Point> listePoints) {
@@ -37,8 +27,8 @@ public class Face{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		for (int i = 0; i< x.length;i++) {
-			sb.append(i+") x:"+x[i]+" y:"+y[i]+" z:"+z[i]+"\n");
+		for (Point p:points) {
+			sb.append("x:").append(p.x).append(" y:").append(p.y).append(" z:").append(p.z).append("\n");
 		}
 		return sb.toString();
 	}
@@ -47,16 +37,33 @@ public class Face{
 		return nbPtn;
 	}
 	public double[] getX() {
-		return x;
+		double[] pointsX = new double[nbPtn];
+		int i = 0;
+		for (Point p: points){
+			pointsX[i] = p.x;
+			i++;
+		}
+		return pointsX;
 	}
 	public double[] getY() {
-		return y;
+		double[] pointsY = new double[nbPtn];
+		int i = 0;
+		for (Point p: points){
+			pointsY[i] = p.y;
+			i++;
+		}
+		return pointsY;
 	}
 	public double[] getZ() {
-		return z;
+		double[] pointsZ = new double[nbPtn];
+		int i = 0;
+		for (Point p: points){
+			pointsZ[i] = p.z;
+			i++;
+		}
+		return pointsZ;
 	}
 
-	
 	public int getRed() {
 		return red;
 	}
@@ -79,5 +86,19 @@ public class Face{
 
 	public void setBlue(int blue) {
 		this.blue = blue;
+	}
+
+	public void replace(Point remplacer,Point remplaceur){
+		if (points.contains(remplacer)){
+			for (int i=0;i<points.size();i++){
+				if (points.get(i).equals(remplacer)){
+					points.set(i,remplaceur);
+				}
+			}
+		}
+	}
+
+	public ArrayList<Point> getPoints() {
+		return points;
 	}
 }

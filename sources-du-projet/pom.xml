@@ -23,6 +23,7 @@
                 <version>0.0.4</version>
                 <configuration>
                     <mainClass>fr.m3105.projetmode.Views.OpenFileView</mainClass>
+                    <!-- <mainClass>fr.m3105.projetmode.Views.TestView</mainClass>-->
                 </configuration>
             </plugin>
         </plugins>

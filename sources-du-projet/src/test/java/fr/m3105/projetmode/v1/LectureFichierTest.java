@@ -1,5 +1,7 @@
 package fr.m3105.projetmode.v1;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.BufferedReader;
@@ -33,3 +35,4 @@ class LectureFichierTest {
 		BufferedReader reader=liseuse.ouvertureFichier("../../../exemples/meuh/ply");
 	}
 }
+
