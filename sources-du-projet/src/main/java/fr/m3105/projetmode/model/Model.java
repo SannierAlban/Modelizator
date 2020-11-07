@@ -106,15 +106,32 @@ public class Model {
 	public ArrayList<Point> getPoints() {
 		return points;
 	}
-
+	
+	public Point getComplexCenter() {
+		double xmin = 0,xmax = 0,ymin = 0,ymax = 0,zmin = 0,zmax = 0;
+		for(int i=0;i<points.size();i++) {
+			Point tmp = points.get(i);
+			if(tmp.x<=xmin) xmin = tmp.x;
+			if(tmp.y<=ymin) ymin = tmp.y;
+			if(tmp.x<=zmin) zmin = tmp.z;
+			if(tmp.x>=xmax) xmax = tmp.x;
+			if(tmp.y>=ymax) ymax = tmp.y;
+			if(tmp.z>=zmax) zmax = tmp.z;
+		}
+		return new Point((xmin+xmax)/2,(ymin+ymax)/2,(zmin+zmax)/2);
+	}
 	public Point getCenter() {
-		double xsum=0, ysum=0, zsum=0;
-		for(Point i:points) {
-			xsum+=i.x;
-			ysum+=i.y;
-			zsum+=i.z;
-		} 
-		return new Point(xsum/points.size(),ysum/points.size(),zsum/points.size());
+		if(points.size()>=30) return getComplexCenter();
+		else {
+			double xsum=0, ysum=0, zsum=0;
+			for(Point tmp:points) {
+				xsum+=tmp.x;
+				ysum+=tmp.y;
+				zsum+=tmp.z;
+			}
+			int size = points.size();
+			return new Point(xsum/size,ysum/size,zsum/size);
+		}
 	}
 	
 	/**
@@ -152,6 +169,7 @@ public class Model {
 	 */
 	public void rotateOnXAxis(double angle) {
 		final Point CENTER = getCenter();
+		System.out.println(CENTER.toString());
 		translate(new Vector(-CENTER.x,-CENTER.y,-CENTER.z));
 		transformPoints(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
 		translate(new Vector(CENTER.x,CENTER.y,CENTER.z));

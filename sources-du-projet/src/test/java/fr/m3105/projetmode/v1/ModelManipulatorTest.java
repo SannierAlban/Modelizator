@@ -25,6 +25,7 @@ class ModelManipulatorTest {
 		points0.add(new Point(2,1,0));
 		points0.add(new Point(1.5,1.5,1));
 		Model m = new Model(points0);
+		System.out.println(m.getCenter().toString());
 		m.zoom(2);
 		
 		ArrayList<Point> points1 = new ArrayList<>();
@@ -119,7 +120,7 @@ class ModelManipulatorTest {
 		assertTrue(pointsArrayListEquals(m.getPoints(),points1));
 	}
 	
-	@Test
+	//@Test
 	void testCenter() {
 		
 	}
