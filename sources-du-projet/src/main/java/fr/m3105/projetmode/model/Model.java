@@ -148,7 +148,6 @@ public class Model {
 	 * @param angle double value representing how much the Model will rotate
 	 */
 	public void rotateOnXAxis(double angle) {
-		
 		transformPoints(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
 	}
 	
@@ -160,7 +159,6 @@ public class Model {
 	 * @param angle double value representing how much the Model will rotate
 	 */
 	public void rotateOnYAxis(double angle) {
-		
 		transformPoints(new double[][]{ {Math.cos(angle),0,-Math.sin(angle)},{0,1,0},{Math.sin(angle),0,Math.cos(angle)}});
 	}
 	
