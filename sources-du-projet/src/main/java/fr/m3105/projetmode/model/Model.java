@@ -115,6 +115,21 @@ public class Model {
 		} 
 		return new Point(xsum/points.size(),ysum/points.size(),zsum/points.size());
 	}
+	
+	/**
+	 * Translates the Model using a Vector
+	 * More precisely, it overwrites the previous values of the Model.points array
+	 * WARNING: This method only works with 3d points and 3d vectors
+	 * @param v Vector representing the directions and distance all the points will translate
+	 */
+	public void translate(Vector v) {
+		for(int idxPoints=0;idxPoints<points.size();idxPoints++) {
+			Point tmp = points.get(idxPoints);
+			points.set(idxPoints, new Point(tmp.x+v.x,tmp.y+v.y,tmp.z+v.z));
+		}
+	}
+	
+	
 	/**
 	 * Increases or decreases the size of the Model (param superior to 0 and inferior to 1 = zoom out, param superior to 1 (excluded) = zoom in)
 	 * @param relation positive double value representing the amount of zoom 
