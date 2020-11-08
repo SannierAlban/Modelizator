@@ -16,7 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.*;
 
 import java.io.File;
-import java.lang.module.ModuleDescriptor;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -72,53 +71,53 @@ public class MainController implements Initializable {
         f = stage.getFile();
         System.out.println(f.getPath());
         System.out.println(f.getName());
-        m = new Model(f);
-        draw();
+        m = new Model();
         m.translate(new Vector(50,0,0));
+        draw();
     }
 
     public void translationHaut(){
-        m.translate(new Vector(0,5,0));
-        draw();
-    }
-
-    public void translationBas(){
         m.translate(new Vector(0,-5,0));
         draw();
     }
 
-    public void translationGauche(){
-        m.translate(new Vector(5,0,0));
+    public void translationBas(){
+        m.translate(new Vector(0,5,0));
         draw();
     }
 
-    public void translationDroite(){
+    public void translationGauche(){
         m.translate(new Vector(-5,0,0));
         draw();
     }
 
-    public void rotateXBas(){
-        m.rotateOnXAxis(3.14159/32);
+    public void translationDroite(){
+        m.translate(new Vector(5,0,0));
         draw();
     }
 
-    public void rotateXHaut(){
+    public void rotateXBas(){
         m.rotateOnXAxis(-3.14159/32);
         draw();
     }
 
-    public void rotateYDroite(){
-        m.rotateOnYAxis(3.14159/32);
+    public void rotateXHaut(){
+        m.rotateOnXAxis(3.14159/32);
         draw();
     }
 
-    public void rotateYGauche(){
+    public void rotateYDroite(){
         m.rotateOnYAxis(-3.14159/32);
         draw();
     }
 
+    public void rotateYGauche(){
+        m.rotateOnYAxis(3.14159/32);
+        draw();
+    }
+
     public void rotateZ(){
-        m.rotateOnZAxis(3.14159/32);
+        m.rotateOnZAxis(-3.14159/32);
         draw();
     }
 
@@ -163,13 +162,13 @@ public class MainController implements Initializable {
            try {
                while (isPlaying){
                    try {
-                       Thread.sleep(70);
+                       Thread.sleep(35);
                    } catch (InterruptedException e) {
                        e.printStackTrace();
                    }
                    m.rotateOnXAxis(3.14159/32);
                    m.rotateOnYAxis(3.14159/16);
-                   m.rotateOnZAxis(3.14159/32);
+                   //m.rotateOnZAxis(3.14159/32);
                    draw();
                }
 

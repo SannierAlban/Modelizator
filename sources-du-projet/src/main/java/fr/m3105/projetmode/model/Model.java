@@ -240,16 +240,14 @@ public class Model {
 	}
 
 	public void restructureFace(ArrayList<Point> tempPoints){
-		/*
-		long i = 0;
+		int i = 0;
 		for (Point p:tempPoints){
 			for (Face f: faces){
 				//System.out.println("p = " + p + " id= " + i + " val= " + points.get(tempPoints.indexOf(p)));
-				//f.replace(p,points.get(i));
+				f.replace(p,points.get(i));
 			}
 			i++;
 		}
-		*/
 
 	}
 }
