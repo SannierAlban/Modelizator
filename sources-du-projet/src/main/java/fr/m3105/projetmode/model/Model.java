@@ -182,7 +182,6 @@ public class Model {
 	 */
 	public void rotateOnXAxis(double angle) {
 		final Point CENTER = getCenter();
-		//System.out.println(CENTER.toString());
 		translate(new Vector(-CENTER.x,-CENTER.y,-CENTER.z));
 		transformPoints(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
 		translate(new Vector(CENTER.x,CENTER.y,CENTER.z));
@@ -216,7 +215,10 @@ public class Model {
 		translate(new Vector(CENTER.x,CENTER.y,CENTER.z));
 	}
 	
-
+	/**
+	 * Transforms all the points of the model using the parameter 2d double array
+	 * @param TRANSFORM_MATRIX A 2d double array representing a matrix
+	 */
 	private void transformPoints(final double[][] TRANSFORM_MATRIX) {
 		final short NB_DIMENSIONS = 3;
 		ArrayList<Point> tempPoints = new ArrayList<>(points);
