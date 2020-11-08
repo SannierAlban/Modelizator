@@ -106,7 +106,11 @@ public class Model {
 	public ArrayList<Point> getPoints() {
 		return points;
 	}
-	
+	/**
+	 * Returns the center of the Model. The method consists of creating a virtual container of all the points and returning the center of this container
+	 * WARNING : This method shouldn't be used using a basic and precise Model, else the Point returned won't approach the real center of the Model
+	 * @return Point Representing the center of the Model
+	 */
 	public Point getComplexCenter() {
 		double xmin = 0,xmax = 0,ymin = 0,ymax = 0,zmin = 0,zmax = 0;
 		for(int i=0;i<points.size();i++) {
@@ -120,6 +124,12 @@ public class Model {
 		}
 		return new Point((xmin+xmax)/2,(ymin+ymax)/2,(zmin+zmax)/2);
 	}
+	
+	/**
+	 * Returns the center of the Model. The center is calculated using the average points coordinates
+	 * WARNING : This method shouldn't be used using a complex Model, else the Point returned won't approach the real center of the Model
+	 * @return Point Representing the center of the Model
+	 */
 	public Point getCenter() {
 		if(points.size()>=30) return getComplexCenter();
 		else {
