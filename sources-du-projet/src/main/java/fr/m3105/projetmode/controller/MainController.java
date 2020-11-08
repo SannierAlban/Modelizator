@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import fr.m3105.projetmode.Views.MainStage;
 import fr.m3105.projetmode.model.Face;
 import fr.m3105.projetmode.model.Model;
+import fr.m3105.projetmode.model.Point;
 import fr.m3105.projetmode.model.Vector;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.*;
 
 import java.io.File;
+import java.lang.module.ModuleDescriptor;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,6 +56,7 @@ public class MainController implements Initializable {
         for (Face f: m.faces){
             for (int i = 0; i <f.getPoints().size();i++){
                 if (i < f.getPoints().size()- 1){
+                    System.out.println(f);
                     gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(i+1).x,f.getPoints().get(i+1).y);
                 }else{
                     gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(0).x,f.getPoints().get(0).y);
@@ -65,8 +68,14 @@ public class MainController implements Initializable {
     public void setStage(MainStage stage){
         this.stage = stage;
         f = stage.getFile();
+        System.out.println(f.getPath());
+        System.out.println(f.getName());
         m = new Model(f);
-        draw();
+        //draw();
+        for (Point p: m.points){
+            gc.strokeLine(p.x,p.y,p.x,p.y);
+        }
+        m.translate(new Vector(50,0,0));
     }
 
     public void translationHaut(){

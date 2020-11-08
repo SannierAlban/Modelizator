@@ -21,7 +21,7 @@ public class TestController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        System.out.println(canvas.getScaleX());
+        //System.out.println(canvas.getScaleX());
 
         gc.setFill(Color.BLUE);
 

@@ -89,7 +89,7 @@ public class Face{
 	}
 
 	public void replace(Point remplacer,Point remplaceur){
-		if (points.contains(remplacer)){
+				if (points.contains(remplacer)){
 			for (int i=0;i<points.size();i++){
 				if (points.get(i).equals(remplacer)){
 					points.set(i,remplaceur);
