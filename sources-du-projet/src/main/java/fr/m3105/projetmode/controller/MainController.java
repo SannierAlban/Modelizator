@@ -71,7 +71,7 @@ public class MainController implements Initializable {
         f = stage.getFile();
         System.out.println(f.getPath());
         System.out.println(f.getName());
-        m = new Model();
+        m = new Model(f);
         m.translate(new Vector(50,0,0));
         draw();
     }

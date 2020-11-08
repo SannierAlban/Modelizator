@@ -38,7 +38,7 @@ public class Parser {
 			else
 				readPoints();
 			
-			//readFaces();
+			readFaces();
 			
 		}
 		catch (IOException e) {
@@ -74,20 +74,15 @@ public class Parser {
 		lastCharIdx = charIdx+1;
 		charIdx++;
 		
-		for(; charIdx < str.length(); charIdx++) {
-			if(charIdx == str.length()-1) {
-				int idx = Integer.parseInt(str.substring(lastCharIdx, charIdx+1));
-				Point ptn = new Point(points.get(idx-1));
-				arrayRetPoint.add(ptn);
-			}
-			else if(Character.isWhitespace(str.charAt(charIdx))) {
-				int idx = Integer.parseInt(str.substring(lastCharIdx, charIdx));
-				Point ptn = new Point(points.get(idx-1));
-				arrayRetPoint.add(ptn);
-				lastCharIdx = charIdx+1;
-			}
-		}
+		str = str.substring(lastCharIdx, str.length());
+		//System.out.println("StringToFace 77, nbPoints ="+nbPoints+"\n\tstr=["+str+"]");
+
+		String[] strTab = str.split(" ");
 		
+		for (int i = 0; i < nbPoints; i++) {
+			arrayRetPoint.add(new Point(points.get(Integer.parseInt(strTab[i]))));
+			//System.out.println(points.get(Integer.parseInt(strTab[i])).toString());
+		}
 		return new Face(arrayRetPoint);
 	}
 	
@@ -106,13 +101,12 @@ public class Parser {
 			str = readPLYLigne();
 			lastCharIdx = 0;
 			
-			for(int charIdx = 0, tabIdx = 0 ; charIdx < str.length() && tabIdx < 3; charIdx++) {
-				if(Character.isWhitespace(str.charAt(charIdx))) {
-					xyz[tabIdx] = Double.parseDouble(str.substring(lastCharIdx,charIdx));
-					lastCharIdx = charIdx;
-					tabIdx++;
-				}
+			String[] strTab = str.split(" ");
+			
+			for (int i = 0; i < strTab.length && i < 3; i++) {
+				xyz[i] = Double.parseDouble(strTab[i]);
 			}
+			
 			points.add(new Point(xyz[0],xyz[1], xyz[2]));
 			//System.out.println("x="+xyz[0] +" y=" + xyz[1] +" z="+ xyz[2]);
 		}
@@ -183,7 +177,7 @@ public class Parser {
 		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println("["+ret+"]");
+		//System.out.println("["+ret+"]");
 		return ret;
 	}
 
