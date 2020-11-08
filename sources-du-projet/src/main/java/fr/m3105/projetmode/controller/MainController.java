@@ -46,12 +46,6 @@ public class MainController implements Initializable {
         pauseButton.setVisible(false);
         gc = mainCanvas.getGraphicsContext2D();
         gc.setFill(Color.BLUE);
-
-        m = new Model();
-
-        m.translate(new Vector(mainCanvas.getWidth()/2-m.getCenter().x,mainCanvas.getHeight()/2-m.getCenter().y,0));
-
-        draw();
     }
 
     public void draw(){
@@ -71,6 +65,8 @@ public class MainController implements Initializable {
     public void setStage(MainStage stage){
         this.stage = stage;
         f = stage.getFile();
+        m = new Model(f);
+        draw();
     }
 
     public void translationHaut(){

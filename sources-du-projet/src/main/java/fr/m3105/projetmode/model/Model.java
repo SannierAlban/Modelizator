@@ -1,28 +1,33 @@
 package fr.m3105.projetmode.model;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Model {
 	
 	private int vertex;
-	private final String NAME;
 	private int nbFaces;
-	private final String PATH;
 	public ArrayList<Point> points;
 	public ArrayList<Face> faces;
 	
 	//basic constructor
-	public Model(String path) {
-		PATH = "";
-		NAME = "empty";
+	public Model(File f) {
+		Parser parser = new Parser(f.getPath());
+		points = parser.points;
+		for (Point p:points){
+			p.x = p.x * -1;
+			p.y = p.y * -1;
+			p.z = p.z * -1;
+		}
+		faces = parser.faces;
+		nbFaces = parser.nbFaces;
+		vertex = parser.points.size();
 	}
 	
 	//tests constructor
 	public Model() {
 		vertex = 8;
-		NAME = "cube";
 		nbFaces = 6;
-		PATH = "exemples/cube.ply";
 		points = new ArrayList<Point>();
 		faces = new ArrayList<Face>();
 		
@@ -88,13 +93,11 @@ public class Model {
 	public Model(ArrayList<Point> points) {
 		this.points = points;
 		this.faces = new ArrayList<>();
-		this.NAME = "";
-		this.PATH = "";
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder res = new StringBuilder("Model [vertex=" + vertex + ", NAME=" + NAME + ", nbFaces=" + nbFaces + ", PATH=" + PATH + "]\nPOINTS :\n");
+		StringBuilder res = new StringBuilder("Model [vertex=" + vertex + ", nbFaces=" + nbFaces + ", PATH=]\nPOINTS :\n");
 		for(Point tmp:points) res.append(tmp.toString()+"\n");
 		for(Face tmp:faces) res.append(tmp.toString()+"\n");
 		return res.toString();
@@ -179,7 +182,7 @@ public class Model {
 	 */
 	public void rotateOnXAxis(double angle) {
 		final Point CENTER = getCenter();
-		System.out.println(CENTER.toString());
+		//System.out.println(CENTER.toString());
 		translate(new Vector(-CENTER.x,-CENTER.y,-CENTER.z));
 		transformPoints(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
 		translate(new Vector(CENTER.x,CENTER.y,CENTER.z));
