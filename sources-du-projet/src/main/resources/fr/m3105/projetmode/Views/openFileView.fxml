@@ -30,6 +30,6 @@
             <Image url="@../../images/colse_icons.png" />
          </image>
       </ImageView>
-      <ListView fx:id="listView" layoutX="57.0" layoutY="274.0" prefHeight="263.0" prefWidth="285.0" />
+      <ListView fx:id="listView" layoutX="31.0" layoutY="275.0" prefHeight="263.0" prefWidth="338.0" />
    </children>
 </AnchorPane>

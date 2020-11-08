@@ -240,6 +240,7 @@ public class Model {
 	}
 
 	public void restructureFace(ArrayList<Point> tempPoints){
+		/*
 		long i = 0;
 		for (Point p:tempPoints){
 			for (Face f: faces){
@@ -248,5 +249,7 @@ public class Model {
 			}
 			i++;
 		}
+		*/
+
 	}
 }

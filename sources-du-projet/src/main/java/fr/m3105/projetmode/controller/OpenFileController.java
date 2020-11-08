@@ -57,7 +57,7 @@ public class OpenFileController implements Initializable {
                     Label fileName = new Label(f.getName());
                     JFXButton btn = new JFXButton("ouvrir");
                     btn.setButtonType(JFXButton.ButtonType.RAISED);
-                    fileName.setPrefWidth(listView.getPrefWidth()-65);
+                    fileName.setPrefWidth(listView.getPrefWidth()-80);
                 fileHbox.getChildren().addAll(fileName,btn);
                 listView.getItems().add(fileHbox);
                 btn.setOnAction(event -> {

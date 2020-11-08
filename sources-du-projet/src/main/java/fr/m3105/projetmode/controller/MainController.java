@@ -53,10 +53,12 @@ public class MainController implements Initializable {
     public void draw(){
         gc.setFill(Color.BLACK);
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),gc.getCanvas().getHeight() );
+        for (Point p: m.points){
+            gc.strokeLine(p.x,p.y,p.x,p.y);
+        }
         for (Face f: m.faces){
             for (int i = 0; i <f.getPoints().size();i++){
                 if (i < f.getPoints().size()- 1){
-                    System.out.println(f);
                     gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(i+1).x,f.getPoints().get(i+1).y);
                 }else{
                     gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(0).x,f.getPoints().get(0).y);
@@ -71,10 +73,7 @@ public class MainController implements Initializable {
         System.out.println(f.getPath());
         System.out.println(f.getName());
         m = new Model(f);
-        //draw();
-        for (Point p: m.points){
-            gc.strokeLine(p.x,p.y,p.x,p.y);
-        }
+        draw();
         m.translate(new Vector(50,0,0));
     }
 
