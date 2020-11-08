@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.*;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+
     @FXML
     private JFXToggleButton lightActivation;
     @FXML
@@ -26,22 +28,28 @@ public class MainController implements Initializable {
     private JFXSlider coupeSlider;
     @FXML
     private Canvas mainCanvas;
+    @FXML
+    private ImageView playButton;
+    @FXML
+    private ImageView pauseButton;
 
     private Model m;
     private GraphicsContext gc;
     private File f;
-    MainStage stage;
+    private MainStage stage;
+    private boolean isPlaying = false;
+    Thread daemonThread;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         coupeSlider.setVisible(false);
-
+        pauseButton.setVisible(false);
         gc = mainCanvas.getGraphicsContext2D();
         gc.setFill(Color.BLUE);
 
         m = new Model();
 
-        m.translate(new Vector(150,150,0));
+        m.translate(new Vector(mainCanvas.getWidth()/2-m.getCenter().x,mainCanvas.getHeight()/2-m.getCenter().y,0));
 
         draw();
     }
@@ -65,23 +73,48 @@ public class MainController implements Initializable {
         f = stage.getFile();
     }
 
-    public void rotateXHaut(){
-        m.rotateOnXAxis(3.14159/32);
+    public void translationHaut(){
+        m.translate(new Vector(0,5,0));
+        draw();
+    }
+
+    public void translationBas(){
+        m.translate(new Vector(0,-5,0));
+        draw();
+    }
+
+    public void translationGauche(){
+        m.translate(new Vector(5,0,0));
+        draw();
+    }
+
+    public void translationDroite(){
+        m.translate(new Vector(-5,0,0));
         draw();
     }
 
     public void rotateXBas(){
+        m.rotateOnXAxis(3.14159/32);
+        draw();
+    }
+
+    public void rotateXHaut(){
         m.rotateOnXAxis(-3.14159/32);
         draw();
     }
 
-    public void rotateYGauche(){
+    public void rotateYDroite(){
         m.rotateOnYAxis(3.14159/32);
         draw();
     }
 
-    public void rotateYDroite(){
+    public void rotateYGauche(){
         m.rotateOnYAxis(-3.14159/32);
+        draw();
+    }
+
+    public void rotateZ(){
+        m.rotateOnZAxis(3.14159/32);
         draw();
     }
 
@@ -92,12 +125,12 @@ public class MainController implements Initializable {
     }
 
     public void zoom(){
-        m.zoom(2);
+        m.zoom(1.2);
         draw();
     }
 
     public void deZoom(){
-        m.zoom(0.5);
+        m.zoom(0.8);
         draw();
     }
 
@@ -109,4 +142,40 @@ public class MainController implements Initializable {
             coupeSlider.setVisible(false);
         }
     }
+
+    public void pause(){
+        isPlaying = false;
+        pauseButton.setVisible(false);
+        playButton.setVisible(true);
+    }
+
+    public void play(){
+        pauseButton.setVisible(true);
+        playButton.setVisible(false);
+
+        isPlaying = true;
+
+        daemonThread = new Thread(() -> {
+           try {
+               while (isPlaying){
+                   try {
+                       Thread.sleep(70);
+                   } catch (InterruptedException e) {
+                       e.printStackTrace();
+                   }
+                   m.rotateOnXAxis(3.14159/32);
+                   m.rotateOnYAxis(3.14159/16);
+                   m.rotateOnZAxis(3.14159/32);
+                   draw();
+               }
+
+           }finally {
+               //System.out.println("fin");
+           }
+        });
+        daemonThread.setDaemon(true);
+        daemonThread.start();
+
+    }
+
 }

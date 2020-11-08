@@ -8,9 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 
@@ -22,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class OpenFileController implements Initializable {
     @FXML
-    private VBox fileChooserVBox;
+    private ListView<HBox> listView;
 
     public void fileChooser() throws IOException {
         FileChooser fc = new FileChooser();
@@ -47,16 +49,17 @@ public class OpenFileController implements Initializable {
 
         try {
             File dir = new File("exemples");
-            String[] extensions = new String[] {"ply"};
-            System.out.println("get from : " + dir.getCanonicalPath());
-            List<File> files = (List<File>) FileUtils.listFiles(dir,extensions,true);
-            for (File f : files){
-                HBox fileHbox = new HBox();
-                Label fileName = new Label(f.getName());
-                Button btn = new Button("ouvrir");
-                System.out.println("ok");
+                String[] extensions = new String[] {"ply"};
+                System.out.println("get from : " + dir.getCanonicalPath());
+                List<File> files = (List<File>) FileUtils.listFiles(dir,extensions,true);
+                for (File f : files){
+                    HBox fileHbox = new HBox();
+                    Label fileName = new Label(f.getName());
+                    JFXButton btn = new JFXButton("ouvrir");
+                    btn.setButtonType(JFXButton.ButtonType.RAISED);
+                    fileName.setPrefWidth(listView.getPrefWidth()-65);
                 fileHbox.getChildren().addAll(fileName,btn);
-                fileChooserVBox.getChildren().add(fileHbox);
+                listView.getItems().add(fileHbox);
                 btn.setOnAction(event -> {
                     try {
                         new MainStage(f);
@@ -68,9 +71,5 @@ public class OpenFileController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void setButtonAction(Button btn){
-
     }
 }

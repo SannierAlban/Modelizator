@@ -199,7 +199,7 @@ public class Model {
 	public void rotateOnZAxis(double angle) {
 		final Point CENTER = getCenter();
 		translate(new Vector(-CENTER.x,-CENTER.y,-CENTER.z));
-		transformPoints(new double[][]{ {Math.cos(angle),-Math.sin(angle),0},{Math.sin(angle),-Math.cos(angle),0},{0,0,1}});
+		transformPoints(new double[][]{ {Math.cos(angle),-Math.sin(angle),0},{Math.sin(angle),Math.cos(angle),0},{0,0,1}});
 		translate(new Vector(CENTER.x,CENTER.y,CENTER.z));
 	}
 	
