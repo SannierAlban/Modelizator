@@ -38,7 +38,7 @@ public class Parser {
 			else
 				readPoints();
 			
-			readFaces();
+			//readFaces();
 			
 		}
 		catch (IOException e) {
@@ -92,18 +92,18 @@ public class Parser {
 	}
 	
 	
-	private void readPointsAndColor() throws IOException {
+	private void readPointsAndColor() throws IOException, ErreurFichierException {
 		readPoints();//TODO implementer cette methode
 	}
 	
-	private void readPoints() throws IOException {
+	private void readPoints() throws IOException, ErreurFichierException {
 		double[] xyz = new double[3];
 		
 		String str;
 		int lastCharIdx;
 		
 		for(int lineIdx = 0; lineIdx < vertex; lineIdx++) {
-			str = reader.readLine();
+			str = readPLYLigne();
 			lastCharIdx = 0;
 			
 			for(int charIdx = 0, tabIdx = 0 ; charIdx < str.length() && tabIdx < 3; charIdx++) {
@@ -166,12 +166,24 @@ public class Parser {
 			
 			if(ret.isBlank())
 				throw new ErreurFichierException("la ligne :"+ligneEnCour+" es vide");
+			
+			String[]tabRet = ret.split(" ");
+			ret = "";
+			
+			for (String s : tabRet) {
+				if(!s.isBlank()) {
+					ret += s+" ";
+				}
+
+
+			}
+			ret = ret.substring(0,ret.length()-1);
+			
 		}
 		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-//		while(Character.isWhitespace(ret.charAt(ret.length()-1)))
-//			ret = ret.substring(0, ret.length()-1);
+		System.out.println("["+ret+"]");
 		return ret;
 	}
 
