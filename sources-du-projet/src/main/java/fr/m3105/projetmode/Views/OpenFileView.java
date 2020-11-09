@@ -14,7 +14,7 @@ public class OpenFileView extends Application {
 
     @Override
     public void start(Stage PrimaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("openFileView.fxml"));
+        Parent root = FXMLLoader.load(this.getClass().getResource("openFileView.fxml"));
 
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();

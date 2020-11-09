@@ -57,7 +57,9 @@ public class MainController implements Initializable {
         }
         for (Face f: m.faces){
             for (int i = 0; i <f.getPoints().size();i++){
+                System.out.println("ok");
                 if (i < f.getPoints().size()- 1){
+
                     gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(i+1).x,f.getPoints().get(i+1).y);
                 }else{
                     gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(0).x,f.getPoints().get(0).y);
@@ -71,7 +73,7 @@ public class MainController implements Initializable {
         f = stage.getFile();
         System.out.println(f.getPath());
         System.out.println(f.getName());
-        m = new Model();
+        m = new Model(f);
         m.translate(new Vector(50,0,0));
         draw();
     }
