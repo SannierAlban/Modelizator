@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.m3105.projetmode.controller.MainController">
+   <children>
+      <Pane layoutX="4.0" layoutY="1.0" prefHeight="800.0" prefWidth="1200.0">
+         <children>
+            <Pane layoutX="386.0" layoutY="25.0" prefHeight="638.0" prefWidth="800.0" styleClass="canvas">
+               <children>
+                  <ImageView layoutX="594.0" layoutY="671.0" onMouseClicked="#rotateYDroite">
+                     <image>
+                        <Image url="@../../images/right_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="466.0" layoutY="671.0" onMouseClicked="#rotateYGauche">
+                     <image>
+                        <Image url="@../../images/left_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="530.0" layoutY="639.0" onMouseClicked="#rotateXHaut">
+                     <image>
+                        <Image url="@../../images/up_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="playButton" fitHeight="69.0" fitWidth="74.0" layoutX="325.0" layoutY="669.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/play_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="530.0" layoutY="696.0" onMouseClicked="#rotateXBas">
+                     <image>
+                        <Image url="@../../images/down_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="pauseButton" layoutX="336.0" layoutY="680.0" onMouseClicked="#pause">
+                     <image>
+                        <Image url="@../../images/pause_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="673.0" layoutY="671.0" onMouseClicked="#rotateZ">
+                     <image>
+                        <Image url="@../../images/rotate_icons.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="394.0" layoutY="709.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotation :">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <ImageView layoutX="107.0" layoutY="637.0" onMouseClicked="#translationHaut">
+                     <image>
+                        <Image url="@../../images/up_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="43.0" layoutY="672.0" onMouseClicked="#translationGauche">
+                     <image>
+                        <Image url="@../../images/left_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="171.0" layoutY="672.0" onMouseClicked="#translationDroite">
+                     <image>
+                        <Image url="@../../images/right_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="107.0" layoutY="696.0" onMouseClicked="#translationBas">
+                     <image>
+                        <Image url="@../../images/down_icons.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="239.0" layoutY="707.0" strokeType="OUTSIDE" strokeWidth="0.0" text=": Translation">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children></Pane>
+            <Canvas fx:id="mainCanvas" height="638.0" layoutX="386.0" layoutY="25.0" onMouseClicked="#pause" width="800.0" />
+            <JFXToggleButton fx:id="lightActivation" layoutX="24.0" layoutY="72.0" onAction="#lightAction" text="Lumières" />
+            <JFXToggleButton fx:id="coupeActivation" layoutX="24.0" layoutY="112.0" onAction="#coupeAction" text="Coupe" />
+            <JFXToggleButton layoutX="24.0" layoutY="155.0" text="Futur feature" />
+            <JFXSlider fx:id="coupeSlider" blockIncrement="5.0" indicatorPosition="RIGHT" layoutX="185.0" layoutY="134.0" value="1.0" />
+            <Text layoutX="142.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zoom">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <JFXButton layoutX="108.0" layoutY="245.0" onAction="#deZoom" text="-" />
+            <JFXButton layoutX="193.0" layoutY="245.0" onAction="#zoom" text="+" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
