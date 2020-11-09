@@ -8,8 +8,8 @@
 
 **Répartition du travail :**
 - François : création de l'interface, gestion de l'affichage et hiérarchie du projet
-- Lohan : architecture, maquette et manipulations du modèle (Zoom, translation, rotation, centre)
-- Alban : maquette, gestion de l'affichage
+- Lohan : architecture du projet, maquette et manipulations du modèle (Zoom, translation, rotation, centre)
+- Alban : maquette, gestion de l'affichage, lecture fichiers ply (stable)
 - Martin : lecture des fichiers ply
 
 **Précisions :**
