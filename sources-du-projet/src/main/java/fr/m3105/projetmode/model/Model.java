@@ -21,6 +21,13 @@ public class Model {
 			p.z = p.z * -1;
 		}
 		faces = parser.faces;
+		for (Face face:faces){
+			for (Point p :face.getPoints()){
+				p.x = p.x * -1;
+				p.y = p.y * -1;
+				p.z = p.z * -1;
+			}
+		}
 		nbFaces = parser.nbFaces;
 		vertex = parser.points.size();
 	}

@@ -56,14 +56,16 @@ public class MainController implements Initializable {
             gc.strokeLine(p.x,p.y,p.x,p.y);
         }
         for (Face f: m.faces){
+            gc.setFill(Color.RED);
             for (int i = 0; i <f.getPoints().size();i++){
-                System.out.println("ok");
                 if (i < f.getPoints().size()- 1){
-
+                    //System.out.println("x1 : " + f.getPoints().get(i).x + " y1: " + f.getPoints().get(i).y + "x2 : " + f.getPoints().get(i+1).x + " y2: " + f.getPoints().get(i+1).y);
                     gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(i+1).x,f.getPoints().get(i+1).y);
                 }else{
                     gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(0).x,f.getPoints().get(0).y);
                 }
+                gc.setFill(Color.BLUE);
+                gc.fillPolygon(f.getX(),f.getY(),f.getnbPtn());
             }
         }
     }
@@ -74,7 +76,8 @@ public class MainController implements Initializable {
         System.out.println(f.getPath());
         System.out.println(f.getName());
         m = new Model(f);
-        m.translate(new Vector(50,0,0));
+        m.zoom(5);
+        m.translate(new Vector(mainCanvas.getWidth()/2-m.getCenter().x,mainCanvas.getHeight()/2-m.getCenter().y,0));
         draw();
     }
 

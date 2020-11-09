@@ -44,6 +44,7 @@ public class Point implements Property {
 		return this.equalsApprox(point,0.01);
 	}
 
+
 	public String getType() {
 		return "Point3";
 	}
