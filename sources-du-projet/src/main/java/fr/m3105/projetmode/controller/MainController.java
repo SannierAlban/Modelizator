@@ -55,17 +55,17 @@ public class MainController implements Initializable {
         for (Point p: m.points){
             gc.strokeLine(p.x,p.y,p.x,p.y);
         }
-        for (Face f: m.faces){
-            gc.setFill(Color.RED);
-            for (int i = 0; i <f.getPoints().size();i++){
-                if (i < f.getPoints().size()- 1){
-                    //System.out.println("x1 : " + f.getPoints().get(i).x + " y1: " + f.getPoints().get(i).y + "x2 : " + f.getPoints().get(i+1).x + " y2: " + f.getPoints().get(i+1).y);
-                    gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(i+1).x,f.getPoints().get(i+1).y);
-                }else{
-                    gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(0).x,f.getPoints().get(0).y);
-                }
-                gc.setFill(Color.BLUE);
-                gc.fillPolygon(f.getX(),f.getY(),f.getnbPtn());
+                for (Face f: m.faces){
+                    gc.setFill(Color.RED);
+                    for (int i = 0; i <f.getPoints().size();i++){
+                        if (i < f.getPoints().size()- 1){
+                            //System.out.println("x1 : " + f.getPoints().get(i).x + " y1: " + f.getPoints().get(i).y + "x2 : " + f.getPoints().get(i+1).x + " y2: " + f.getPoints().get(i+1).y);
+                            gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(i+1).x,f.getPoints().get(i+1).y);
+                        }else{
+                            gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(0).x,f.getPoints().get(0).y);
+                        }
+                        gc.setFill(Color.BLUE);
+                        gc.fillPolygon(f.getX(),f.getY(),f.getnbPtn());
             }
         }
     }
