@@ -59,7 +59,7 @@ public class Parser {
 		}
 	}
 	
-	private Face stringToFace(String str) {
+	private Face stringToFace(String str) throws ErreurFichierException {
 
 		int nbPoints;
 		ArrayList<Point> arrayRetPoint = new ArrayList<Point>();
@@ -81,9 +81,34 @@ public class Parser {
 		
 		for (int i = 0; i < nbPoints; i++) {
 			arrayRetPoint.add(new Point(points.get(Integer.parseInt(strTab[i]))));
-			//System.out.println(points.get(Integer.parseInt(strTab[i])).toString());
-		}
-		return new Face(arrayRetPoint);
+		}	
+		
+		int[] redGreenBlue = readRGB(strTab);
+		
+		return new Face(redGreenBlue[0],redGreenBlue[1],redGreenBlue[2],1,arrayRetPoint);
+	}
+	
+	int [] readRGB(String[] strTab) throws ErreurFichierException {
+		int[] redGreenBlue = new int[] {1,1,1};
+		
+		if(!color)
+			return redGreenBlue;
+		
+		if(strTab.length > 6)
+			throw new ErreurFichierException("Lecture de la couleur ligne : ["+ligneEnCour+"] imposible car strTab.len=["+strTab.length+"](>6)");
+		else if(strTab.length < 6)
+			throw new ErreurFichierException("Lecture de la couleur ligne : ["+ligneEnCour+"] imposible car strTab.len=["+strTab.length+"](<6)");
+		
+		redGreenBlue[0] = Integer.parseInt(strTab[3]);
+		redGreenBlue[1] = Integer.parseInt(strTab[4]);
+		redGreenBlue[2] = Integer.parseInt(strTab[5]);
+		
+//		for (int i : redGreenBlue) {
+//			System.out.println("i:"+i);
+//		}
+//		System.out.println("_________");
+		
+		return redGreenBlue;
 	}
 	
 	
