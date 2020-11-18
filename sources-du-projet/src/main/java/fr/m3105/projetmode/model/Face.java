@@ -103,6 +103,25 @@ public class Face{
 	public ArrayList<Point> getPoints() {
 		return points;
 	}
+	
+	/**
+	 * Returns the point at the index idx of the points attribute, if idx is inferior to the points array length
+	 * @param idx The index
+	 * @return Point at index idx
+	 */
+	public Point getPoint(int idx) {
+		if(idx<points.size()) return points.get(idx);
+		else return null;
+	}
+	
+	
+	public void setPoint(int idx,Point p) {
+		if(p!=null) points.set(idx,p);
+	}
+	
+	public void setPoints(ArrayList<Point> points) {
+		this.points = points;
+	}
 
 	@Override
 	public int hashCode() {
