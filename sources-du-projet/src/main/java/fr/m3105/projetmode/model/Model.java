@@ -114,6 +114,10 @@ public class Model {
 	public ArrayList<Face> getFaces() {
 		return faces;
 	}
+	
+	public void setFace(int idx,Face f) {
+		if(f!=null) faces.set(idx, f);
+	}
 	public ArrayList<Point> getPoints() {
 		return points;
 	}
@@ -244,6 +248,27 @@ public class Model {
 			points.set(idxPoint,new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]));		
 		}
 		restructureFace(tempPoints);
+	}
+	
+	private void transformPointsv2(final double[][] TRANSFORM_MATRIX) {
+		final short NB_DIMENSIONS = 3;
+		for(int idxFace=0;idxFace<faces.size();idxFace++) {
+			Face tmpFace = faces.get(idxFace);
+			
+			for(int idxPoint=0;idxPoint<tmpFace.getPoints().size();idxPoint++) {
+				
+				Point crtPoint = tmpFace.getPoint(idxPoint);
+				//creating the new point
+				double[] tmpCoords = new double[NB_DIMENSIONS];
+				for(int idxNewPoint=0;idxNewPoint<NB_DIMENSIONS;idxNewPoint++) {	
+					tmpCoords[idxNewPoint] = TRANSFORM_MATRIX[idxNewPoint][0]*crtPoint.x + TRANSFORM_MATRIX[idxNewPoint][1]*crtPoint.y + TRANSFORM_MATRIX[idxNewPoint][2]*crtPoint.z;
+				}
+				//System.out.println(
+				//	"New coords of Point "+idxPoint+" : coords "+points.get(idxPoint).toString()+" INTO "+new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]).toString());
+				tmpFace.setPoint(idxPoint,new Point(tmpCoords[0],tmpCoords[1],tmpCoords[2]));	
+			}
+			setFace(idxFace, tmpFace);
+		}
 	}
 
 	public void restructureFace(ArrayList<Point> tempPoints){
