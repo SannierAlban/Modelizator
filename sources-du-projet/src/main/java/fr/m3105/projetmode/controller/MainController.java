@@ -64,7 +64,8 @@ public class MainController implements Initializable {
                         }else{
                             gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(0).x,f.getPoints().get(0).y);
                         }
-                        gc.setFill(Color.BLUE);
+                        //gc.setFill(Color.BLUE);
+                        gc.setFill(Color.color((double)f.getRed()/1000,(double)f.getGreen()/1000,(double)f.getBlue()/1000));
                         gc.fillPolygon(f.getX(),f.getY(),f.getnbPtn());
             }
         }
@@ -134,6 +135,7 @@ public class MainController implements Initializable {
 
     public void zoom(){
         m.zoom(1.2);
+        //m.translate(new Vector(mainCanvas.getWidth()/2-m.getComplexCenter().x,mainCanvas.getHeight()/2-m.getComplexCenter().y,0));
         draw();
     }
 
