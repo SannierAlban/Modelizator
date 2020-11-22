@@ -1,0 +1,6 @@
+name: Buildbattle
+version: ${project.version}
+main: fr.gamelock.buildbattle.Buildbattle
+api-version: 1.16
+authors: [automate59go]
+description: Plugin de buildBattle Lite de la gamelock
