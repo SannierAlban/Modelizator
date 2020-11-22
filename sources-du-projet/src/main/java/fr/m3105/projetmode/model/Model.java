@@ -4,6 +4,8 @@ import java.io.File;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
+import fr.m3105.projetmode.model.utils.MultiThreadTranslate;
+
 public class Model {
 	
 	private int vertex;
@@ -166,14 +168,30 @@ public class Model {
 	 * @param v Vector representing the directions and distance all the points will translate
 	 */
 	public void translate(Vector v) {
-		ArrayList<Point> tempPoints = new ArrayList<>(points);
-		for(int idxPoints=0;idxPoints<points.size();idxPoints++) {
-			Point tmp = points.get(idxPoints);
-			points.set(idxPoints, new Point(tmp.x+v.x,tmp.y+v.y,tmp.z+v.z));
-		}
-		restructureFace(tempPoints);
+//		ArrayList<Point> tempPoints = new ArrayList<>(points);
+//		for(int idxPoints=0;idxPoints<points.size();idxPoints++) {
+//			Point tmp = points.get(idxPoints);
+//			points.set(idxPoints, new Point(tmp.x+v.x,tmp.y+v.y,tmp.z+v.z));
+//		}
+//		restructureFace(tempPoints);
+		translateMultiThread(v);
 	}
 	
+	public void translateMultiThread(Vector v) {
+		MultiThreadTranslate[] multiThread = new MultiThreadTranslate[Runtime.getRuntime().availableProcessors()];
+		for (int i = 0; i < multiThread.length; i++) {
+			multiThread[i] = new MultiThreadTranslate(this.points,v);
+			multiThread[i].start();
+		}
+		try {
+			for (int i = 0; i < multiThread.length; i++) {
+				multiThread[i].join();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("translateMultiThread Fin");
+	}
 	
 	/**
 	 * Increases or decreases the size of the Model (param superior to 0 and inferior to 1 = zoom out, param superior to 1 (excluded) = zoom in)

@@ -1,6 +1,7 @@
 package fr.m3105.projetmode.model;
 
 import fr.m3105.projetmode.model.utils.Property;
+import javafx.scene.transform.Translate;
 
 public class Point implements Property {
 	
@@ -44,6 +45,11 @@ public class Point implements Property {
 		return this.equalsApprox(point,0.01);
 	}
 
+	public void translate(Vector v) {
+		x += v.x;
+		y += v.y;
+		z += v.z;
+	}
 
 	public String getType() {
 		return "Point3";
