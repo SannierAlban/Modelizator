@@ -1,0 +1,24 @@
+choisi :
+	AvoidFileStream : 
+		Comme nous faisons de la manipulation de fichier, il est intéressant de régler tous les problèmes lié à une mauvaise manipulation des fichiers.
+	UnnecessaryWrapperObjectCreation :
+		Comme nous faisons du parcing il est intéressant de voir si les performances sont affecté.
+	ForLoopCanBeForeach: 
+		On utilise beaucoup de boucle dans notre projet il faut que l'on s'adapte aux nouvelles manière de coder.
+	UnnecessaryLocalBeforeReturn :
+		permet d'éviter la création de variable local pour effectuer un return ce qui est utile pour avoir un code plus concis 
+	CommentRequired :
+		il est important de bien commenter notre code pour avoir une meilleur compréhension du code des autres participants au projet
+
+imposé :
+
+	LawOfDemeter :
+		avec 114 warning sur la loi de demeter il est important de revenir dessus et de clean notre code.
+	LooseCoupling:
+		il faut que notre code soit flexible et pour cela il faut mettre des types plus générique.
+	OnlyOneReturn :
+		Pour eviter de cassé une méthode à cause de plusieurs return mieux vaut n'en mettre qu'un
+	ShortVariable
+		il faut que nos variables soit explicite et donc parfois plus verbeuse
+	AvoidInstantiatingObjectsInLoops:
+		permettrai d'éviter d'instancier des objets dans des boucles, pour ensuite devoir en recréer pour l'utiliser en dehors
