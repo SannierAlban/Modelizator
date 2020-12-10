@@ -1,8 +1,10 @@
 package fr.m3105.projetmode.model;
 
+import fr.m3105.projetmode.controller.MainController;
+
 import java.util.ArrayList;
 
-public class Face{
+public class Face implements Comparable{
 
 	private int red, green, blue, alpha;
 
@@ -88,6 +90,14 @@ public class Face{
 		this.blue = blue;
 	}
 
+	public double getMoyenneZ(){
+		double sommeZ = 0;
+		for (Point p : this.getPoints()){
+			sommeZ+=p.z;
+		}
+		return sommeZ/getPoints().size();
+	}
+
 	public void replace(Point remplacer,Point remplaceur){
 		if (points.contains(remplacer)){
 			for (int i=0;i<points.size();i++){
@@ -162,6 +172,16 @@ public class Face{
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public int compareTo(Object o) {
+		Face f = (Face) o;
+		if (this.getMoyenneZ() == f.getMoyenneZ()){
+			return 0;
+		}
+		if(this.getMoyenneZ() > f.getMoyenneZ()){
+			return 1;
+		}
+		return -1;
+	}
 }

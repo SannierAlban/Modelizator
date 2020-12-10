@@ -3,6 +3,7 @@ package fr.m3105.projetmode.controller;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
 
+import com.sun.glass.ui.Pixels;
 import fr.m3105.projetmode.Views.MainStage;
 import fr.m3105.projetmode.model.Face;
 import fr.m3105.projetmode.model.Model;
@@ -17,6 +18,9 @@ import javafx.scene.paint.*;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -33,6 +37,8 @@ public class MainController implements Initializable {
     private ImageView playButton;
     @FXML
     private ImageView pauseButton;
+
+    //public final static Point WINDOW_CENTER = new Point(mainCanvas.getWidth()/2,mainCanvas.getHeight(),0);
 
     private Model m;
     private GraphicsContext gc;
@@ -55,7 +61,7 @@ public class MainController implements Initializable {
         for (Point p: m.points){
             gc.strokeLine(p.x,p.y,p.x,p.y);
         }
-                for (Face f: m.faces){
+                for (Face f: sortFace(m.faces)){
                     gc.setFill(Color.RED);
                     for (int i = 0; i <f.getPoints().size();i++){
                         if (i < f.getPoints().size()- 1){
@@ -186,6 +192,12 @@ public class MainController implements Initializable {
         daemonThread.setDaemon(true);
         daemonThread.start();
 
+    }
+
+    public List<Face> sortFace(List<Face> faces){
+        List<Face> tempList = new ArrayList<>(faces);
+        Collections.sort(tempList);
+        return tempList;
     }
 
 }

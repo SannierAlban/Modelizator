@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import fr.m3105.projetmode.v1.ErreurFichierException;
+import fr.m3105.projetmode.model.utils.ErreurFichierException;
 
 public class Parser {
 	
