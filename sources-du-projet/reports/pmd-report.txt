@@ -1,0 +1,298 @@
+src/main/java/fr/m3105/projetmode/Views/OpenFileView.java:19:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/OpenFileView.java:19:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/OpenFileView.java:25:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/OpenFileView.java:25:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/TestView.java:19:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/Views/TestView.java:19:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/Views/ThreeDView.java:23:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/Views/ThreeDView.java:23:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/Views/ThreeDView.java:33:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/ThreeDView.java:33:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/ThreeDView.java:34:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/ThreeDView.java:34:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/ThreeDView.java:40:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/ThreeDView.java:40:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/Views/ViewWindow.java:9:	UnusedAssignment: The field initializer for 'height' is never used (overwritten on line 14)
+src/main/java/fr/m3105/projetmode/Views/ViewWindow.java:9:	UnusedAssignment: The field initializer for 'height' is never used (overwritten on line 14)
+src/main/java/fr/m3105/projetmode/Views/ViewWindow.java:10:	UnusedAssignment: The field initializer for 'width' is never used (overwritten on line 15)
+src/main/java/fr/m3105/projetmode/Views/ViewWindow.java:10:	UnusedAssignment: The field initializer for 'width' is never used (overwritten on line 15)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:54:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:54:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:54:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:54:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:60:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:60:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:61:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:61:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:63:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:65:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/MainController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/OpenFileController.java:61:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/OpenFileController.java:61:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/OpenFileController.java:62:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/OpenFileController.java:62:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:22:	NcssCount: The method 'initialize(URL, ResourceBundle)' has a NCSS line count of 44.
+src/main/java/fr/m3105/projetmode/controller/TestController.java:22:	NcssCount: The method 'initialize(URL, ResourceBundle)' has a NCSS line count of 44.
+src/main/java/fr/m3105/projetmode/controller/TestController.java:26:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:26:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:76:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:76:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:77:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:77:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:78:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/controller/TestController.java:80:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/model/Face.java:9:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:9:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:13:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:13:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:23:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:23:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:95:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/model/Face.java:95:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/model/Face.java:103:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:103:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:122:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:122:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Face.java:140:	NcssCount: The method 'equals(Object)' has a NCSS line count of 25.
+src/main/java/fr/m3105/projetmode/model/Face.java:140:	NcssCount: The method 'equals(Object)' has a NCSS line count of 25.
+src/main/java/fr/m3105/projetmode/model/Model.java:14:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:14:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:15:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:15:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:40:	NcssCount: The constructor 'Model()' has a NCSS line count of 51.
+src/main/java/fr/m3105/projetmode/model/Model.java:40:	NcssCount: The constructor 'Model()' has a NCSS line count of 51.
+src/main/java/fr/m3105/projetmode/model/Model.java:43:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:43:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:44:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:44:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:58:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:58:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:65:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:65:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:73:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:73:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:80:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:80:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:87:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:87:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:94:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:94:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Model.java:105:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:105:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:118:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:118:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:125:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:125:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:153:	AvoidLiteralsInIfCondition: Avoid using Literals in Conditional Statements
+src/main/java/fr/m3105/projetmode/model/Model.java:153:	AvoidLiteralsInIfCondition: Avoid using Literals in Conditional Statements
+src/main/java/fr/m3105/projetmode/model/Model.java:183:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/model/Model.java:183:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/model/Model.java:278:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/model/Model.java:278:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/model/Model.java:278:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Model.java:278:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Model.java:280:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Model.java:280:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Model.java:294:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Model.java:294:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Parser.java:10:	GodClass: Possible God Class (WMC=47, ATFD=15, TCC=25.000%)
+src/main/java/fr/m3105/projetmode/model/Parser.java:10:	GodClass: Possible God Class (WMC=47, ATFD=15, TCC=25.000%)
+src/main/java/fr/m3105/projetmode/model/Parser.java:20:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Parser.java:20:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Parser.java:21:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Parser.java:21:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/Parser.java:28:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Parser.java:28:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Parser.java:29:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Parser.java:29:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Parser.java:65:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Parser.java:65:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/model/Parser.java:75:	UnusedAssignment: The updated value of variable 'charIdx' is never used
+src/main/java/fr/m3105/projetmode/model/Parser.java:75:	UnusedAssignment: The updated value of variable 'charIdx' is never used
+src/main/java/fr/m3105/projetmode/model/Parser.java:77:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:77:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:77:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:77:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:80:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:80:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:97:	AvoidLiteralsInIfCondition: Avoid using Literals in Conditional Statements
+src/main/java/fr/m3105/projetmode/model/Parser.java:97:	AvoidLiteralsInIfCondition: Avoid using Literals in Conditional Statements
+src/main/java/fr/m3105/projetmode/model/Parser.java:99:	AvoidLiteralsInIfCondition: Avoid using Literals in Conditional Statements
+src/main/java/fr/m3105/projetmode/model/Parser.java:99:	AvoidLiteralsInIfCondition: Avoid using Literals in Conditional Statements
+src/main/java/fr/m3105/projetmode/model/Parser.java:127:	UnusedAssignment: The value assigned to variable 'lastCharIdx' is never used (reassigned every iteration)
+src/main/java/fr/m3105/projetmode/model/Parser.java:127:	UnusedAssignment: The value assigned to variable 'lastCharIdx' is never used (reassigned every iteration)
+src/main/java/fr/m3105/projetmode/model/Parser.java:148:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:148:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:159:	AvoidLiteralsInIfCondition: Avoid using Literals in Conditional Statements
+src/main/java/fr/m3105/projetmode/model/Parser.java:159:	AvoidLiteralsInIfCondition: Avoid using Literals in Conditional Statements
+src/main/java/fr/m3105/projetmode/model/Parser.java:171:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:171:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:174:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/Parser.java:174:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/main/java/fr/m3105/projetmode/model/utils/MultiThreadTranslate.java:11:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/utils/MultiThreadTranslate.java:11:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/utils/MultiThreadTranslate.java:15:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/utils/MultiThreadTranslate.java:15:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/main/java/fr/m3105/projetmode/model/utils/MultiThreadTranslate.java:31:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/model/utils/MultiThreadTranslate.java:31:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:54:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:54:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:54:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:54:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:58:	UnusedAssignment: The initializer for variable 'current' is never used (overwritten on line 59)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:58:	UnusedAssignment: The initializer for variable 'current' is never used (overwritten on line 59)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:71:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:71:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:88:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:88:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:90:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:90:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:90:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:90:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:90:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:90:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:97:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:97:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:108:	MethodNamingConventions: The instance method name 'VertexVacuum' doesn't match '[a-z][a-zA-Z0-9]*'
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:108:	MethodNamingConventions: The instance method name 'VertexVacuum' doesn't match '[a-z][a-zA-Z0-9]*'
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:113:	MethodNamingConventions: The instance method name 'LineParser' doesn't match '[a-z][a-zA-Z0-9]*'
+src/main/java/fr/m3105/projetmode/v1/LectureFichier.java:113:	MethodNamingConventions: The instance method name 'LineParser' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/LectureFichierTest.java:13:	FieldNamingConventions: The field name 'reader_test' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/LectureFichierTest.java:13:	FieldNamingConventions: The field name 'reader_test' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/LectureFichierTest.java:27:	MethodNamingConventions: The JUnit 5 test method name 'getNextLine_test' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/LectureFichierTest.java:27:	MethodNamingConventions: The JUnit 5 test method name 'getNextLine_test' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/LectureFichierTest.java:32:	MethodNamingConventions: The JUnit 5 test method name 'ouvertureFichier_test' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/LectureFichierTest.java:32:	MethodNamingConventions: The JUnit 5 test method name 'ouvertureFichier_test' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:45:	NcssCount: The method 'testTranslation()' has a NCSS line count of 33.
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:45:	NcssCount: The method 'testTranslation()' has a NCSS line count of 33.
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:94:	NcssCount: The method 'testRotation()' has a NCSS line count of 27.
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:94:	NcssCount: The method 'testRotation()' has a NCSS line count of 27.
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:108:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:108:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:161:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:161:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:161:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:161:	LooseCoupling: Avoid using implementation types like 'ArrayList'; use the interface instead
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:164:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:164:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:165:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:165:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:165:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/test/java/fr/m3105/projetmode/v1/ModelManipulatorTest.java:165:	LawOfDemeter: Potential violation of Law of Demeter (method chain calls)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:30:	MethodNamingConventions: The JUnit 5 test method name 'TestHeaderForDragon' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:30:	MethodNamingConventions: The JUnit 5 test method name 'TestHeaderForDragon' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:39:	MethodNamingConventions: The JUnit 5 test method name 'TestReadPointsForCrane' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:39:	MethodNamingConventions: The JUnit 5 test method name 'TestReadPointsForCrane' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:44:	LawOfDemeter: Potential violation of Law of Demeter (static property access)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:44:	LawOfDemeter: Potential violation of Law of Demeter (static property access)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:47:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:47:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:49:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:49:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:49:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:49:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:53:	MethodNamingConventions: The JUnit 5 test method name 'TestReadFacesForCrane' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:53:	MethodNamingConventions: The JUnit 5 test method name 'TestReadFacesForCrane' doesn't match '[a-z][a-zA-Z0-9]*'
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:53:	NcssCount: The method 'TestReadFacesForCrane()' has a NCSS line count of 28.
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:53:	NcssCount: The method 'TestReadFacesForCrane()' has a NCSS line count of 28.
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:58:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:58:	UseDiamondOperator: Explicit type arguments can be replaced by Diamond Operator
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:60:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:60:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:61:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:61:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:62:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:62:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:64:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:64:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:67:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:67:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:68:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:68:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:69:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:69:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:72:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:72:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:75:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:75:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:76:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:76:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:77:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:77:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:80:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:80:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:80:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:80:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:83:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:83:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:84:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:84:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:85:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:85:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:88:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:88:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:88:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)
+src/test/java/fr/m3105/projetmode/v1/PaserTest.java:88:	LawOfDemeter: Potential violation of Law of Demeter (object not created locally)

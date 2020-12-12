@@ -10,8 +10,10 @@ public class Model {
 	
 	private int vertex;
 	private int nbFaces;
+	
 	public ArrayList<Point> points;
 	public ArrayList<Face> faces;
+	
 	
 	//basic constructor
 	public Model(File f) {

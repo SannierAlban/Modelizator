@@ -28,7 +28,6 @@ public class MultiThreadTranslate extends Thread{
 		int idx;
 		int size = points.size();
 		while((idx = getAndInc()) < size) {
-			
 			points.get(idx).translate(v);
 		}
 		super.run();
