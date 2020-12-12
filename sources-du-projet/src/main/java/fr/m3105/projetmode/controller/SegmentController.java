@@ -11,7 +11,6 @@ public class SegmentController extends ViewController{
         gc.setFill(Color.BLACK);
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         for (Face f : sortFace(((Model) this.getValue()).faces)) {
-            gc.setFill(Color.RED);
             for (int i = 0; i < f.getPoints().size(); i++) {
                 if (i < f.getPoints().size() - 1) {
                     gc.strokeLine(f.getPoints().get(i).x, f.getPoints().get(i).y, f.getPoints().get(i + 1).x, f.getPoints().get(i + 1).y);

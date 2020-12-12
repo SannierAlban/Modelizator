@@ -1,25 +1,17 @@
 package fr.m3105.projetmode.Views;
 
-import fr.m3105.projetmode.controller.ControllerFactory;
-import fr.m3105.projetmode.controller.ViewController;
-import fr.m3105.projetmode.model.Model;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 
-public class MainStage extends Stage {
+public class MainStage extends View {
 
-    private File file;
-    private FXMLLoader loader;
     public MainStage(File f) throws IOException {
-        this.file = f;
-        loader = new FXMLLoader(getClass().getResource("mainStage.fxml"));
-        ViewController controller = (new ControllerFactory()).create("face");
-        loader.setController(controller);
+        file = f;
+        loader = newLoader();
+        controllerInitializer();
         Parent root = loader.load();
         controller.setStage(this);
         this.setTitle("Main frame : " + f.getName());
@@ -27,21 +19,13 @@ public class MainStage extends Stage {
         this.show();
     }
 
-    public ViewController getController(){
-        return loader.getController();
+    @Override
+    public boolean isCamera() {
+        return false;
     }
 
-    public void setController(ViewController vc, Model m) throws IOException {
-        loader = new FXMLLoader(getClass().getResource("mainStage.fxml"));
-        loader.setController(vc);
-        Parent root = loader.load();
-        vc.setStage(this);
-        vc.setValue(m);
-        vc.draw();
-        this.setScene(new Scene(root));
-    }
-
-    public File getFile() {
-        return file;
+    @Override
+    public FXMLLoader newLoader() {
+        return new FXMLLoader(getClass().getResource("mainStage.fxml"));
     }
 }

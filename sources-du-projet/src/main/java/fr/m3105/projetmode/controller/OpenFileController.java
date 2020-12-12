@@ -6,13 +6,9 @@ import fr.m3105.projetmode.Views.MainStage;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 

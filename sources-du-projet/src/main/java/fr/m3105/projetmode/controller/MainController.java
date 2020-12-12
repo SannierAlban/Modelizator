@@ -74,8 +74,6 @@ public class MainController extends ConnectableProperty implements Initializable
                         gc.setFill(Color.color((double)f.getRed()/1000,(double)f.getGreen()/1000,(double)f.getBlue()/1000));
                         gc.fillPolygon(f.getX(),f.getY(),f.getnbPtn());
             }
-
-
         }
     }
 
@@ -186,14 +184,12 @@ public class MainController extends ConnectableProperty implements Initializable
                    //m.rotateOnZAxis(3.14159/32);
                    draw();
                }
-
            }finally {
                //System.out.println("fin");
            }
         });
         daemonThread.setDaemon(true);
         daemonThread.start();
-
     }
 
     public List<Face> sortFace(List<Face> faces){

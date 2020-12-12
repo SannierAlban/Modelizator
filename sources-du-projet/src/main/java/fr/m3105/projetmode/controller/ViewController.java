@@ -1,19 +1,22 @@
 package fr.m3105.projetmode.controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
+import fr.m3105.projetmode.Views.CameraView;
 import fr.m3105.projetmode.Views.MainStage;
+import fr.m3105.projetmode.Views.View;
 import fr.m3105.projetmode.model.Face;
 import fr.m3105.projetmode.model.Model;
 import fr.m3105.projetmode.model.Vector;
 import fr.m3105.projetmode.model.utils.ConnectableProperty;
+import fr.m3105.projetmode.model.utils.Observer;
 import fr.m3105.projetmode.model.utils.Subject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.io.File;
@@ -38,29 +41,37 @@ public abstract class ViewController extends ConnectableProperty implements Init
     @FXML
     protected ImageView pauseButton;
     @FXML
-    protected JFXButton newScene;
+    protected Pane mainPane;
+    @FXML
+    protected Pane secondPane;
+    @FXML
+    protected Canvas secondCanvas;
 
     protected GraphicsContext gc;
     protected File f;
-    protected MainStage stage;
+    protected View stage;
     protected boolean isPlaying = false;
     protected Thread daemonThread;
+    protected List<View> views = new ArrayList<>();
+
+    public abstract void draw();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        coupeSlider.setVisible(false);
-        pauseButton.setVisible(false);
+        try {
+                MainStage tmpstage = (MainStage) stage;
+                coupeSlider.setVisible(false);
+                pauseButton.setVisible(false);
+        }catch (Exception e){
+
+        }
         gc = mainCanvas.getGraphicsContext2D();
         gc.setFill(Color.BLUE);
     }
 
-    public abstract void draw();
-
-    public void setStage(MainStage stage){
-        this.stage = stage;
-        f = stage.getFile();
-        System.out.println(f.getPath());
-        System.out.println(f.getName());
+    public void setStage(View stage){
+        this.stage =stage;
+        f = this.stage.getFile();
         this.setValue(new Model(f));
         ((Model) this.getValue()).zoom(5);
         ((Model) this.getValue()).translate(new Vector(mainCanvas.getWidth()/2-((Model) this.getValue()).getCenter().x,mainCanvas.getHeight()/2-((Model) this.getValue()).getCenter().y,0));
@@ -191,25 +202,49 @@ public abstract class ViewController extends ConnectableProperty implements Init
     }
 
     public void deuxScene() throws IOException {
-        MainStage mainStage = new MainStage(this.f);
-        Model tmp =(Model) this.getValue();
-        this.biconnectTo(mainStage.getController());
-        this.notifyObservers(tmp);
+        //mainPane.setPrefWidth(mainPane.getWidth()/2);
+        //mainCanvas.setWidth(mainCanvas.getWidth()/2);
+        Model model = (Model) this.getValue();
+        View cameraView = new CameraView(this.f);
+        views.add(cameraView);
+        this.biconnectTo(cameraView.getController());
+        cameraView.getController().setValue(model);
     }
 
     public void drawFace() throws IOException {
         stage.setController((new ControllerFactory()).create("face"),(Model)this.getValue());
+        stage.getController().setViews(views);
+        for (View view: views){
+            this.detach(view.getController());
+            view.setController((new ControllerFactory()).create("face"),(Model)this.getValue());
+            stage.getController().attach(view.getController());
+        }
         draw();
     }
 
     public void drawPoint() throws IOException {
         stage.setController((new ControllerFactory()).create("point"),(Model)this.getValue());
+        stage.getController().setViews(views);
+        for (View view: views){
+            this.detach(view.getController());
+            view.setController((new ControllerFactory()).create("point"),(Model)this.getValue());
+            stage.getController().attach(view.getController());
+        }
         draw();
     }
     public void drawSegment() throws IOException {
-        System.out.println("coucou");
         stage.setController((new ControllerFactory()).create("segment"),(Model)this.getValue());
+        stage.getController().setViews(views);
+        for (View view: views){
+            this.detach(view.getController());
+            view.setController((new ControllerFactory()).create("segment"),(Model)this.getValue());
+            stage.getController().attach(view.getController());
+        }
         draw();
+    }
+
+    public void setViews(List<View> views) {
+        this.views = views;
     }
 
     @Override

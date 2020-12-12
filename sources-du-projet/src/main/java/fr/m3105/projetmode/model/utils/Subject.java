@@ -34,6 +34,5 @@ public abstract class Subject {
             o.update(this, data);
         }
     }
-
 }
 
