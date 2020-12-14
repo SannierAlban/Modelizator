@@ -3,9 +3,8 @@ package fr.m3105.projetmode.model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import fr.m3105.projetmode.v1.ErreurFichierException;
+import fr.m3105.projetmode.model.utils.ErreurFichierException;
 
 public class Parser {
 	
@@ -37,7 +36,6 @@ public class Parser {
 			
 			readPoints();
 			readFaces();
-			
 		}
 		catch (IOException e) {
 			System.out.println("parser 1"+e.getMessage());

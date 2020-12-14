@@ -8,6 +8,7 @@ import fr.m3105.projetmode.model.Face;
 import fr.m3105.projetmode.model.Model;
 import fr.m3105.projetmode.model.Point;
 import fr.m3105.projetmode.model.Vector;
+import fr.m3105.projetmode.model.utils.ConnectableProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -17,9 +18,12 @@ import javafx.scene.paint.*;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController extends ConnectableProperty implements Initializable {
 
     @FXML
     private JFXToggleButton lightActivation;
@@ -34,7 +38,9 @@ public class MainController implements Initializable {
     @FXML
     private ImageView pauseButton;
 
-    private Model m;
+    //public final static Point WINDOW_CENTER = new Point(mainCanvas.getWidth()/2,mainCanvas.getHeight(),0);
+
+    //private Model m;
     private GraphicsContext gc;
     private File f;
     private MainStage stage;
@@ -52,10 +58,10 @@ public class MainController implements Initializable {
     public void draw(){
         gc.setFill(Color.BLACK);
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),gc.getCanvas().getHeight() );
-        for (Point p: m.points){
+        for (Point p: ((Model) this.getValue()).points){
             gc.strokeLine(p.x,p.y,p.x,p.y);
         }
-                for (Face f: m.faces){
+               for (Face f: sortFace(((Model) this.getValue()).faces)){
                     gc.setFill(Color.RED);
                     for (int i = 0; i <f.getPoints().size();i++){
                         if (i < f.getPoints().size()- 1){
@@ -64,7 +70,8 @@ public class MainController implements Initializable {
                         }else{
                             gc.strokeLine(f.getPoints().get(i).x,f.getPoints().get(i).y,f.getPoints().get(0).x,f.getPoints().get(0).y);
                         }
-                        gc.setFill(Color.BLUE);
+                        //gc.setFill(Color.BLUE);
+                        gc.setFill(Color.color((double)f.getRed()/1000,(double)f.getGreen()/1000,(double)f.getBlue()/1000));
                         gc.fillPolygon(f.getX(),f.getY(),f.getnbPtn());
             }
         }
@@ -75,54 +82,54 @@ public class MainController implements Initializable {
         f = stage.getFile();
         System.out.println(f.getPath());
         System.out.println(f.getName());
-        m = new Model(f);
-        m.zoom(5);
-        m.translate(new Vector(mainCanvas.getWidth()/2-m.getCenter().x,mainCanvas.getHeight()/2-m.getCenter().y,0));
+        this.setValue(new Model(f));
+        ((Model) this.getValue()).zoom(5);
+        ((Model) this.getValue()).translate(new Vector(mainCanvas.getWidth()/2-((Model) this.getValue()).getCenter().x,mainCanvas.getHeight()/2-((Model) this.getValue()).getCenter().y,0));
         draw();
     }
 
     public void translationHaut(){
-        m.translate(new Vector(0,-5,0));
+        ((Model) this.getValue()).translate(new Vector(0,-5,0));
         draw();
     }
 
     public void translationBas(){
-        m.translate(new Vector(0,5,0));
+        ((Model) this.getValue()).translate(new Vector(0,5,0));
         draw();
     }
 
     public void translationGauche(){
-        m.translate(new Vector(-5,0,0));
+        ((Model) this.getValue()).translate(new Vector(-5,0,0));
         draw();
     }
 
     public void translationDroite(){
-        m.translate(new Vector(5,0,0));
+        ((Model) this.getValue()).translate(new Vector(5,0,0));
         draw();
     }
 
     public void rotateXBas(){
-        m.rotateOnXAxis(-3.14159/32);
+        ((Model) this.getValue()).rotateOnXAxis(-3.14159/32);
         draw();
     }
 
     public void rotateXHaut(){
-        m.rotateOnXAxis(3.14159/32);
+        ((Model) this.getValue()).rotateOnXAxis(3.14159/32);
         draw();
     }
 
     public void rotateYDroite(){
-        m.rotateOnYAxis(-3.14159/32);
+        ((Model) this.getValue()).rotateOnYAxis(-3.14159/32);
         draw();
     }
 
     public void rotateYGauche(){
-        m.rotateOnYAxis(3.14159/32);
+        ((Model) this.getValue()).rotateOnYAxis(3.14159/32);
         draw();
     }
 
     public void rotateZ(){
-        m.rotateOnZAxis(-3.14159/32);
+        ((Model) this.getValue()).rotateOnZAxis(-3.14159/32);
         draw();
     }
 
@@ -133,12 +140,13 @@ public class MainController implements Initializable {
     }
 
     public void zoom(){
-        m.zoom(1.2);
+        ((Model) this.getValue()).zoom(1.2);
+        //m.translate(new Vector(mainCanvas.getWidth()/2-m.getComplexCenter().x,mainCanvas.getHeight()/2-m.getComplexCenter().y,0));
         draw();
     }
 
     public void deZoom(){
-        m.zoom(0.8);
+        ((Model) this.getValue()).zoom(0.8);
         draw();
     }
 
@@ -171,19 +179,23 @@ public class MainController implements Initializable {
                    } catch (InterruptedException e) {
                        e.printStackTrace();
                    }
-                   m.rotateOnXAxis(3.14159/32);
-                   m.rotateOnYAxis(3.14159/16);
+                   ((Model) this.getValue()).rotateOnXAxis(3.14159/32);
+                   ((Model) this.getValue()).rotateOnYAxis(3.14159/16);
                    //m.rotateOnZAxis(3.14159/32);
                    draw();
                }
-
            }finally {
                //System.out.println("fin");
            }
         });
         daemonThread.setDaemon(true);
         daemonThread.start();
+    }
 
+    public List<Face> sortFace(List<Face> faces){
+        List<Face> tempList = new ArrayList<>(faces);
+        Collections.sort(tempList);
+        return tempList;
     }
 
 }
