@@ -3,144 +3,136 @@ package fr.m3105.projetmode.model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import fr.m3105.projetmode.model.utils.ErreurFichierException;
 
 public class Parser {
 	
-	public int ligneEnCour;
+	private int ligneEnCour;
 	
-	public int vertex;
-	public int nbFaces;
+	private int vertex;
+	private int nbFaces;
 	
-	public boolean color;
-	public boolean alpha;
+	private boolean color;
+	private boolean alpha;
+	private boolean rgbSurPoints;
 	
-	public ArrayList<Point> points;
-	public ArrayList<Face> faces;
+	private double[][] points;
+	private int[][] faces;
+	private int[][] rgbAlpha;
 	
 	BufferedReader reader;
 	
 	public Parser(String path) {
 		try {
 			ligneEnCour = 0;
-			points = new ArrayList<Point>();
-			faces = new ArrayList<Face>();
 			reader = new BufferedReader(new FileReader(path));
-			
 			
 			readTwoFirstLineHeader();
 			readFlexibleHeader();
 			
-			if(color)
-				readPointsAndColor();
-			else
-				readPoints();
+			points = new double [3][vertex];
+			faces = new int [3][nbFaces];
 			
+			readPoints();
 			readFaces();
-			
 		}
 		catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.out.println("parser 1"+e.getMessage());
 		}
 		catch (ErreurFichierException e) {
-			System.out.println(e.getMessage());
+			System.out.println("parser 2"+e.getMessage());
 		}
 
+	}
+	
+	void rgbAlphaInit(boolean rgbAlphaSurPoints) {
+		int nombreDElements = 3;
+		if(alpha)
+			nombreDElements++;
+		
+		if(rgbAlphaSurPoints)
+			rgbSurPoints = true;
+		else
+			rgbSurPoints = false;
+
+		if(rgbSurPoints) {
+			rgbAlpha = new int [nombreDElements][vertex];
+		}
+		else {
+			rgbAlpha = new int [nombreDElements][nbFaces];
+		}
 	}
 	
 	private void readFaces() throws ErreurFichierException {
 		String line = readPLYLigne();
-		
-		for(int lineIdx = 0; line != null && !line.isBlank() && lineIdx < nbFaces; lineIdx++) {
-			faces.add(stringToFace(line));
+		String [] tabLine;
+		int lineIdx = 0;
+
+		while(line != null && lineIdx < nbFaces){
+			tabLine = line.split(" ");
+			if(Integer.parseInt(tabLine[0]) != 3)
+				throw new ErreurFichierException("Ligne "+ligneEnCour+": faces non composer de 3 points");
+			
+			faces[0][lineIdx] = Integer.parseInt(tabLine[1]);
+			faces[1][lineIdx] = Integer.parseInt(tabLine[2]);
+			faces[2][lineIdx] = Integer.parseInt(tabLine[3]);
+			
+			if(color && !rgbSurPoints)
+				putRGB(tabLine, 4, lineIdx);
+			
 			line = readPLYLigne();
+			lineIdx++;
 		}
 	}
 	
-	private Face stringToFace(String str) throws ErreurFichierException {
-
-		int nbPoints;
-		ArrayList<Point> arrayRetPoint = new ArrayList<Point>();
-		
-		int charIdx = 0;
-		int lastCharIdx;
-		
-		while(!Character.isWhitespace(str.charAt(charIdx)))
-			charIdx++;
-		nbPoints = Integer.parseInt(str.substring(0, charIdx));
-		
-		lastCharIdx = charIdx+1;
-		charIdx++;
-		
-		str = str.substring(lastCharIdx, str.length());
-		//System.out.println("StringToFace 77, nbPoints ="+nbPoints+"\n\tstr=["+str+"]");
-
-		String[] strTab = str.split(" ");
-		
-		for (int i = 0; i < nbPoints; i++) {
-			arrayRetPoint.add(new Point(points.get(Integer.parseInt(strTab[i]))));
-		}	
-		
-		int[] redGreenBlue = readRGB(strTab);
-		
-		return new Face(redGreenBlue[0],redGreenBlue[1],redGreenBlue[2],1,arrayRetPoint);
-	}
-	
-	int [] readRGB(String[] strTab) throws ErreurFichierException {
-		int[] redGreenBlue = new int[] {1,1,1};
-		
-		if(!color)
-			return redGreenBlue;
-		
-		if(strTab.length > 6)
-			throw new ErreurFichierException("Lecture de la couleur ligne : ["+ligneEnCour+"] imposible car strTab.len=["+strTab.length+"](>6)");
-		else if(strTab.length < 6)
-			throw new ErreurFichierException("Lecture de la couleur ligne : ["+ligneEnCour+"] imposible car strTab.len=["+strTab.length+"](<6)");
-		
-		redGreenBlue[0] = Integer.parseInt(strTab[3]);
-		redGreenBlue[1] = Integer.parseInt(strTab[4]);
-		redGreenBlue[2] = Integer.parseInt(strTab[5]);
-		
-//		for (int i : redGreenBlue) {
-//			System.out.println("i:"+i);
-//		}
-//		System.out.println("_________");
-		
-		return redGreenBlue;
-	}
-	
-	
-	private void readPointsAndColor() throws IOException, ErreurFichierException {
-		readPoints();//TODO implementer cette methode
+	void putRGB(String[] strTab,int firstIdx, int lineIdx) {
+		rgbAlpha[0][lineIdx] = (int)Integer.parseInt(strTab[firstIdx]);
+		rgbAlpha[1][lineIdx] = (int)Integer.parseInt(strTab[firstIdx+1]);
+		rgbAlpha[2][lineIdx] = (int)Integer.parseInt(strTab[firstIdx+2]);
+		if(alpha)
+			rgbAlpha[3][lineIdx] = Integer.parseInt(strTab[firstIdx+3]);
 	}
 	
 	private void readPoints() throws IOException, ErreurFichierException {
 		double[] xyz = new double[3];
-		
 		String str;
-		int lastCharIdx;
+		String[] strTab;
+		
+		boolean gate = true;
 		
 		for(int lineIdx = 0; lineIdx < vertex; lineIdx++) {
 			str = readPLYLigne();
-			lastCharIdx = 0;
+			strTab = str.split(" ");
 			
-			String[] strTab = str.split(" ");
+			if(gate) {
+				if(color && strTab.length >= 6)
+					rgbAlphaInit(true);
+				else if(color)
+					rgbAlphaInit(false);
+				gate = false;
+			}
 			
 			for (int i = 0; i < strTab.length && i < 3; i++) {
 				xyz[i] = Double.parseDouble(strTab[i]);
 			}
+			putXYZInPoints(xyz, lineIdx);
 			
-			points.add(new Point(xyz[0],xyz[1], xyz[2]));
-			//System.out.println("x="+xyz[0] +" y=" + xyz[1] +" z="+ xyz[2]);
+			if(color && rgbSurPoints) {
+				putRGB(strTab,3,lineIdx);
+			}
 		}
+	}
+
+	private void putXYZInPoints(double[] xyz, int lineIdx) {
+		points[0][lineIdx] = xyz[0];
+		points[1][lineIdx] = xyz[1];
+		points[2][lineIdx] = xyz[2];
 	}
 	
  	private void readFlexibleHeader() throws ErreurFichierException {
 		String line = readPLYLigne();
 		int countColor = 0;
-		//int countXYZ = 0;
 		
 		nbFaces = -1;
 		vertex = -1;
@@ -200,10 +192,40 @@ public class Parser {
 			
 		}
 		catch (Exception e) {
-			System.out.println(e.getMessage());
+			//System.out.println("parser3 = "+e.getMessage());
 		}
-		//System.out.println("["+ret+"]");
 		return ret;
 	}
 
+	public int getVertex() {
+		return vertex;
+	}
+
+	public int getNbFaces() {
+		return nbFaces;
+	}
+
+	public boolean isColor() {
+		return color;
+	}
+
+	public boolean isAlpha() {
+		return alpha;
+	}
+
+	public boolean isRgbSurPoints() {
+		return rgbSurPoints;
+	}
+
+	public double[][] getPoints() {
+		return points;
+	}
+
+	public int[][] getFaces() {
+		return faces;
+	}
+
+	public int[][] getRgbAlpha() {
+		return rgbAlpha;
+	}
 }

@@ -10,6 +10,14 @@
     </description>
 
     <rule ref="category/java/performance.xml/AvoidFileStream" />
+    <rule ref="category/java/design.xml/SingularField" />
+    <rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition" />
+    <rule ref="category/java/bestpractices.xml/MissingOverride" />
+    <rule ref="category/java/codestyle.xml/BooleanGetMethodName" />
+    <rule ref="category/java/errorprone.xml/AvoidFieldNameMatchingMethodName" />
+    <rule ref="category/java/bestpractices.xml/UnusedImports" />
+    <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert" />
+    <rule ref="category/java/errorprone.xml/ReturnEmptyArrayRatherThanNull" />
     <rule ref="category/java/performance.xml/UnnecessaryWrapperObjectCreation" />
     <rule ref="category/java/bestpractices.xml/ForLoopCanBeForeach" />
     <rule ref="category/java/codestyle.xml/UnnecessaryLocalBeforeReturn" />
@@ -28,9 +36,7 @@
     </rule>
     <rule ref="category/java/design.xml/LawOfDemeter" />
     <rule ref="category/java/bestpractices.xml/LooseCoupling" />
-    <rule ref="category/java/codestyle.xml/OnlyOneReturn" />
     <rule ref="category/java/codestyle.xml/ShortVariable" />
-    <rule ref="category/java/performance.xml/AvoidInstantiatingObjectsInLoops" />
     <rule ref="category/java/bestpractices.xml/AvoidReassigningLoopVariables">
         <properties>
             <property name="foreachReassign" value="deny" />
@@ -38,18 +44,8 @@
         </properties>
     </rule>
     <rule ref="category/java/errorprone.xml/EmptyIfStmt" />
-    <rule ref="category/java/documentation.xml/CommentSize">
-        <properties>
-            <property name="maxLines" value="6" />
-            <property name="maxLineLength" value="80" />
-        </properties>
-    </rule>
     <rule ref="category/java/design.xml/ImmutableField" />
     <rule ref="category/java/design.xml/SingularField" />
-    <rule ref="category/java/performance.xml/UseStringBufferLength" />
-    <rule ref="category/java/performance.xml/UseArraysAsList" />
-    <rule ref="category/java/performance.xml/OptimizableToArrayCall" />
-    <rule ref="category/java/multithreading.xml/AvoidSynchronizedAtMethodLevel" />
     <rule ref="category/java/codestyle.xml/ClassNamingConventions" />
     <rule ref="category/java/codestyle.xml/FieldNamingConventions" />
     <rule ref="category/java/codestyle.xml/MethodNamingConventions" />
