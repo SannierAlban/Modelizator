@@ -151,8 +151,8 @@ public class Model {
 		return true;
 	}
 
-	public double[] getFace(int idxFace) {
-		if(idxFace<points[0].length) return new double[] {FACES[0][idxFace],FACES[1][idxFace],FACES[2][idxFace]};
+	public int[] getFace(int idxFace) {
+		if(idxFace<points[0].length) return new int[] {FACES[0][idxFace],FACES[1][idxFace],FACES[2][idxFace]};
 		else throw new ArrayIndexOutOfBoundsException();
 	}
 
@@ -192,7 +192,7 @@ public class Model {
 			//System.out.println("points[0].length :"+points[0].length+", points.length :"+points.length);
 			double xsum=0, ysum=0, zsum=0;
 			for(int idxPoint=0;idxPoint<length;idxPoint++) {
-				System.out.println("CENTER : Working with "+toStringPoint(idxPoint));
+				//System.out.println("CENTER : Working with "+toStringPoint(idxPoint));
 				xsum+=points[0][idxPoint];
 				ysum+=points[1][idxPoint];
 				zsum+=points[2][idxPoint];
@@ -210,7 +210,7 @@ public class Model {
 	 */
 	public void translate(double[] vector) {
 		final int length = points[0].length;
-		System.out.println("Translating by "+String.format("X : %.3f / Y : %.3f / Z : %.3f",vector[0],vector[1],vector[2]));
+		//System.out.println("Translating by "+String.format("X : %.3f / Y : %.3f / Z : %.3f",vector[0],vector[1],vector[2]));
 		for(int idxPoints=0;idxPoints<length;idxPoints++) {
 			for(int axis=0;axis<3;axis++) {
 				points[axis][idxPoints]+=vector[axis];
@@ -284,8 +284,8 @@ public class Model {
 						+ TRANSFORM_MATRIX[idxNewPoint][1]*crtPoint[1]
 						+ TRANSFORM_MATRIX[idxNewPoint][2]*crtPoint[2];
 			}
-			System.out.println(
-					"TRANSFORMATION : New coords of Point "+idxPoint+" : coords "+toStringPoint(idxPoint)+" INTO  "+String.format("X : %.3f / Y : %.3f / Z : %.3f",tmpCoords[0],tmpCoords[1],tmpCoords[2]));
+			//System.out.println(
+			//		"TRANSFORMATION : New coords of Point "+idxPoint+" : coords "+toStringPoint(idxPoint)+" INTO  "+String.format("X : %.3f / Y : %.3f / Z : %.3f",tmpCoords[0],tmpCoords[1],tmpCoords[2]));
 			setPoint(idxPoint,new double[]{tmpCoords[0],tmpCoords[1],tmpCoords[2]});
 		}
 	}

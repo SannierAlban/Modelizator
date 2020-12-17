@@ -5,11 +5,8 @@ import com.jfoenix.controls.JFXToggleButton;
 import fr.m3105.projetmode.Views.CameraView;
 import fr.m3105.projetmode.Views.MainStage;
 import fr.m3105.projetmode.Views.View;
-import fr.m3105.projetmode.model.Face;
 import fr.m3105.projetmode.model.Model;
-import fr.m3105.projetmode.model.Vector;
 import fr.m3105.projetmode.model.utils.ConnectableProperty;
-import fr.m3105.projetmode.model.utils.Observer;
 import fr.m3105.projetmode.model.utils.Subject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -74,30 +71,30 @@ public abstract class ViewController extends ConnectableProperty implements Init
         f = this.stage.getFile();
         this.setValue(new Model(f));
         ((Model) this.getValue()).zoom(5);
-        ((Model) this.getValue()).translate(new Vector(mainCanvas.getWidth()/2-((Model) this.getValue()).getCenter().x,mainCanvas.getHeight()/2-((Model) this.getValue()).getCenter().y,0));
+        //((Model) this.getValue()).translate(new Vector(mainCanvas.getWidth()/2-((Model) this.getValue()).getCenter().x,mainCanvas.getHeight()/2-((Model) this.getValue()).getCenter().y,0));
         draw();
     }
 
     public void translationHaut(){
-        ((Model) this.getValue()).translate(new Vector(0,-5,0));
+        ((Model) this.getValue()).translate(new double[] {0,-5,0});
         this.notifyObservers(this.getValue());
         draw();
     }
 
     public void translationBas(){
-        ((Model) this.getValue()).translate(new Vector(0,5,0));
+        ((Model) this.getValue()).translate(new double[] {0,5,0});
         this.notifyObservers(this.getValue());
         draw();
     }
 
     public void translationGauche(){
-        ((Model) this.getValue()).translate(new Vector(-5,0,0));
+        ((Model) this.getValue()).translate(new double[] {-5,0,0});
         this.notifyObservers(this.getValue());
         draw();
     }
 
     public void translationDroite(){
-        ((Model) this.getValue()).translate(new Vector(5,0,0));
+        ((Model) this.getValue()).translate(new double[] {5,0,0});
         this.notifyObservers(this.getValue());
         draw();
     }
@@ -195,11 +192,11 @@ public abstract class ViewController extends ConnectableProperty implements Init
 
     }
 
-    public List<Face> sortFace(List<Face> faces){
-        List<Face> tempList = new ArrayList<>(faces);
-        Collections.sort(tempList);
-        return tempList;
-    }
+//    public int[][] sortFace(int[][] faces){
+//        List<Face> tempList = new ArrayList<>(faces);
+//        Collections.sort(tempList);
+//        return tempList;
+//    }
 
     public void deuxScene() throws IOException {
         //mainPane.setPrefWidth(mainPane.getWidth()/2);
