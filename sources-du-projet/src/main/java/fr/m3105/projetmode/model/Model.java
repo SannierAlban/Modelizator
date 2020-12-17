@@ -103,6 +103,13 @@ public class Model {
 		this.faces = new ArrayList<>();
 	}
 
+	public Model(Model m){
+		this.points = new ArrayList<>(m.getPoints());
+		this.faces = new ArrayList<>(m.getFaces());
+		this.nbFaces = m.nbFaces;
+		this.vertex = m.vertex;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder res = new StringBuilder("Model [vertex=" + vertex + ", nbFaces=" + nbFaces + ", PATH=]\nPOINTS :\n");

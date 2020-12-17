@@ -207,7 +207,7 @@ public abstract class ViewController extends ConnectableProperty implements Init
         Model model = (Model) this.getValue();
         View cameraView = new CameraView(this.f);
         views.add(cameraView);
-        this.biconnectTo(cameraView.getController());
+        this.attach(cameraView.getController());
         cameraView.getController().setValue(model);
     }
 
