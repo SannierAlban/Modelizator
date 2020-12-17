@@ -5,16 +5,16 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Model {
-	
+
 	private int vertex;
 	private int nbFaces;
 	public double[][] points;
-	
+
 	//(with n an int superior to 0 and v an int between 0 and 6)
 	//Basically, this array contains n FACES and n*v points, therefore each column contains v references to its respectful points located in the points array.
 	//Because this 2d array only contains FACES and references to points, the values of this array doesn't need to be changed
-	public final int[][] FACES; 
-	
+	public final int[][] FACES;
+/*
 	//basic constructor
 	public Model(File f) {
 		Parser parser = new Parser(f.getPath());
@@ -34,7 +34,7 @@ public class Model {
 		}
 		nbFaces = parser.nbFaces;
 		vertex = parser.points.size();
-	}
+	}*/
 	/*
 	//tests constructor
 	public Model() {
@@ -106,16 +106,9 @@ public class Model {
 		this.points = points;
 		this.FACES = new int[0][0];
 	}
-	
-	
-	//toString functions :
 
-	public Model(Model m){
-		this.points = new ArrayList<>(m.getPoints());
-		this.faces = new ArrayList<>(m.getFaces());
-		this.nbFaces = m.nbFaces;
-		this.vertex = m.vertex;
-	}
+
+	//toString functions :
 
 	@Override
 	public String toString() {
@@ -132,18 +125,18 @@ public class Model {
 			}
 			res.append(tmp+"]\n");
 		}
-		
+
 		return res.toString();
 	}
-	
-	
+
+
 	//getters and setters of FACES and points :
-	
+
 	public double[] getPoint(int idxPoint) {
 		if(idxPoint<points[0].length) return new double[] {points[0][idxPoint],points[1][idxPoint],points[2][idxPoint]};
 		else throw new ArrayIndexOutOfBoundsException();
-	}	
-	
+	}
+
 	public double[][] getPoints() {
 		return points;
 	}
@@ -157,16 +150,16 @@ public class Model {
 		}else return false;
 		return true;
 	}
-	
+
 	public double[] getFace(int idxFace) {
 		if(idxFace<points[0].length) return new double[] {FACES[0][idxFace],FACES[1][idxFace],FACES[2][idxFace]};
 		else throw new ArrayIndexOutOfBoundsException();
-	}	
-	
+	}
+
 	public int[][] getFaces() {
 		return FACES;
 	}
-	
+
 	/**
 	 * Returns the center of the Model. The method consists of creating a virtual container of all the points and returning the center of this container
 	 * WARNING : This method shouldn't be used using a basic and precise Model, else the Point returned won't approach the real center of the Model
@@ -185,7 +178,7 @@ public class Model {
 		}
 		return new double[] {(xmin+xmax)/2,(ymin+ymax)/2,(zmin+zmax)/2};
 	}
-	
+
 	/**
 	 * Returns the center of the Model. The center is calculated using the average points coordinates
 	 * WARNING : This method shouldn't be used using a complex Model, else the Point returned won't approach the real center of the Model
@@ -204,16 +197,16 @@ public class Model {
 				ysum+=points[1][idxPoint];
 				zsum+=points[2][idxPoint];
 			}
-			
+
 			return new double[] {xsum/length,ysum/length,zsum/length};
 		}
 	}
-	
+
 	/**
 	 * Translates the Model using a Vector
 	 * More precisely, it overwrites the previous values of the Model.points array
 	 * WARNING: This method only works with 3d points and 3d vectors
-	 * @param v Vector representing the directions and distance all the points will translate
+	 * @param vector v representing the directions and distance all the points will translate
 	 */
 	public void translate(double[] vector) {
 		final int length = points[0].length;
@@ -224,11 +217,11 @@ public class Model {
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Increases or decreases the size of the Model (param superior to 0 and inferior to 1 = zoom out, param superior to 1 (excluded) = zoom in)
-	 * @param relation positive double value representing the amount of zoom 
+	 * @param relation positive double value representing the amount of zoom
 	 */
 	public void zoom(double relation) {
 		final double[] CENTER = getCenter();
@@ -236,7 +229,7 @@ public class Model {
 		transformPoints(new double[][] {{relation,0,0},{0,relation,0},{0,0,relation}});
 		translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
 	}
-	
+
 	/**
 	 * Rotates the entire Model on the X axis using the double parameter clockwise
 	 * More precisely, it overwrites the previous values of the Model.points array
@@ -249,8 +242,8 @@ public class Model {
 		transformPoints(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
 		translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
 	}
-	
-	
+
+
 	/**
 	 * Rotates the entire Model on the Y axis using the double parameter clockwise
 	 * More precisely, it overwrites the previous values of the Model.points array
@@ -263,8 +256,8 @@ public class Model {
 		transformPoints(new double[][]{ {Math.cos(angle),0,-Math.sin(angle)},{0,1,0},{Math.sin(angle),0,Math.cos(angle)}});
 		translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
 	}
-	
-	
+
+
 	/**
 	 * Rotates the entire Model on the Z axis using the double parameter clockwise
 	 * More precisely, it overwrites the previous values of the Model.points array
@@ -277,29 +270,29 @@ public class Model {
 		transformPoints(new double[][]{ {Math.cos(angle),-Math.sin(angle),0},{Math.sin(angle),Math.cos(angle),0},{0,0,1}});
 		translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
 	}
-	
+
 	private void transformPoints(final double[][] TRANSFORM_MATRIX) {
 		final short NB_AXIS = 3;
 		final int length = points[0].length;
 		for(int idxPoint=0;idxPoint<length;idxPoint++) {
-				
+
 			double[] crtPoint = getPoint(idxPoint);
 			//creating the new point
 			double[] tmpCoords = new double[NB_AXIS];
-			for(int idxNewPoint=0;idxNewPoint<NB_AXIS;idxNewPoint++) {	
+			for(int idxNewPoint=0;idxNewPoint<NB_AXIS;idxNewPoint++) {
 				tmpCoords[idxNewPoint] = TRANSFORM_MATRIX[idxNewPoint][0]*crtPoint[0]
 						+ TRANSFORM_MATRIX[idxNewPoint][1]*crtPoint[1]
-								+ TRANSFORM_MATRIX[idxNewPoint][2]*crtPoint[2];
+						+ TRANSFORM_MATRIX[idxNewPoint][2]*crtPoint[2];
 			}
 			System.out.println(
-				"TRANSFORMATION : New coords of Point "+idxPoint+" : coords "+toStringPoint(idxPoint)+" INTO  "+String.format("X : %.3f / Y : %.3f / Z : %.3f",tmpCoords[0],tmpCoords[1],tmpCoords[2]));
+					"TRANSFORMATION : New coords of Point "+idxPoint+" : coords "+toStringPoint(idxPoint)+" INTO  "+String.format("X : %.3f / Y : %.3f / Z : %.3f",tmpCoords[0],tmpCoords[1],tmpCoords[2]));
 			setPoint(idxPoint,new double[]{tmpCoords[0],tmpCoords[1],tmpCoords[2]});
 		}
 	}
-	
+
 	/**
 	 * A basic toString function dealing with points. Given an integer (basically the index), this function will return a String containing the 3 coordinates of this given point
-	 * @param int idxPoint : the index of the point located in the points array
+	 * @param idxPoint int : the index of the point located in the points array
 	 * @return String textual representation of the point
 	 */
 	public String toStringPoint(int idxPoint) {
