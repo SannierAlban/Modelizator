@@ -14,27 +14,27 @@ public class Model {
 	//Basically, this array contains n FACES and n*v points, therefore each column contains v references to its respectful points located in the points array.
 	//Because this 2d array only contains FACES and references to points, the values of this array doesn't need to be changed
 	public final int[][] FACES;
-/*
+	
+	private int[][] rgbAlpha;
+	
+	private boolean color;
+	private boolean alpha;
+	private boolean rgbSurPoints;
+
 	//basic constructor
 	public Model(File f) {
 		Parser parser = new Parser(f.getPath());
-		points = parser.points;
-		for (Point p:points){
-			p.x = p.x * -1;
-			p.y = p.y * -1;
-			p.z = p.z * -1;
-		}
-		FACES = parser.faces;
-		for (Face face:FACES){
-			for (Point p :face.getPoints()){
-				p.x = p.x * -1;
-				p.y = p.y * -1;
-				p.z = p.z * -1;
-			}
-		}
-		nbFaces = parser.nbFaces;
-		vertex = parser.points.size();
-	}*/
+		vertex = parser.getVertex();
+		nbFaces = parser.getNbFaces();
+		
+		points = parser.getPoints();
+		FACES = parser.getFaces();
+		rgbAlpha = parser.getRgbAlpha();
+		
+		color = parser.isColor();
+		alpha = parser.isAlpha();
+		rgbSurPoints = parser.isRgbSurPoints();
+	}
 	/*
 	//tests constructor
 	public Model() {
