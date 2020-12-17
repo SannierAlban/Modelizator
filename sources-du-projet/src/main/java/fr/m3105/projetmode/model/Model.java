@@ -161,7 +161,8 @@ public class Model {
 	}
 
 	/**
-	 * Returns the center of the Model. The method consists of creating a virtual container of all the points and returning the center of this container
+	 * OLD AND ODDLY UNACCURATE
+	 * Returns the center of the Model. The method consists of creating a virtual container of all the points and returning the center of this container <br>
 	 * WARNING : This method shouldn't be used using a basic and precise Model, else the Point returned won't approach the real center of the Model
 	 * @return Point Representing the center of the Model
 	 */
@@ -181,25 +182,20 @@ public class Model {
 
 	/**
 	 * Returns the center of the Model. The center is calculated using the average points coordinates
-	 * WARNING : This method shouldn't be used using a complex Model, else the Point returned won't approach the real center of the Model
 	 * @return Point Representing the center of the Model
 	 */
 	public double[] getCenter() {
-		final int NBMIN_POINTS_COMPLEX_MODEL = 30;
-		if(points[0].length>=NBMIN_POINTS_COMPLEX_MODEL) return getComplexCenter();
-		else {
-			int length = points[0].length;
-			//System.out.println("points[0].length :"+points[0].length+", points.length :"+points.length);
-			double xsum=0, ysum=0, zsum=0;
-			for(int idxPoint=0;idxPoint<length;idxPoint++) {
-				//System.out.println("CENTER : Working with "+toStringPoint(idxPoint));
-				xsum+=points[0][idxPoint];
-				ysum+=points[1][idxPoint];
-				zsum+=points[2][idxPoint];
-			}
-
-			return new double[] {xsum/length,ysum/length,zsum/length};
+		int length = points[0].length;
+		//System.out.println("points[0].length :"+points[0].length+", points.length :"+points.length);
+		double xsum=0, ysum=0, zsum=0;
+		for(int idxPoint=0;idxPoint<length;idxPoint++) {
+			//System.out.println("CENTER : Working with "+toStringPoint(idxPoint));
+			xsum+=points[0][idxPoint];
+			ysum+=points[1][idxPoint];
+			zsum+=points[2][idxPoint];
 		}
+
+		return new double[] {xsum/length,ysum/length,zsum/length};
 	}
 
 	/**
