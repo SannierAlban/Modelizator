@@ -1,8 +1,6 @@
 package fr.m3105.projetmode.model;
 
 import java.io.File;
-import java.math.BigInteger;
-import java.util.ArrayList;
 
 public class Model {
 
@@ -35,69 +33,7 @@ public class Model {
 		alpha = parser.isAlpha();
 		rgbSurPoints = parser.isRgbSurPoints();
 	}
-	/*
-	//tests constructor
-	public Model() {
-		vertex = 8;
-		nbFaces = 6;
-		points = new ArrayList<Point>();
-		FACES = new ArrayList<Face>();
-		
-		int pa = 25;
-		int pb = 100;
-		
-		points.add(new Point(pa,pa,pa));		//stock tout les point lu dans une arraylist
-		points.add(new Point(pa,pb,pa));
-		points.add(new Point(pb,pa,pb));
-		points.add(new Point(pa,pb,pb));
-		points.add(new Point(pa,pa,pb));
-		points.add(new Point(pb,pb,pa));
-		points.add(new Point(pb,pa,pa));
-		points.add(new Point(pb,pb,pb));
-		
-		ArrayList<Point> a = new ArrayList<Point>(); 
-		a.add(new Point(points.get(0)));				//distribut les points dans leur face correspondante
-		a.add(new Point(points.get(6)));
-		a.add(new Point(points.get(2)));
-		a.add(new Point(points.get(4)));
-		FACES.add(new Face(a));
-
-		ArrayList<Point> b = new ArrayList<Point>(); 
-		b.add(new Point(points.get(1)));				
-		b.add(new Point(points.get(3)));
-		b.add(new Point(points.get(7)));
-		b.add(new Point(points.get(5)));
-		FACES.add(new Face(b));
-
-		
-		ArrayList<Point> c = new ArrayList<Point>(); 
-		c.add(new Point(points.get(5)));				
-		c.add(new Point(points.get(7)));
-		c.add(new Point(points.get(2)));
-		c.add(new Point(points.get(6)));
-		FACES.add(new Face(c));
-
-		ArrayList<Point> d = new ArrayList<Point>(); 
-		d.add(new Point(points.get(1)));				
-		d.add(new Point(points.get(0)));
-		d.add(new Point(points.get(4)));
-		d.add(new Point(points.get(3)));
-		FACES.add(new Face(d));
-
-		ArrayList<Point> e = new ArrayList<Point>(); 
-		e.add(new Point(points.get(3)));				
-		e.add(new Point(points.get(4)));
-		e.add(new Point(points.get(2)));
-		e.add(new Point(points.get(7)));
-		FACES.add(new Face(e));
-		
-		ArrayList<Point> p = new ArrayList<Point>(); 
-		p.add(new Point(points.get(1)));				
-		p.add(new Point(points.get(5)));
-		p.add(new Point(points.get(6)));
-		p.add(new Point(points.get(0)));
-		FACES.add(new Face(p));
-	}*/
+	
 	/**
 	 * DO NOT USE : FOR TEST PURPOSES WITHOUT USE OF THE FACES
 	 * @param points
@@ -161,12 +97,12 @@ public class Model {
 	}
 
 	/**
-	 * OLD AND ODDLY UNACCURATE
+	 * OLD AND ODDLY UNACCURATE<br>
 	 * Returns the center of the Model. The method consists of creating a virtual container of all the points and returning the center of this container <br>
-	 * WARNING : This method shouldn't be used using a basic and precise Model, else the Point returned won't approach the real center of the Model
+	 * <b>WARNING : This method shouldn't be used using a basic and precise Model, else the Point returned won't approach the real center of the Model</b>
 	 * @return Point Representing the center of the Model
 	 */
-	private double[] getComplexCenter() {
+	public double[] getComplexCenter() {
 		double xmin = 0,xmax = 0,ymin = 0,ymax = 0,zmin = 0,zmax = 0;
 		for(int i=0;i<points.length;i++) {
 			double[] tmp = {points[0][i],points[1][i],points[2][i]};
@@ -199,9 +135,8 @@ public class Model {
 	}
 
 	/**
-	 * Translates the Model using a Vector
-	 * More precisely, it overwrites the previous values of the Model.points array
-	 * WARNING: This method only works with 3d points and 3d vectors
+	 * Translates the Model using a Vector<br>
+	 * More precisely, it overwrites the previous values of the Model.points array<br>
 	 * @param vector v representing the directions and distance all the points will translate
 	 */
 	public void translate(double[] vector) {
@@ -216,7 +151,7 @@ public class Model {
 
 
 	/**
-	 * Increases or decreases the size of the Model (param superior to 0 and inferior to 1 = zoom out, param superior to 1 (excluded) = zoom in)
+	 * Increases or decreases the size of the Model (param superior to 0 and inferior to 1 = zoom out, param superior to 1 (excluded) = zoom in)<br>
 	 * @param relation positive double value representing the amount of zoom
 	 */
 	public void zoom(double relation) {
@@ -227,8 +162,8 @@ public class Model {
 	}
 
 	/**
-	 * Rotates the entire Model on the X axis using the double parameter clockwise
-	 * More precisely, it overwrites the previous values of the Model.points array
+	 * Rotates the entire Model on the X axis using the double parameter clockwise<br>
+	 * More precisely, it overwrites the previous values of the Model.points array<br>
 	 * WARNING: This method only works with 3d points
 	 * @param angle double value representing how much the Model will rotate
 	 */
@@ -241,9 +176,9 @@ public class Model {
 
 
 	/**
-	 * Rotates the entire Model on the Y axis using the double parameter clockwise
-	 * More precisely, it overwrites the previous values of the Model.points array
-	 * WARNING: This method only works with 3d points
+	 * Rotates the entire Model on the Y axis using the double parameter clockwise<br>
+	 * More precisely, it overwrites the previous values of the Model.points array<br>
+	 * <b>WARNING: This method only works with 3d points</b>
 	 * @param angle double value representing how much the Model will rotate
 	 */
 	public void rotateOnYAxis(double angle) {
@@ -255,9 +190,9 @@ public class Model {
 
 
 	/**
-	 * Rotates the entire Model on the Z axis using the double parameter clockwise
-	 * More precisely, it overwrites the previous values of the Model.points array
-	 * WARNING: This method only works with 3d points
+	 * Rotates the entire Model on the Z axis using the double parameter clockwise<br>
+	 * More precisely, it overwrites the previous values of the Model.points array<br>
+	 * <b>WARNING: This method only works with 3d points</b>
 	 * @param angle double value representing how much the Model will rotate
 	 */
 	public void rotateOnZAxis(double angle) {
@@ -266,7 +201,11 @@ public class Model {
 		transformPoints(new double[][]{ {Math.cos(angle),-Math.sin(angle),0},{Math.sin(angle),Math.cos(angle),0},{0,0,1}});
 		translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
 	}
-
+	/**
+	 * Changes the values of points array using the double[][] parameter. <br>
+	 * More precisely, this function overwrites the points array using a matricial multiplication of points and the parameter
+	 * @param TRANSFORM_MATRIX
+	 */
 	private void transformPoints(final double[][] TRANSFORM_MATRIX) {
 		final short NB_AXIS = 3;
 		final int length = points[0].length;
@@ -287,7 +226,8 @@ public class Model {
 	}
 
 	/**
-	 * A basic toString function dealing with points. Given an integer (basically the index), this function will return a String containing the 3 coordinates of this given point
+	 * A basic toString function dealing with points.<br>
+	 * Given an integer (basically the index), this function will return a String containing the 3 coordinates of this given point
 	 * @param idxPoint int : the index of the point located in the points array
 	 * @return String textual representation of the point
 	 */
