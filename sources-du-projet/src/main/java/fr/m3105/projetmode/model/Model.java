@@ -235,6 +235,7 @@ public class Model {
 	private double[] getNormalVector(int idxFace) {
 		double[] res = new double[3];
 		return res;
+		
 	}
 
 	/**
