@@ -1,8 +1,6 @@
 package fr.m3105.projetmode.model;
 
 import java.io.File;
-import java.math.BigInteger;
-import java.util.ArrayList;
 
 public class Model {
 
@@ -34,6 +32,12 @@ public class Model {
 		color = parser.isColor();
 		alpha = parser.isAlpha();
 		rgbSurPoints = parser.isRgbSurPoints();
+		int tempLenght = this.points[0].length;
+		for(int i = 0;i<tempLenght;i++){
+			points[0][i] *= -1;
+			points[1][i] *= -1;
+			points[2][i] *= -1;
+		}
 	}
 	/*
 	//tests constructor
@@ -107,9 +111,7 @@ public class Model {
 		this.FACES = new int[0][0];
 	}
 
-
 	//toString functions :
-
 	@Override
 	public String toString() {
 		StringBuilder res = new StringBuilder("Model [vertex=" + vertex + ", nbFaces=" + nbFaces + ", PATH=]\nPOINTS :\n");
@@ -125,10 +127,8 @@ public class Model {
 			}
 			res.append(tmp+"]\n");
 		}
-
 		return res.toString();
 	}
-
 
 	//getters and setters of FACES and points :
 
@@ -194,7 +194,6 @@ public class Model {
 			ysum+=points[1][idxPoint];
 			zsum+=points[2][idxPoint];
 		}
-
 		return new double[] {xsum/length,ysum/length,zsum/length};
 	}
 
@@ -213,7 +212,6 @@ public class Model {
 			}
 		}
 	}
-
 
 	/**
 	 * Increases or decreases the size of the Model (param superior to 0 and inferior to 1 = zoom out, param superior to 1 (excluded) = zoom in)
@@ -239,7 +237,6 @@ public class Model {
 		translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
 	}
 
-
 	/**
 	 * Rotates the entire Model on the Y axis using the double parameter clockwise
 	 * More precisely, it overwrites the previous values of the Model.points array
@@ -252,7 +249,6 @@ public class Model {
 		transformPoints(new double[][]{ {Math.cos(angle),0,-Math.sin(angle)},{0,1,0},{Math.sin(angle),0,Math.cos(angle)}});
 		translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
 	}
-
 
 	/**
 	 * Rotates the entire Model on the Z axis using the double parameter clockwise
