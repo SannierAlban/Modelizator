@@ -224,6 +224,18 @@ public class Model {
 			setPoint(idxPoint,new double[]{tmpCoords[0],tmpCoords[1],tmpCoords[2]});
 		}
 	}
+	
+	private void applyLights(double[] lightSourcePoint, double intensity) {
+		if(lightSourcePoint.length!=3) throw new ArrayIndexOutOfBoundsException();
+		for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
+			double[] normalVector = getNormalVector(idxFace);
+		}
+	}
+
+	private double[] getNormalVector(int idxFace) {
+		double[] res = new double[3];
+		return res;
+	}
 
 	/**
 	 * A basic toString function dealing with points.<br>
