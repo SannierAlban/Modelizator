@@ -1,6 +1,7 @@
 package fr.m3105.projetmode.model;
 
 import java.io.File;
+import java.io.IOException;
 import java.security.InvalidParameterException;
 
 public class Model {
@@ -11,7 +12,7 @@ public class Model {
 
 	//(with n an int superior to 0 and v an int between 0 and 6)
 	//Basically, this array contains n FACES and n*v points, therefore each column contains v references to its respectful points located in the points array.
-	//Because this 2d array only contains FACES and references to points, the values of this array doesn't need to be changed
+	//Because this 2d array only contains FACES and references to points, the values of this array don't need to be changed
 	public final int[][] FACES;
 	
 	private int[][] rgbAlpha;
@@ -21,7 +22,7 @@ public class Model {
 	private boolean rgbSurPoints;
 
 	//basic constructor
-	public Model(File f) {
+	public Model(File f) throws IOException{
 		Parser parser = new Parser(f.getPath());
 		vertex = parser.getVertex();
 		nbFaces = parser.getNbFaces();
@@ -69,7 +70,7 @@ public class Model {
 		return res.toString();
 	}
 
-	//getters and setters of FACES and points :
+	//getters and setters of various attributes :
 
 	public double[] getPoint(int idxPoint) {
 		if(idxPoint<points[0].length) return new double[] {points[0][idxPoint],points[1][idxPoint],points[2][idxPoint]};
@@ -97,6 +98,14 @@ public class Model {
 
 	public int[][] getFaces() {
 		return FACES;
+	}
+	
+	public boolean hasColor() {
+		return rgbSurPoints;
+	}
+	
+	public boolean hasAlpha() {
+		return alpha;
 	}
 
 	/**
@@ -202,7 +211,8 @@ public class Model {
 	}
 	/**
 	 * Changes the values of points array using the double[][] parameter. <br>
-	 * More precisely, this function overwrites the points array using a matricial multiplication of points and the parameter
+	 * More precisely, this function overwrites the points array using a matricial multiplication of points and the parameter<br>
+	 * <b>CURRENTLY APPLY LIGHTS AT THE END</b>
 	 * @param TRANSFORM_MATRIX
 	 */
 	private void transformPoints(final double[][] TRANSFORM_MATRIX) {
@@ -221,20 +231,40 @@ public class Model {
 			//System.out.println(
 			//		"TRANSFORMATION : New coords of Point "+idxPoint+" : coords "+toStringPoint(idxPoint)+" INTO  "+String.format("X : %.3f / Y : %.3f / Z : %.3f",tmpCoords[0],tmpCoords[1],tmpCoords[2]));
 			setPoint(idxPoint,new double[]{tmpCoords[0],tmpCoords[1],tmpCoords[2]});
+			applyLights(new double[] {10,10,-10});
 		}
 	}
-	
-	private void applyLights(double[] lightSourcePoint, double intensity) {
-		if(lightSourcePoint.length!=3) throw new ArrayIndexOutOfBoundsException();
-		for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
-			double[] normalVector = getNormalVector(idxFace);
-			double normSource = getNorm(lightSourcePoint);
-			double normNormal = getNorm(normalVector);
-			double gamma = 0.5*(Math.pow(normSource,2)+Math.pow(normNormal,2)-Math.pow((normSource+normNormal),2));
+	/**
+	 * Applies lights to all FACES
+	 * @param lightSourcePoint double[3] representing the coordinates of the lightsource point
+	 */
+	public void applyLights(double[] lightSourcePoint) {
+		if(lightSourcePoint.length!=3) throw new InvalidParameterException();
+		if(rgbSurPoints) {
+			for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
+				double[] normalVector = getNormalVector(idxFace);
+				double normSource = getNorm(lightSourcePoint);
+				double normNormal = getNorm(normalVector);
+				double gamma = 0.5*(Math.pow(normSource,2)+Math.pow(normNormal,2)-Math.pow((normSource+normNormal),2));
+				rgbAlpha[0][idxFace]*=gamma;
+				rgbAlpha[1][idxFace]*=gamma;
+				rgbAlpha[2][idxFace]*=gamma;
+				System.out.println("Using normal vector "+normalVector[0]+", "+normalVector[1]+", "+normalVector[2]+
+						"\nWith norm of L (light) : "+normSource+", and norm of N : "+normNormal+
+						"\nApplying "+gamma+" to face "+idxFace);
+			}
+			System.out.println();
+		}else {
+			System.out.println("ERROR : THERE IS NO RGB ON THIS MODEL");
 		}
 	}
-	private double getNorm(double[] normalVector) {
-		if(normalVector.length==3) return Math.sqrt(Math.pow(normalVector[0],2)+Math.pow(normalVector[1],2)+Math.pow(normalVector[2],2));
+	/**
+	 * Returns the norm (consider the distance) of a given vector
+	 * @param vector double[3] array representing the coordinates of the vector
+	 * @return double the norm
+	 */
+	public double getNorm(double[] vector) {
+		if(vector.length==3) return Math.sqrt(Math.pow(vector[0],2)+Math.pow(vector[1],2)+Math.pow(vector[2],2));
 		else throw new InvalidParameterException();
 	}
 
@@ -244,7 +274,7 @@ public class Model {
 	 * @param idxFace the index of the face you wish to get the normal vector
 	 * @return double[3] the normal vector
 	 */
-	private double[] getNormalVector(int idxFace) {
+	public double[] getNormalVector(int idxFace) {
 		double[] vector1 = getPoint(FACES[0][idxFace]);
 		double[] vector2 = getPoint(FACES[1][idxFace]);
 		return new double[] {vector1[1]*vector2[2] - vector1[2]*vector2[1],
