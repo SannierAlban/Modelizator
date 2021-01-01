@@ -229,8 +229,16 @@ public class Model {
 		if(lightSourcePoint.length!=3) throw new ArrayIndexOutOfBoundsException();
 		for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
 			double[] normalVector = getNormalVector(idxFace);
+			double normSource = getNorm(lightSourcePoint);
+			double normNormal = getNorm(normalVector);
+			double gamma = 0.5*(normSource²+normNormal²-(normSource+normNormal)²);
 		}
 	}
+	private double getNorm(double[] normalVector) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	/**
 	 * Returns the normal vector using the coordinates of a Face's points. <br>
 	 * Basically this method calculates the cross product of the two first points located at the idxFace index.
