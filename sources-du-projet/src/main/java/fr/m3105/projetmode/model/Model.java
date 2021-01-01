@@ -1,6 +1,7 @@
 package fr.m3105.projetmode.model;
 
 import java.io.File;
+import java.security.InvalidParameterException;
 
 public class Model {
 
@@ -229,12 +230,12 @@ public class Model {
 			double[] normalVector = getNormalVector(idxFace);
 			double normSource = getNorm(lightSourcePoint);
 			double normNormal = getNorm(normalVector);
-			double gamma = 0.5*(normSource²+normNormal²-(normSource+normNormal)²);
+			double gamma = 0.5*(Math.pow(normSource,2)+Math.pow(normNormal,2)-Math.pow((normSource+normNormal),2));
 		}
 	}
 	private double getNorm(double[] normalVector) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(normalVector.length==3) return Math.sqrt(Math.pow(normalVector[0],2)+Math.pow(normalVector[1],2)+Math.pow(normalVector[2],2));
+		else throw new InvalidParameterException();
 	}
 
 	/**
