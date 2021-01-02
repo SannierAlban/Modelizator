@@ -20,9 +20,21 @@ public class Model {
 	private boolean color;
 	private boolean alpha;
 	private boolean rgbSurPoints;
+	
+	private final short MAX_AXIS = 3;
 
 	//basic constructor
 	public Model(File f){
+		this(f,true);
+	}
+	
+	/**
+	 * ALTERNATIVE CONSTRUCTOR<br>
+	 * Just a cheap solution of a constructor which don't invert the coordinates
+	 * @param f File object representing the .ply source
+	 * @param flip if true, all coordinates will be inverted <b>only useful for test purposes</b>
+	 */
+	public Model(File f, boolean invert){
 		Parser parser = new Parser(f.getPath());
 		vertex = parser.getVertex();
 		nbFaces = parser.getNbFaces();
@@ -35,10 +47,12 @@ public class Model {
 		alpha = parser.isAlpha();
 		rgbSurPoints = parser.isRgbSurPoints();
 		int tempLength = this.points[0].length;
-		for(int i = 0;i<tempLength;i++){
-			points[0][i] *= -1;
-			points[1][i] *= -1;
-			points[2][i] *= -1;
+		if(invert) {
+			for(int i = 0;i<tempLength;i++){
+				points[0][i] *= -1;
+				points[1][i] *= -1;
+				points[2][i] *= -1;
+			}
 		}
 	}
 	
@@ -83,7 +97,7 @@ public class Model {
 
 	private boolean setPoint(int idxPoint, double[] newCoordinates) {
 		final int length = newCoordinates.length;
-		if(idxPoint<points[0].length && length==3) {
+		if(idxPoint<points[0].length && length==MAX_AXIS) {
 			for(int axis=0;axis<length;axis++) {
 				points[axis][idxPoint] = newCoordinates[axis];
 			}
@@ -154,7 +168,7 @@ public class Model {
 		final int length = points[0].length;
 		//System.out.println("Translating by "+String.format("X : %.3f / Y : %.3f / Z : %.3f",vector[0],vector[1],vector[2]));
 		for(int idxPoints=0;idxPoints<length;idxPoints++) {
-			for(int axis=0;axis<3;axis++) {
+			for(int axis=0;axis<MAX_AXIS;axis++) {
 				points[axis][idxPoints]+=vector[axis];
 			}
 		}
@@ -216,14 +230,13 @@ public class Model {
 	 * @param TRANSFORM_MATRIX
 	 */
 	private void transformPoints(final double[][] TRANSFORM_MATRIX) {
-		final short NB_AXIS = 3;
 		final int length = points[0].length;
 		for(int idxPoint=0;idxPoint<length;idxPoint++) {
 
 			double[] crtPoint = getPoint(idxPoint);
 			//creating the new point
-			double[] tmpCoords = new double[NB_AXIS];
-			for(int idxNewPoint=0;idxNewPoint<NB_AXIS;idxNewPoint++) {
+			double[] tmpCoords = new double[MAX_AXIS];
+			for(int idxNewPoint=0;idxNewPoint<MAX_AXIS;idxNewPoint++) {
 				tmpCoords[idxNewPoint] = TRANSFORM_MATRIX[idxNewPoint][0]*crtPoint[0]
 						+ TRANSFORM_MATRIX[idxNewPoint][1]*crtPoint[1]
 						+ TRANSFORM_MATRIX[idxNewPoint][2]*crtPoint[2];
@@ -239,13 +252,16 @@ public class Model {
 	 * @param lightSourcePoint double[3] representing the coordinates of the lightsource point
 	 */
 	public void applyLights(double[] lightSourcePoint) {
-		if(lightSourcePoint.length!=3) throw new InvalidParameterException();
-		if(rgbSurPoints) {
+		if(lightSourcePoint.length!=MAX_AXIS) throw new InvalidParameterException();
+		if(color) {
+			lightSourcePoint = divideByNorm(lightSourcePoint);
+			double normSource = getNorm(lightSourcePoint);
 			for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
-				double[] normalVector = getNormalVector(idxFace);
-				double normSource = getNorm(lightSourcePoint);
+				double[] normalVector = getNormalUnitVector(idxFace);
 				double normNormal = getNorm(normalVector);
-				double gamma = 0.5*(Math.pow(normSource,2)+Math.pow(normNormal,2)-Math.pow((normSource+normNormal),2));
+				double gamma = 0.0;
+				for(int axis = 0;axis<MAX_AXIS;axis++) gamma+=normalVector[axis]*lightSourcePoint[axis];
+				//double gamma = 0.5*(Math.pow(normSource,2)+Math.pow(normNormal,2)-Math.pow((normSource+normNormal),2));
 				rgbAlpha[0][idxFace]*=gamma;
 				rgbAlpha[1][idxFace]*=gamma;
 				rgbAlpha[2][idxFace]*=gamma;
@@ -264,7 +280,7 @@ public class Model {
 	 * @return double the norm
 	 */
 	public double getNorm(double[] vector) {
-		if(vector.length==3) return Math.sqrt(Math.pow(vector[0],2)+Math.pow(vector[1],2)+Math.pow(vector[2],2));
+		if(vector.length==MAX_AXIS) return Math.sqrt(Math.pow(vector[0],2)+Math.pow(vector[1],2)+Math.pow(vector[2],2));
 		else throw new InvalidParameterException();
 	}
 
@@ -274,14 +290,31 @@ public class Model {
 	 * @param idxFace the index of the face you wish to get the normal vector
 	 * @return double[3] the normal vector
 	 */
-	public double[] getNormalVector(int idxFace) {
+	public double[] getNormalUnitVector(int idxFace) {
 		double[] vector1 = determineVector(idxFace, 0, 1);
 		double[] vector2 = determineVector(idxFace, 0, 2);
-		return new double[] {vector1[1]*vector2[2] - vector1[2]*vector2[1],
+		double[] res = new double[] {vector1[1]*vector2[2] - vector1[2]*vector2[1],
 				vector1[2]*vector2[0] - vector1[0]*vector2[2],
 				vector1[0]*vector2[1] - vector1[1]*vector2[0]};
+		
+		return divideByNorm(res);
 	}
 	
+	/**
+	 * Returns the vector given vector (double[3]) in parameter by it's norm.
+	 * @param double[3] vector
+	 * @return double[] the vector coordinates divided by it's norm
+	 */
+	public double[] divideByNorm(double[] vector) {
+		if(vector.length!=MAX_AXIS) throw new InvalidParameterException();
+		double[] res = {vector[0],vector[1],vector[2]};
+		double norm = getNorm(res);
+		for(int axis=0;axis<MAX_AXIS;axis++) {
+			res[axis] = vector[axis]/norm;
+		}
+		return vector;
+	}
+
 	/**
 	 * Using two points, returns the vector of the given points.<br>
 	 * Moreover, this function requires firstly the index of the face where the two points are stored and secondly the indexes of those points.
@@ -291,9 +324,8 @@ public class Model {
 	 * @return double[3] the vector of the two points
 	 */
 	public double[] determineVector(int idxFace, int idxPointA, int idxPointB) {
-		final short MAX_AXIS=3;
 		if(idxFace>FACES[0].length || idxPointA>MAX_AXIS || idxPointB>MAX_AXIS) throw new InvalidParameterException();
-		return new double[] {points[0][FACES[idxPointB][idxFace]]-points[0][FACES[idxPointA][idxFace]],
+		return new double[]{points[0][FACES[idxPointB][idxFace]]-points[0][FACES[idxPointA][idxFace]],
 				points[1][FACES[idxPointB][idxFace]]-points[1][FACES[idxPointA][idxFace]],
 				points[2][FACES[idxPointB][idxFace]]-points[2][FACES[idxPointA][idxFace]]};
 	}

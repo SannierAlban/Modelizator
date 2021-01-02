@@ -17,7 +17,7 @@ class ModelLightsTest {
 	 */
 	@Test
 	void norm() {
-		Model model = instantiateModel("exemples/de34.ply");
+		Model model = instantiateModel("exemples/de34.ply",false);
 		assertTrue(model.hasColor());
 		assertEquals(Math.sqrt(10), model.getNorm(new double[] {0,1,3}));
 		assertEquals(Math.sqrt(10), model.getNorm(new double[] {0,-1,-3}));
@@ -35,27 +35,40 @@ class ModelLightsTest {
 	 */
 	@Test
 	void vectorCreator() {
-		Model model = instantiateModel("exemples/de34.ply");
-		System.out.println(model.toStringPoint(model.FACES[0][0]));
-		System.out.println(model.toStringPoint(model.FACES[1][0]));
-		System.out.println(model.toStringPoint(model.FACES[2][0]));
-		assertArrayEquals(new double[] {0.1,0.1,0.1},model.determineVector(0, 0, 1));
+		Model model = instantiateModel("exemples/de34.ply",false);
+		pointEqualsApprox(new double[] {0.0,0.0,4.0},model.determineVector(0, 0, 1),0.1);
 	}
 	
 	/**
 	 * Refrator of recurrent lines, basically verifies if the String (a path) points towards an existing file
 	 * @param filepath
+	 * @param boolean if true the Model will have all his coordinates inverted
 	 * @return Model
 	 */
-	private Model instantiateModel(String filepath) {
+	private Model instantiateModel(String filepath,boolean invert) {
 		Model model = null;
 		try {
-			 model = new Model(new File(filepath));
+			 model = new Model(new File(filepath),invert);
 		}catch(Exception e) {
 			fail("unable to instantiate model, please verify "+filepath+" exists");
 			System.exit(1);
 		}
 		//System.out.println(model.toStringPoint(1));
 		return model;
+	}
+	
+	
+	protected boolean pointEqualsApprox(double[] point1, double[] point2, double offset) {
+		for(int axis = 0; axis < 3; axis++) {
+			if(!(point1[axis]<=point2[axis]+offset && 
+					point1[axis]>=point2[axis]-offset)) {
+				System.out.println("Values not equals !\nCause : "+toStringPoint(point1)+" different of "+toStringPoint(point2));
+				return false;
+			}
+		}
+		return true;
+	}
+	protected String toStringPoint(double[] point) {
+		return "[Point "+String.format("X : %.3f / Y : %.3f / Z : %.3f",point[0],point[1],point[2])+"]";
 	}
 }
