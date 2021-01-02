@@ -7,6 +7,11 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * A JUnit test class which deals with all the functions related to light calculation.
+ * @author CALOT Lohan, 2nd-year student at the IT dpt of Lille's IUT-A
+ *
+ */
 class ModelLightsTest {
 	
 	/**
@@ -15,7 +20,34 @@ class ModelLightsTest {
 	 */
 	@Test
 	void norm() {
-		String filepath = "exemples/de34.ply";
+		Model model = instantiateModel("exemples/de34.ply");
+		assertTrue(model.hasColor());
+		assertEquals(Math.sqrt(10), model.getNorm(new double[] {0,1,3}));
+		assertEquals(Math.sqrt(10), model.getNorm(new double[] {0,-1,-3}));
+		assertEquals(Math.sqrt(61), model.getNorm(new double[] {4,6,-3}));
+	}
+
+	@Test
+	void normalVector() {
+		
+	}
+	
+	/**
+	 * Some tests about norm vector calculations using Model.determineVector(int,int,int) function 
+	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY IF THE FILE EXISTS
+	 */
+	@Test
+	void vectorCreator() {
+		Model model = instantiateModel("exemples/de34.ply");
+		assertArrayEquals(new double[] {0.1,0.1,0.1},model.determineVector(0, 0, 1));
+	}
+	
+	/**
+	 * Refrator of recurrent lines, basically verifies if the String (a path) points towards an existing file
+	 * @param filepath
+	 * @return Model
+	 */
+	private Model instantiateModel(String filepath) {
 		Model model = null;
 		try {
 			 model = new Model(new File(filepath));
@@ -23,8 +55,6 @@ class ModelLightsTest {
 			fail("unable to instantiate model, please verify "+filepath+" exists");
 			System.exit(1);
 		}
-		assertTrue(model.hasColor());
-		//more tests will come soon
+		return model;
 	}
-
 }

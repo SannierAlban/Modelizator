@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.security.InvalidParameterException;
 
 public class Model {
-
+	
 	private int vertex;
 	private int nbFaces;
 	public double[][] points;
@@ -101,7 +101,7 @@ public class Model {
 	}
 	
 	public boolean hasColor() {
-		return rgbSurPoints;
+		return color;
 	}
 	
 	public boolean hasAlpha() {
@@ -275,11 +275,27 @@ public class Model {
 	 * @return double[3] the normal vector
 	 */
 	public double[] getNormalVector(int idxFace) {
-		double[] vector1 = getPoint(FACES[0][idxFace]);
-		double[] vector2 = getPoint(FACES[1][idxFace]);
+		double[] vector1 = determineVector(idxFace, 0, 1);
+		double[] vector2 = determineVector(idxFace, 0, 2);
 		return new double[] {vector1[1]*vector2[2] - vector1[2]*vector2[1],
 				vector1[2]*vector2[0] - vector1[0]*vector2[2],
 				vector1[0]*vector2[1] - vector1[1]*vector2[0]};
+	}
+	
+	/**
+	 * Using two points, returns the vector of the given points.<br>
+	 * Moreover, this function requires first the index of the face where the two points are stored next the indexes of those points.
+	 * @param idxFace int the index of the face stored in FACES array
+	 * @param idxPointA int the index of the first point stored in points array 
+	 * @param idxPointB int the index of the second point stored in points array
+	 * @return double[3] the vector of the two points
+	 */
+	public double[] determineVector(int idxFace, int idxPointA, int idxPointB) {
+		final short maxAxis=3;
+		if(idxFace>FACES[0].length || idxPointA>maxAxis || idxPointB>maxAxis) throw new InvalidParameterException();
+		return new double[] {points[0][FACES[idxPointB][idxFace]]-points[0][FACES[idxPointA][idxFace]],
+				points[1][FACES[idxPointB][idxFace]]-points[1][FACES[idxPointA][idxFace]],
+				points[2][FACES[idxPointB][idxFace]]-points[2][FACES[idxPointA][idxFace]]};
 	}
 
 	/**
