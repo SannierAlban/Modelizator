@@ -1,10 +1,7 @@
 package fr.m3105.projetmode.model;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.File;
-import java.io.IOException;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,7 +13,7 @@ class ModelLightsTest {
 	
 	/**
 	 * Some tests about norm calculations using Model.getNorm(double[]) function 
-	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY IF THE FILE EXISTS
+	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY THE FILE EXISTS
 	 */
 	@Test
 	void norm() {
@@ -34,11 +31,14 @@ class ModelLightsTest {
 	
 	/**
 	 * Some tests about norm vector calculations using Model.determineVector(int,int,int) function 
-	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY IF THE FILE EXISTS
+	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY THE FILE EXISTS
 	 */
 	@Test
 	void vectorCreator() {
 		Model model = instantiateModel("exemples/de34.ply");
+		System.out.println(model.toStringPoint(model.FACES[0][0]));
+		System.out.println(model.toStringPoint(model.FACES[1][0]));
+		System.out.println(model.toStringPoint(model.FACES[2][0]));
 		assertArrayEquals(new double[] {0.1,0.1,0.1},model.determineVector(0, 0, 1));
 	}
 	
@@ -51,10 +51,11 @@ class ModelLightsTest {
 		Model model = null;
 		try {
 			 model = new Model(new File(filepath));
-		}catch(IOException e) {
+		}catch(Exception e) {
 			fail("unable to instantiate model, please verify "+filepath+" exists");
 			System.exit(1);
 		}
+		//System.out.println(model.toStringPoint(1));
 		return model;
 	}
 }

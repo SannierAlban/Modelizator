@@ -22,7 +22,7 @@ public class Model {
 	private boolean rgbSurPoints;
 
 	//basic constructor
-	public Model(File f) throws IOException{
+	public Model(File f){
 		Parser parser = new Parser(f.getPath());
 		vertex = parser.getVertex();
 		nbFaces = parser.getNbFaces();
@@ -34,8 +34,8 @@ public class Model {
 		color = parser.isColor();
 		alpha = parser.isAlpha();
 		rgbSurPoints = parser.isRgbSurPoints();
-		int tempLenght = this.points[0].length;
-		for(int i = 0;i<tempLenght;i++){
+		int tempLength = this.points[0].length;
+		for(int i = 0;i<tempLength;i++){
 			points[0][i] *= -1;
 			points[1][i] *= -1;
 			points[2][i] *= -1;
@@ -284,15 +284,15 @@ public class Model {
 	
 	/**
 	 * Using two points, returns the vector of the given points.<br>
-	 * Moreover, this function requires first the index of the face where the two points are stored next the indexes of those points.
+	 * Moreover, this function requires firstly the index of the face where the two points are stored and secondly the indexes of those points.
 	 * @param idxFace int the index of the face stored in FACES array
 	 * @param idxPointA int the index of the first point stored in points array 
 	 * @param idxPointB int the index of the second point stored in points array
 	 * @return double[3] the vector of the two points
 	 */
 	public double[] determineVector(int idxFace, int idxPointA, int idxPointB) {
-		final short maxAxis=3;
-		if(idxFace>FACES[0].length || idxPointA>maxAxis || idxPointB>maxAxis) throw new InvalidParameterException();
+		final short MAX_AXIS=3;
+		if(idxFace>FACES[0].length || idxPointA>MAX_AXIS || idxPointB>MAX_AXIS) throw new InvalidParameterException();
 		return new double[] {points[0][FACES[idxPointB][idxFace]]-points[0][FACES[idxPointA][idxFace]],
 				points[1][FACES[idxPointB][idxFace]]-points[1][FACES[idxPointA][idxFace]],
 				points[2][FACES[idxPointB][idxFace]]-points[2][FACES[idxPointA][idxFace]]};
