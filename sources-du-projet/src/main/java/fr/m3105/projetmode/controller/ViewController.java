@@ -8,6 +8,7 @@ import fr.m3105.projetmode.Views.View;
 import fr.m3105.projetmode.model.Model;
 import fr.m3105.projetmode.model.utils.ConnectableProperty;
 import fr.m3105.projetmode.model.utils.Subject;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -20,7 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -72,6 +72,7 @@ public abstract class ViewController extends ConnectableProperty implements Init
         this.setValue(new Model(f));
         ((Model) this.getValue()).zoom(5);
         //((Model) this.getValue()).translate(new Vector(mainCanvas.getWidth()/2-((Model) this.getValue()).getCenter().x,mainCanvas.getHeight()/2-((Model) this.getValue()).getCenter().y,0));
+        ((Model) this.getValue()).translate(new double[] {mainCanvas.getWidth()/2-((Model) this.getValue()).getCenter()[0],mainCanvas.getHeight()/2-((Model) this.getValue()).getCenter()[1],0});
         draw();
     }
 
@@ -182,15 +183,15 @@ public abstract class ViewController extends ConnectableProperty implements Init
                     this.notifyObservers(this.getValue());
                     draw();
                 }
-
-            }finally {
-
+            }catch (Exception e){
+                daemonThread.interrupt();
             }
         });
         daemonThread.setDaemon(true);
         daemonThread.start();
 
     }
+
 
 //    public int[][] sortFace(int[][] faces){
 //        List<Face> tempList = new ArrayList<>(faces);
