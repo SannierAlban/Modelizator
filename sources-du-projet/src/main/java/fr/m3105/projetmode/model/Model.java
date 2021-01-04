@@ -2,12 +2,14 @@ package fr.m3105.projetmode.model;
 
 import java.io.File;
 
+import fr.m3105.projetmode.model.utils.MultiThreadTranslate;
+
 public class Model {
 
 	private int vertex;
 	private int nbFaces;
 	public double[][] points;
-
+	private int nbDePoints;
 	//(with n an int superior to 0 and v an int between 0 and 6)
 	//Basically, this array contains n FACES and n*v points, therefore each column contains v references to its respectful points located in the points array.
 	//Because this 2d array only contains FACES and references to points, the values of this array doesn't need to be changed
@@ -26,6 +28,7 @@ public class Model {
 		nbFaces = parser.getNbFaces();
 		
 		points = parser.getPoints();
+		nbDePoints = points[0].length;
 		FACES = parser.getFaces();
 		rgbAlpha = parser.getRgbAlpha();
 		
@@ -148,7 +151,21 @@ public class Model {
 			}
 		}
 	}
-
+	
+	public void translateMultiThread(double[] vector) {
+		MultiThreadTranslate[] multiThread = new MultiThreadTranslate[3];
+		for(int i = 0; i < 3; i++) {
+			multiThread[i] = new MultiThreadTranslate(points[i], vector[i], nbDePoints);
+			multiThread[i].start();
+		}
+		for(int i = 0; i < 3; i++) {
+			try {
+				multiThread[i].join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * Increases or decreases the size of the Model (param superior to 0 and inferior to 1 = zoom out, param superior to 1 (excluded) = zoom in)<br>
