@@ -8,13 +8,13 @@ import java.io.IOException;
 
 public class MainStage extends View {
 
-    public MainStage(File f) throws IOException {
-        file = f;
+    public MainStage(File file) throws IOException {
+        this.file = file;
         loader = newLoader();
         controllerInitializer();
         Parent root = loader.load();
         controller.setStage(this);
-        this.setTitle("Main frame : " + f.getName());
+        this.setTitle("Main frame : " + file.getName());
         this.setScene(new Scene(root));
         this.show();
     }

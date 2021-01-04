@@ -20,8 +20,8 @@ public class Model {
 	private boolean rgbSurPoints;
 
 	//basic constructor
-	public Model(File f) {
-		Parser parser = new Parser(f.getPath());
+	public Model(File file) {
+		Parser parser = new Parser(file.getPath());
 		vertex = parser.getVertex();
 		nbFaces = parser.getNbFaces();
 		
@@ -39,7 +39,7 @@ public class Model {
 			points[2][i] *= -1;
 		}
 	}
-	
+
 	/**
 	 * DO NOT USE : FOR TEST PURPOSES WITHOUT USE OF THE FACES
 	 * @param points
@@ -231,5 +231,21 @@ public class Model {
 	 */
 	public String toStringPoint(int idxPoint) {
 		return "[Point "+idxPoint+" "+String.format("X : %.3f / Y : %.3f / Z : %.3f",points[0][idxPoint],points[1][idxPoint],points[2][idxPoint])+"]";
+	}
+
+	public int[][] getRgbAlpha() {
+		return rgbAlpha;
+	}
+
+	public boolean isColor() {
+		return color;
+	}
+
+	public boolean isAlpha() {
+		return alpha;
+	}
+
+	public boolean isRgbSurPoints() {
+		return rgbSurPoints;
 	}
 }

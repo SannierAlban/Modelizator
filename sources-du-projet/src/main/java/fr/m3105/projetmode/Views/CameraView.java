@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class CameraView extends View {
 
-    public CameraView(File f) throws IOException {
-        this.file = f;
+    public CameraView(File file) throws IOException {
+        this.file = file;
         loader = newLoader();
         controllerInitializer();
         Parent root = loader.load();

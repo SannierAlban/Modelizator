@@ -8,7 +8,6 @@ import fr.m3105.projetmode.Views.View;
 import fr.m3105.projetmode.model.Model;
 import fr.m3105.projetmode.model.utils.ConnectableProperty;
 import fr.m3105.projetmode.model.utils.Subject;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -20,9 +19,7 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public abstract class ViewController extends ConnectableProperty implements Initializable {
     @FXML
@@ -44,8 +41,8 @@ public abstract class ViewController extends ConnectableProperty implements Init
     @FXML
     protected Canvas secondCanvas;
 
-    protected GraphicsContext gc;
-    protected File f;
+    protected GraphicsContext graphicsContext;
+    protected File file;
     protected View stage;
     protected boolean isPlaying = false;
     protected Thread daemonThread;
@@ -56,20 +53,20 @@ public abstract class ViewController extends ConnectableProperty implements Init
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-                MainStage tmpstage = (MainStage) stage;
+                //MainStage tmpstage = (MainStage) stage;
                 coupeSlider.setVisible(false);
                 pauseButton.setVisible(false);
         }catch (Exception e){
 
         }
-        gc = mainCanvas.getGraphicsContext2D();
-        gc.setFill(Color.BLUE);
+        graphicsContext = mainCanvas.getGraphicsContext2D();
+        graphicsContext.setFill(Color.BLUE);
     }
 
     public void setStage(View stage){
         this.stage =stage;
-        f = this.stage.getFile();
-        this.setValue(new Model(f));
+        file = this.stage.getFile();
+        this.setValue(new Model(file));
         ((Model) this.getValue()).zoom(5);
         //((Model) this.getValue()).translate(new Vector(mainCanvas.getWidth()/2-((Model) this.getValue()).getCenter().x,mainCanvas.getHeight()/2-((Model) this.getValue()).getCenter().y,0));
         ((Model) this.getValue()).translate(new double[] {mainCanvas.getWidth()/2-((Model) this.getValue()).getCenter()[0],mainCanvas.getHeight()/2-((Model) this.getValue()).getCenter()[1],0});
@@ -192,18 +189,28 @@ public abstract class ViewController extends ConnectableProperty implements Init
 
     }
 
+    public int[][] sortFace(int[][] faces){
+        int[][] tmpFaces = faces.clone();
 
-//    public int[][] sortFace(int[][] faces){
-//        List<Face> tempList = new ArrayList<>(faces);
-//        Collections.sort(tempList);
-//        return tempList;
-//    }
+        Arrays.sort(tmpFaces, (o1, o2) -> {
+            double moyenne1 = ((Model) this.getValue()).getPoint(o1[0])[2]+((Model) this.getValue()).getPoint(o1[1])[2]+((Model) this.getValue()).getPoint(o1[2])[2];
+            double moyenne2 = ((Model) this.getValue()).getPoint(o2[0])[2]+((Model) this.getValue()).getPoint(o2[1])[2]+((Model) this.getValue()).getPoint(o2[2])[2];
+            moyenne1 = moyenne1/3;
+            moyenne2 = moyenne2/3;
+
+            if (moyenne1 == moyenne2)
+                return 0;
+            if(moyenne1 > moyenne2){
+                return 1;
+            }
+            return -1;
+        });
+        return tmpFaces;
+    }
 
     public void deuxScene() throws IOException {
-        //mainPane.setPrefWidth(mainPane.getWidth()/2);
-        //mainCanvas.setWidth(mainCanvas.getWidth()/2);
         Model model = (Model) this.getValue();
-        View cameraView = new CameraView(this.f);
+        View cameraView = new CameraView(this.file);
         views.add(cameraView);
         this.attach(cameraView.getController());
         cameraView.getController().setValue(model);

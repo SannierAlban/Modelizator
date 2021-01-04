@@ -23,12 +23,12 @@ public class OpenFileController implements Initializable {
     private ListView<HBox> listView;
 
     public void fileChooser() throws IOException {
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PLY file","*.ply"));
-        File f = fc.showOpenDialog(null);
-        if (f != null){
-            System.out.println(f.getAbsolutePath());
-            new MainStage(f);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PLY file","*.ply"));
+        File temFile = fileChooser.showOpenDialog(null);
+        if (temFile != null){
+            System.out.println(temFile.getAbsolutePath());
+            new MainStage(temFile);
         }
     }
 

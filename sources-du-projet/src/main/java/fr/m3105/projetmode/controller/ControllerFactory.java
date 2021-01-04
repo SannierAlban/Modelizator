@@ -3,15 +3,15 @@ package fr.m3105.projetmode.controller;
 public class ControllerFactory {
     /**
      * This factory create a scecified ViewController
-     * @param s : type of controller you want
+     * @param controllerName : type of controller you want
      * @return the specified controller, by default it's a fillfaceController
      */
-    public ViewController create(String s){
-        if (s.equals("face")){
+    public ViewController create(String controllerName){
+        if (controllerName.equals("face")){
             return new FillFaceController();
-        }else if(s.equals("point")){
+        }else if(controllerName.equals("point")){
             return new PointController();
-        }else if(s.equals("segment")){
+        }else if(controllerName.equals("segment")){
             return new SegmentController();
         }else{
             return null;

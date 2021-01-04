@@ -19,13 +19,13 @@ public abstract class View extends Stage {
         return loader.getController();
     }
 
-    public void setController(ViewController vc, Model m) throws IOException {
+    public void setController(ViewController viewController, Model model) throws IOException {
         loader = newLoader();
-        loader.setController(vc);
+        loader.setController(viewController);
         Parent root = loader.load();
-        vc.setStage(this);
-        vc.setValue(m);
-        vc.draw();
+        viewController.setStage(this);
+        viewController.setValue(model);
+        viewController.draw();
         this.setScene(new Scene(root));
     }
 
