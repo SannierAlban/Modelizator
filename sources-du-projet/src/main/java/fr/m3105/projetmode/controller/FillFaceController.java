@@ -3,8 +3,6 @@ package fr.m3105.projetmode.controller;
 import fr.m3105.projetmode.model.Model;
 import javafx.scene.paint.Color;
 
-import java.util.Arrays;
-
 public class FillFaceController extends ViewController {
     @Override
     public void draw() {

@@ -3,7 +3,6 @@ package fr.m3105.projetmode.controller;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
 import fr.m3105.projetmode.Views.CameraView;
-import fr.m3105.projetmode.Views.MainStage;
 import fr.m3105.projetmode.Views.View;
 import fr.m3105.projetmode.model.Model;
 import fr.m3105.projetmode.model.utils.ConnectableProperty;
@@ -238,11 +237,11 @@ public abstract class ViewController extends ConnectableProperty implements Init
         draw();
     }
     public void drawSegment() throws IOException {
-        stage.setController((new ControllerFactory()).create("segment"),(Model)this.getValue());
+        stage.setController((new ControllerFactory()).create("segment"),((Model) this.getValue()));
         stage.getController().setViews(views);
         for (View view: views){
             this.detach(view.getController());
-            view.setController((new ControllerFactory()).create("segment"),(Model)this.getValue());
+            view.setController((new ControllerFactory()).create("segment"),((Model)this.getValue()));
             stage.getController().attach(view.getController());
         }
         draw();
