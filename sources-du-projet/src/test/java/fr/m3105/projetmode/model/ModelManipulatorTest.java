@@ -4,6 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * A JUnit test class which deals with all the functions related to Model manipulation. <br>
+ * More precisely, it concerns all the functions which help the user move, zoom and rotate the model.
+ * @author CALOT Lohan, 2nd-year student at the IT dpt of Lille's IUT-A
+ *
+ */
 class ModelManipulatorTest {
 	
 	//basic pyramid
