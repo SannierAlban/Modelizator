@@ -7,9 +7,8 @@ public class FillFaceController extends ViewController {
     @Override
     public void draw() {
         Model model = ((Model) this.getValue());
-        int tabLenght = sortFace(model.getFaces())[0].length;
+        int tabLenght = model.getFaces()[0].length;
         int[][] tempFace = sortFace(model.getFaces());
-
         graphicsContext.clearRect(0, 0, graphicsContext.getCanvas().getWidth(), graphicsContext.getCanvas().getHeight());
         for (int k = 0; k < tabLenght; k++) {
             if (model.isColor() && !model.isRgbSurPoints()){
@@ -20,7 +19,7 @@ public class FillFaceController extends ViewController {
             graphicsContext.fillPolygon(x, y, 3);
         }
 
-        for (int i = 0; i < model.getFaces().length; i++) {
+        /*for (int i = 0; i < model.getFaces().length; i++) {
             for (int j = 0; j < model.getFaces()[i].length; j++)
                 System.out.print(model.getFaces()[i][j] + " ");
             System.out.println();
@@ -30,7 +29,7 @@ public class FillFaceController extends ViewController {
             for (int j = 0; j < sortFace(model.getFaces())[i].length; j++)
                 System.out.print(sortFace(model.getFaces())[i][j] + " ");
             System.out.println();
-        }
+        }*/
     }
 }
 /*

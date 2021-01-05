@@ -112,6 +112,15 @@ public class Model {
         if(idxFace<points[0].length) return new int[] {FACES[0][idxFace],FACES[1][idxFace],FACES[2][idxFace]};
         else throw new ArrayIndexOutOfBoundsException();
     }
+    
+    public void swapRgbAlpha(int idxA, int idxB){
+    	final int colLength = rgbAlpha.length;
+    	for(int idx=0;idx<colLength;idx++) {
+    		int tmp = rgbAlpha[idx][idxA];
+    		rgbAlpha[idx][idxA] = rgbAlpha[idx][idxB];
+    		rgbAlpha[idx][idxB] = tmp;
+    	}
+    }
 
     public int[][] getFaces() {
         return FACES;
