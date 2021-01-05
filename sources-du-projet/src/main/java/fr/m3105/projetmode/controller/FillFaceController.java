@@ -18,7 +18,6 @@ public class FillFaceController extends ViewController {
             double[] y = new double[]{model.getPoint(tempFace[0][k])[1], model.getPoint(tempFace[1][k])[1], model.getPoint(tempFace[2][k])[1]};
             graphicsContext.fillPolygon(x, y, 3);
         }
-
         /*for (int i = 0; i < model.getFaces().length; i++) {
             for (int j = 0; j < model.getFaces()[i].length; j++)
                 System.out.print(model.getFaces()[i][j] + " ");
