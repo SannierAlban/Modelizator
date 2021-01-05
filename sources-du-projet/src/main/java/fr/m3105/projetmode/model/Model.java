@@ -178,12 +178,25 @@ public class Model {
     }
 
     public void translateMultiThread(double[] vector) {
-        MultiThreadTranslate[] multiThread = new MultiThreadTranslate[3];
-        for(int i = 0; i < 3; i++) {
-            multiThread[i] = new MultiThreadTranslate(points[i], vector[i], nbDePoints);
+    	int nbProco = Runtime.getRuntime().availableProcessors();
+    	
+        MultiThreadTranslate[] multiThread = new MultiThreadTranslate[nbProco];
+        int segment = nbDePoints / nbProco;
+        int start = 0;
+        int end;
+        for(int i = 0; i < nbProco; i++) {
+        	
+        	if(i == nbProco - 1)
+        		end = nbDePoints;
+        	else
+        		end = segment * (i+1);
+        	
+            multiThread[i] = new MultiThreadTranslate(points, vector, start, end);
             multiThread[i].start();
+            
+            start = end;
         }
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i <nbProco; i++) {
             try {
                 multiThread[i].join();
             } catch (InterruptedException e) {
@@ -283,11 +296,11 @@ public class Model {
                 rgbAlpha[0][idxFace]*=gamma;
                 rgbAlpha[1][idxFace]*=gamma;
                 rgbAlpha[2][idxFace]*=gamma;
-                System.out.println("Using normal vector "+normalVector[0]+", "+normalVector[1]+", "+normalVector[2]+
-                        "\nWith norm of L (light) : "+normSource+", and norm of N : "+normNormal+
-                        "\nApplying "+gamma+" to face "+idxFace);
+//                System.out.println("Using normal vector "+normalVector[0]+", "+normalVector[1]+", "+normalVector[2]+
+//                        "\nWith norm of L (light) : "+normSource+", and norm of N : "+normNormal+
+//                        "\nApplying "+gamma+" to face "+idxFace);
             }
-            System.out.println();
+//            System.out.println();
         }else {
             System.out.println("ERROR : THERE IS NO RGB ON THIS MODEL");
         }

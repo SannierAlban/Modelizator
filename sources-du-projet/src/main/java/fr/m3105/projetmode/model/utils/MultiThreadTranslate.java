@@ -2,21 +2,25 @@ package fr.m3105.projetmode.model.utils;
 
 public class MultiThreadTranslate extends Thread{
 	
-	private double[] x;
-	double transX;
-	int len;
+	private double[][] tab;
+	double[] vector;
+	int start;
+	int end;
 	
-	public MultiThreadTranslate(double[] xOuYOuZ, double transXOuYOuZ, int lenght) {
-		this.x = xOuYOuZ;
-		this.transX = transXOuYOuZ;
-		this.len = lenght;
+	public MultiThreadTranslate(double[][] tab, double[] vec, int start, int end) {
+		this.tab = tab;
+		this.vector = vec;
+		this.start = start;
+		this.end = end;
 	}
 
 	@Override
 	public void run() {
-		int idx = 0;
-		for (int i = 0; i < len; i++) {
-			x[idx] += transX;
+		while(start < end) {
+			tab[0][start] += vector[0];
+			tab[1][start] += vector[1];
+			tab[2][start] += vector[2];
+			start++;
 		}
 	}
 	

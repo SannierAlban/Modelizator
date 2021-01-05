@@ -20,17 +20,17 @@ public class FillFaceController extends ViewController {
             graphicsContext.fillPolygon(x, y, 3);
         }
 
-        for (int i = 0; i < model.getFaces().length; i++) {
-            for (int j = 0; j < model.getFaces()[i].length; j++)
-                System.out.print(model.getFaces()[i][j] + " ");
-            System.out.println();
-        }
-        System.out.println();
-        for (int i = 0; i < sortFace(model.getFaces()).length; i++) {
-            for (int j = 0; j < sortFace(model.getFaces())[i].length; j++)
-                System.out.print(sortFace(model.getFaces())[i][j] + " ");
-            System.out.println();
-        }
+//        for (int i = 0; i < model.getFaces().length; i++) {
+//            for (int j = 0; j < model.getFaces()[i].length; j++)
+//                System.out.print(model.getFaces()[i][j] + " ");
+//            System.out.println();
+//        }
+//        System.out.println();
+//        for (int i = 0; i < sortFace(model.getFaces()).length; i++) {
+//            for (int j = 0; j < sortFace(model.getFaces())[i].length; j++)
+//                System.out.print(sortFace(model.getFaces())[i][j] + " ");
+//            System.out.println();
+//        }
     }
 }
 /*
