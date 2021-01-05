@@ -37,7 +37,7 @@ public class Model {
      * @param invert if true, all coordinates will be inverted <b>only useful for test purposes</b>
      */
     public Model(File f, boolean invert){
-        Parser parser = new Parser(f.getPath());
+        Parser parser = new Parser(f.getPath(), false);
         vertex = parser.getVertex();
         nbFaces = parser.getNbFaces();
 

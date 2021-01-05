@@ -23,7 +23,7 @@ public class Parser {
 	
 	BufferedReader reader;
 	
-	public Parser(String path) {
+	public Parser(String path,boolean onlyHeader) {
 		try {
 			ligneEnCour = 0;
 			reader = new BufferedReader(new FileReader(path));
@@ -31,11 +31,13 @@ public class Parser {
 			readTwoFirstLineHeader();
 			readFlexibleHeader();
 			
-			points = new double [3][vertex];
-			faces = new int [3][nbFaces];
-			
-			readPoints();
-			readFaces();
+			if(!onlyHeader) {
+				points = new double [3][vertex];
+				faces = new int [3][nbFaces];
+				
+				readPoints();
+				readFaces();
+			}
 		}
 		catch (IOException e) {
 			System.out.println("parser 1"+e.getMessage());
