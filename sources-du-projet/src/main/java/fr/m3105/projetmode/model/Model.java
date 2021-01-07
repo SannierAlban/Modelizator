@@ -17,6 +17,7 @@ public class Model {
     public final int[][] FACES;
 
     private int[][] rgbAlpha;
+    private int[][] baseRGB;
 
     private boolean color;
     private boolean alpha;
@@ -55,6 +56,14 @@ public class Model {
                 points[1][i] *= -1;
                 points[2][i] *= -1;
             }
+        }
+        if(color) {
+        	baseRGB = new int[rgbAlpha.length][rgbAlpha[0].length];
+        	for(int idx=0;idx<rgbAlpha[0].length;idx++) {
+        		for(int idxColor=0;idxColor<3;idxColor++) {
+        			baseRGB[idxColor][idx] = rgbAlpha[idxColor][idx];
+        		}
+        	}
         }
     }
 
@@ -288,7 +297,7 @@ public class Model {
             //System.out.println(
             //		"TRANSFORMATION : New coords of Point "+idxPoint+" : coords "+toStringPoint(idxPoint)+" INTO  "+String.format("X : %.3f / Y : %.3f / Z : %.3f",tmpCoords[0],tmpCoords[1],tmpCoords[2]));
             setPoint(idxPoint,new double[]{tmpCoords[0],tmpCoords[1],tmpCoords[2]});
-            //applyLights(new double[] {10,10,-10});
+            if(color) applyLights(new double[] {0.577,0.577,-0.577});
         }
     }
     /**
@@ -299,21 +308,17 @@ public class Model {
         if(lightSourcePoint.length!=MAX_AXIS) throw new InvalidParameterException();
         if(color) {
             lightSourcePoint = divideByNorm(lightSourcePoint);
-            double normSource = getNorm(lightSourcePoint);
             for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
                 double[] normalVector = getNormalUnitVector(idxFace);
-                double normNormal = getNorm(normalVector);
                 double gamma = 0.0;
                 for(int axis = 0;axis<MAX_AXIS;axis++) gamma+=normalVector[axis]*lightSourcePoint[axis];
-                //double gamma = 0.5*(Math.pow(normSource,2)+Math.pow(normNormal,2)-Math.pow((normSource+normNormal),2));
-                rgbAlpha[0][idxFace]*=gamma;
-                rgbAlpha[1][idxFace]*=gamma;
-                rgbAlpha[2][idxFace]*=gamma;
-                System.out.println("Using normal vector "+normalVector[0]+", "+normalVector[1]+", "+normalVector[2]+
-                        "\nWith norm of L (light) : "+normSource+", and norm of N : "+normNormal+
-                        "\nApplying "+gamma+" to face "+idxFace);
+                if(gamma<0) gamma*=-1;
+                rgbAlpha[0][idxFace]=(int) (baseRGB[0][idxFace]*gamma);
+                rgbAlpha[1][idxFace]=(int) (baseRGB[1][idxFace]*gamma);
+                rgbAlpha[2][idxFace]=(int) (baseRGB[2][idxFace]*gamma);
+                System.out.println("Applying "+gamma+" to face "+idxFace+
+                		"\nnew values are R : "+rgbAlpha[0][idxFace]+", G:"+rgbAlpha[1][idxFace]+", B:"+rgbAlpha[2][idxFace]);
             }
-            System.out.println();
         }else {
             System.out.println("ERROR : THERE IS NO RGB ON THIS MODEL");
         }
@@ -356,7 +361,7 @@ public class Model {
         for(int axis=0;axis<MAX_AXIS;axis++) {
             res[axis] = vector[axis]/norm;
         }
-        return vector;
+        return res;
     }
 
     /**

@@ -27,7 +27,8 @@ class ModelLightsTest {
 
 	@Test
 	void normalVector() {
-		
+		pointEqualsApprox(new double[] {-16.0,0.0,0.0}, model_de34.getNormalUnitVector(0), 0.1);
+		pointEqualsApprox(new double[] {8.5,0.0,0.0}, model_de34.getNormalUnitVector(3), 0.1);
 	}
 	
 	/**
