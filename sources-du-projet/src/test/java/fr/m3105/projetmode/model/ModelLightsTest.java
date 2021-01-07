@@ -11,17 +11,18 @@ import org.junit.jupiter.api.Test;
  */
 class ModelLightsTest {
 	
+	Model model_de34 = instantiateModel("exemples/de34.ply",false);
+	
 	/**
 	 * Some tests about norm calculations using Model.getNorm(double[]) function 
-	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY THE FILE EXISTS
+	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY THE FILE EXISTS</b>
 	 */
 	@Test
 	void norm() {
-		Model model = instantiateModel("exemples/de34.ply",false);
-		assertTrue(model.hasColor());
-		assertEquals(Math.sqrt(10), model.getNorm(new double[] {0,1,3}));
-		assertEquals(Math.sqrt(10), model.getNorm(new double[] {0,-1,-3}));
-		assertEquals(Math.sqrt(61), model.getNorm(new double[] {4,6,-3}));
+		assertTrue(model_de34.hasColor());
+		assertEquals(Math.sqrt(10), model_de34.getNorm(new double[] {0,1,3}));
+		assertEquals(Math.sqrt(10), model_de34.getNorm(new double[] {0,-1,-3}));
+		assertEquals(Math.sqrt(61), model_de34.getNorm(new double[] {4,6,-3}));
 	}
 
 	@Test
@@ -31,12 +32,12 @@ class ModelLightsTest {
 	
 	/**
 	 * Some tests about norm vector calculations using Model.determineVector(int,int,int) function 
-	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY THE FILE EXISTS
+	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY THE FILE EXISTS</b>
 	 */
 	@Test
 	void vectorCreator() {
-		Model model = instantiateModel("exemples/de34.ply",false);
-		pointEqualsApprox(new double[] {0.0,0.0,4.0},model.determineVector(0, 0, 1),0.1);
+		pointEqualsApprox(new double[] {-4.0,0.0,-4.0},model_de34.determineVector(5, 2, 0),0.01);
+		pointEqualsApprox(new double[] {0.0,0.0,4.0},model_de34.determineVector(0, 0, 1),0.01);
 	}
 	
 	/**
