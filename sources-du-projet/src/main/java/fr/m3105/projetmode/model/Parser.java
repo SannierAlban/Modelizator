@@ -6,22 +6,28 @@ import java.io.IOException;
 
 import fr.m3105.projetmode.model.utils.ErreurFichierException;
 
+
 public class Parser {
 	
 	private int ligneEnCour;
 	
+	//number of points in the model
 	private int vertex;
 	private int nbFaces;
 	
+	//true if there's color in the file
 	private boolean color;
+	//true if there's alpha in the file
 	private boolean alpha;
+	//true if the colors are indexed to the dots
 	private boolean rgbSurPoints;
-	
+	//[0=x, 1=y, 2=z][0 - vertex]
 	private double[][] points;
 	private int[][] faces;
 	private int[][] rgbAlpha;
 	
 	BufferedReader reader;
+	
 	
 	public Parser(String path,boolean onlyHeader) {
 		try {

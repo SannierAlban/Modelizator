@@ -46,6 +46,7 @@ public abstract class ViewController extends ConnectableProperty implements Init
     protected boolean isPlaying = false;
     protected Thread daemonThread;
     protected List<View> views = new ArrayList<>();
+    boolean lightsOn = false;
 
     public abstract void draw();
 
@@ -129,6 +130,9 @@ public abstract class ViewController extends ConnectableProperty implements Init
     public void lightAction(){
         if (lightActivation.isSelected()){
             System.out.println("Activation des lumières");
+            lightsOn = true;
+        }else {
+        	lightsOn = false;
         }
     }
 
@@ -214,28 +218,30 @@ public abstract class ViewController extends ConnectableProperty implements Init
      * @return sorted array of faces
      */
     public int[][] sortFace(int[][] faces){
-    	int[][] tmpFaces = faces.clone();
-    	double[][] points = ((Model) this.getValue()).getPoints();
-    	int lengthRowFaces = faces[0].length;
-    	int lengthColFaces = faces.length;
-    	//trier les int[] (sous forme de colonnes) dans l'ordre croissant
-    	boolean sorted = false;
-    	do {
-    		sorted = true;
-	    	for(int idxFace=0; idxFace<lengthRowFaces-1; idxFace++) {
-	    		double sumA=0.0,sumB=0.0;
-	    		for(int idxPoint=0;idxPoint<lengthColFaces;idxPoint++) {
-	    			sumA+=points[2][tmpFaces[idxPoint][idxFace]];
-	    			sumB+=points[2][tmpFaces[idxPoint][idxFace+1]];
-	    		}
-	    		if(sumA/lengthColFaces>sumB/lengthColFaces) {
-	    			tmpFaces = swap(faces, idxFace, idxFace+1);
-	    			sorted = false;
-	    		}
-	    	}
-    	}while(!sorted);
-    	
-    	return tmpFaces;
+    	if(lightsOn) {
+	    	int[][] tmpFaces = faces.clone();
+	    	double[][] points = ((Model) this.getValue()).getPoints();
+	    	int lengthRowFaces = faces[0].length;
+	    	int lengthColFaces = faces.length;
+	    	//trier les int[] (sous forme de colonnes) dans l'ordre croissant
+	    	boolean sorted = false;
+	    	do {
+	    		sorted = true;
+		    	for(int idxFace=0; idxFace<lengthRowFaces-1; idxFace++) {
+		    		double sumA=0.0,sumB=0.0;
+		    		for(int idxPoint=0;idxPoint<lengthColFaces;idxPoint++) {
+		    			sumA+=points[2][tmpFaces[idxPoint][idxFace]];
+		    			sumB+=points[2][tmpFaces[idxPoint][idxFace+1]];
+		    		}
+		    		if(sumA/lengthColFaces>sumB/lengthColFaces) {
+		    			tmpFaces = swap(faces, idxFace, idxFace+1);
+		    			sorted = false;
+		    		}
+		    	}
+	    	}while(!sorted);
+	    	
+	    	return tmpFaces;
+    	}else return faces;
     }
     
     /**
