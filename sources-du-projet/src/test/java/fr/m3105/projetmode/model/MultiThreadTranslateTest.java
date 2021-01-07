@@ -10,7 +10,22 @@ import org.junit.jupiter.api.Test;
 class MultiThreadTranslateTest {
 	
 	@Test
-	void testSurCrane() {
+	void testSurCraneValide() {
+		Model crane1 = new Model(new File("exemples/crane.ply"));
+		Model crane2 = new Model(new File("exemples/crane.ply"));
+		
+		Random rand = new Random();
+		double[] vector = new double[] {rand.nextDouble(),rand.nextDouble(),rand.nextDouble()};
+		
+		crane1.translate(vector);
+		crane2.translate(vector);
+		
+		assertTrue(crane1.points.equals(crane1.points));
+	}
+	
+	
+	@Test
+	void testSurCraneTemps() {
 		long debut;
 		long fin;
 		

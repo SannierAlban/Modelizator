@@ -188,7 +188,75 @@ public abstract class ViewController extends ConnectableProperty implements Init
 
     }
 
-    public void deuxScene() throws IOException {
+
+    public int[][] sortFacePasTerribleDeFrancoisMaisBonIlYADesLambdasExpressions(int[][] faces){
+        int[][] tmpFaces = faces.clone();
+
+        Arrays.sort(tmpFaces, (o1, o2) -> {
+            double moyenne1 = ((Model) this.getValue()).getPoint(o1[0])[2]+((Model) this.getValue()).getPoint(o1[1])[2]+((Model) this.getValue()).getPoint(o1[2])[2];
+            double moyenne2 = ((Model) this.getValue()).getPoint(o2[0])[2]+((Model) this.getValue()).getPoint(o2[1])[2]+((Model) this.getValue()).getPoint(o2[2])[2];
+            moyenne1 = moyenne1/3;
+            moyenne2 = moyenne2/3;
+
+            if (moyenne1 == moyenne2)
+                return 0;
+            if(moyenne1 > moyenne2){
+                return 1;
+            }
+            return -1;
+        });
+        return tmpFaces;
+    }
+    
+    /**
+     * Returns a copy of the parameter sorted using bubblesort method
+     * @param faces
+     * @return sorted array of faces
+     */
+    public int[][] sortFace(int[][] faces){
+    	int[][] tmpFaces = faces.clone();
+    	double[][] points = ((Model) this.getValue()).getPoints();
+    	int lengthRowFaces = faces[0].length;
+    	int lengthColFaces = faces.length;
+    	//trier les int[] (sous forme de colonnes) dans l'ordre croissant
+    	boolean sorted = false;
+    	do {
+    		sorted = true;
+	    	for(int idxFace=0; idxFace<lengthRowFaces-1; idxFace++) {
+	    		double sumA=0.0,sumB=0.0;
+	    		for(int idxPoint=0;idxPoint<lengthColFaces;idxPoint++) {
+	    			sumA+=points[2][tmpFaces[idxPoint][idxFace]];
+	    			sumB+=points[2][tmpFaces[idxPoint][idxFace+1]];
+	    		}
+	    		if(sumA/lengthColFaces>sumB/lengthColFaces) {
+	    			tmpFaces = swap(faces, idxFace, idxFace+1);
+	    			sorted = false;
+	    		}
+	    	}
+    	}while(!sorted);
+    	
+    	return tmpFaces;
+    }
+    
+    /**
+     * Swaps two columns of the faces array 
+     * @param faces
+     * @param idxA
+     * @param idxB
+     * @return faces array with idxA and idxB swaped
+     */
+    private int[][] swap(int[][] faces,int idxA,int idxB){
+    	//JE SAIS JE RENVOIE LE PARAM, JE SAIS QUE C'EST PAS CLEAN CODE
+    	for(int axis=0;axis<3;axis++) {
+    		int tmp = faces[axis][idxA];
+    		faces[axis][idxA] = faces[axis][idxB];
+    		faces[axis][idxB] = tmp;
+    	}
+    	((Model) this.getValue()).swapRgbAlpha(idxA,idxB);
+    	return faces;
+    }
+	
+	public void deuxScene() throws IOException {
         Model model = (Model) this.getValue();
         View cameraView = new CameraView(this.file);
         views.add(cameraView);
