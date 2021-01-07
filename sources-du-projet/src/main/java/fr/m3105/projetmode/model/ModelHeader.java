@@ -1,5 +1,8 @@
 package fr.m3105.projetmode.model;
 
+/**
+ * collects the model's information
+ */
 public class ModelHeader {
 
 	private int nbDePoint;

@@ -13,9 +13,9 @@ class PaserTest {
 
 	@BeforeAll
 	static void init() {
-		parserTestDe34 = new Parser("exemples/de34.ply");
-		parserTestMeuh = new Parser("exemples/meuh.ply");
-		parserTestCrane = new Parser("exemples/crane.ply");
+		parserTestDe34 = new Parser("exemples/de34.ply",false);
+		parserTestMeuh = new Parser("exemples/meuh.ply",false);
+		parserTestCrane = new Parser("exemples/crane.ply",false);
 	}
 	
 	@Test
