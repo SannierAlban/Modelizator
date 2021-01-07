@@ -1,7 +1,6 @@
 package fr.m3105.projetmode.model;
 
 import java.io.File;
-import java.io.IOException;
 import java.security.InvalidParameterException;
 
 import fr.m3105.projetmode.model.utils.MultiThreadTranslate;
@@ -68,7 +67,10 @@ public class Model {
         this.FACES = new int[0][0];
     }
 
-    //toString functions :
+    
+    /**
+     * Returns a String containing the infos of the Model, it concerns properies, faces and points
+     */
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder("Model [vertex=" + vertex + ", nbFaces=" + nbFaces + ", PATH=]\nPOINTS :\n");
@@ -76,11 +78,11 @@ public class Model {
         for(int idxPoint=0;idxPoint<pointsLength;idxPoint++) {
             res.append("point "+idxPoint+" [x = "+points[0][idxPoint]+" | y = "+points[1][idxPoint]+" | z = "+points[2][idxPoint]+"]\n");
         }
+        int nbFacesPoints = FACES.length;
         for(int idxFace=0;idxFace<facesLength;idxFace++) {
-            String tmp = "face "+idxFace+" [ ";
-            int nbFacesPoints = FACES.length/FACES[0].length;
+            String tmp = "face "+idxFace+" [";
             for(int idxFacesPoint=0;idxFacesPoint<nbFacesPoints;idxFacesPoint++) {
-                tmp+="index_p"+idxFacesPoint+" = "+FACES[idxFacesPoint][idxFace];
+                tmp+=" idx_p"+idxFacesPoint+" = "+FACES[idxFacesPoint][idxFace];
             }
             res.append(tmp+"]\n");
         }
@@ -114,11 +116,13 @@ public class Model {
     }
     
     public void swapRgbAlpha(int idxA, int idxB){
-    	final int colLength = rgbAlpha.length;
-    	for(int idx=0;idx<colLength;idx++) {
-    		int tmp = rgbAlpha[idx][idxA];
-    		rgbAlpha[idx][idxA] = rgbAlpha[idx][idxB];
-    		rgbAlpha[idx][idxB] = tmp;
+    	if(color) {
+	    	final int colLength = rgbAlpha.length;
+	    	for(int idx=0;idx<colLength;idx++) {
+	    		int tmp = rgbAlpha[idx][idxA];
+	    		rgbAlpha[idx][idxA] = rgbAlpha[idx][idxB];
+	    		rgbAlpha[idx][idxB] = tmp;
+	    	}
     	}
     }
 
@@ -305,11 +309,11 @@ public class Model {
                 rgbAlpha[0][idxFace]*=gamma;
                 rgbAlpha[1][idxFace]*=gamma;
                 rgbAlpha[2][idxFace]*=gamma;
-//                System.out.println("Using normal vector "+normalVector[0]+", "+normalVector[1]+", "+normalVector[2]+
-//                        "\nWith norm of L (light) : "+normSource+", and norm of N : "+normNormal+
-//                        "\nApplying "+gamma+" to face "+idxFace);
+                System.out.println("Using normal vector "+normalVector[0]+", "+normalVector[1]+", "+normalVector[2]+
+                        "\nWith norm of L (light) : "+normSource+", and norm of N : "+normNormal+
+                        "\nApplying "+gamma+" to face "+idxFace);
             }
-//            System.out.println();
+            System.out.println();
         }else {
             System.out.println("ERROR : THERE IS NO RGB ON THIS MODEL");
         }
