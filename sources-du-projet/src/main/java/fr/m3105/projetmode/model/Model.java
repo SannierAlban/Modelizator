@@ -1,7 +1,6 @@
 package fr.m3105.projetmode.model;
 
 import java.io.File;
-import java.io.IOException;
 import java.security.InvalidParameterException;
 
 import fr.m3105.projetmode.model.utils.MultiThreadTranslate;
