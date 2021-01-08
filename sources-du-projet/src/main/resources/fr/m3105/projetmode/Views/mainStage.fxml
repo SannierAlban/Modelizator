@@ -31,9 +31,9 @@
             <JFXButton layoutX="108.0" layoutY="245.0" onAction="#deZoom" text="-" />
             <JFXButton layoutX="193.0" layoutY="245.0" onAction="#zoom" text="+" />
             <JFXButton fx:id="newScene" layoutX="131.0" layoutY="539.0" onAction="#deuxScene" text="new Scene" />
-            <JFXButton layoutX="41.0" layoutY="331.0" onAction="#drawFace" text="Face" />
-            <JFXButton layoutX="130.0" layoutY="331.0" onAction="#drawPoint" text="Point" />
-            <JFXButton layoutX="224.0" layoutY="331.0" onAction="#drawSegment" text="FilldeFer" />
+            <JFXButton layoutX="41.0" layoutY="331.0" onAction="#drawFace" text="face" />
+            <JFXButton layoutX="130.0" layoutY="331.0" onAction="#drawPoint" text="point" />
+            <JFXButton layoutX="224.0" layoutY="331.0" onAction="#drawSegment" text="segment" />
             <ImageView layoutX="499.0" layoutY="723.0" onMouseClicked="#translationHaut">
                <image>
                   <Image url="@../../images/up_icons.png" />
@@ -99,6 +99,7 @@
                   <Image url="@../../images/rotate_icons.png" />
                </image>
             </ImageView>
+            <JFXButton layoutX="104.0" layoutY="382.0" onAction="#drawFaceSegment" text="Face+Segment" />
          </children>
       </Pane>
    </children>

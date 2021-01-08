@@ -4,8 +4,9 @@ import java.io.File;
 import java.security.InvalidParameterException;
 
 import fr.m3105.projetmode.model.utils.MultiThreadTranslate;
+import fr.m3105.projetmode.model.utils.Subject;
 
-public class Model {
+public class Model extends Subject {
 
     private int vertex;
     private int nbFaces;
@@ -84,6 +85,34 @@ public class Model {
     public Model(double[][] points) {
         this.points = points;
         this.FACES = new int[0][0];
+    }
+
+    public Model(Model model){
+        this.points = new double[model.points.length][];
+        for (int i = 0; i < model.points.length; ++i) {
+            this.points[i] = new double[model.points[i].length];
+            System.arraycopy(model.points[i], 0, this.points[i], 0, this.points[i].length);
+        }
+        this.FACES = new int[model.FACES.length][];
+        for (int i = 0; i < model.FACES.length; ++i) {
+            this.FACES[i] = new int[model.FACES[i].length];
+            System.arraycopy(model.FACES[i], 0, this.FACES[i], 0, this.FACES[i].length);
+        }
+        this.nbDePoints = model.nbDePoints;
+        this.alpha = model.alpha;
+        this.baseRGB = model.baseRGB;
+        this.color = model.color;
+        this.nbFaces = model.nbFaces;
+        if (model.rgbAlpha != null){
+            this.rgbAlpha = new int[model.rgbAlpha.length][];
+            for (int i = 0; i < model.rgbAlpha.length; ++i) {
+                this.rgbAlpha[i] = new int[model.rgbAlpha[i].length];
+                System.arraycopy(model.rgbAlpha[i], 0, this.rgbAlpha[i], 0, this.rgbAlpha[i].length);
+            }
+        }
+        this.rgbSurPoints = model.rgbSurPoints;
+        this.vertex = model.vertex;
+
     }
 
     
@@ -193,7 +222,7 @@ public class Model {
      * More precisely, it overwrites the previous values of the Model.points array<br>
      * @param vector v representing the directions and distance all the points will translate
      */
-    public void translate(double[] vector) {
+    public void translate(double[] vector,boolean notify) {
         final int length = points[0].length;
         //System.out.println("Translating by "+String.format("X : %.3f / Y : %.3f / Z : %.3f",vector[0],vector[1],vector[2]));
         for(int idxPoints=0;idxPoints<length;idxPoints++) {
@@ -201,6 +230,10 @@ public class Model {
                 points[axis][idxPoints]+=vector[axis];
             }
         }
+        if (notify){
+            this.notifyObservers();
+        }
+
     }
 
     public void translateMultiThread(double[] vector) {
@@ -237,9 +270,9 @@ public class Model {
      */
     public void zoom(double relation) {
         final double[] CENTER = getCenter();
-        translate(new double[] {-CENTER[0],-CENTER[1],-CENTER[2]});
+        translate(new double[] {-CENTER[0],-CENTER[1],-CENTER[2]},false);
         transformPoints(new double[][] {{relation,0,0},{0,relation,0},{0,0,relation}});
-        translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
+        translate(new double[] {CENTER[0],CENTER[1],CENTER[2]},true);
     }
 
     /**
@@ -250,9 +283,9 @@ public class Model {
      */
     public void rotateOnXAxis(double angle) {
         final double[] CENTER = getCenter();
-        translate(new double[] {-CENTER[0],-CENTER[1],-CENTER[2]});
+        translate(new double[] {-CENTER[0],-CENTER[1],-CENTER[2]},false);
         transformPoints(new double[][]{ {1,0,0},{0,Math.cos(angle),-Math.sin(angle)},{0,Math.sin(angle),Math.cos(angle)}});
-        translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
+        translate(new double[] {CENTER[0],CENTER[1],CENTER[2]},true);
     }
 
     /**
@@ -263,9 +296,9 @@ public class Model {
      */
     public void rotateOnYAxis(double angle) {
         final double[] CENTER = getCenter();
-        translate(new double[] {-CENTER[0],-CENTER[1],-CENTER[2]});
+        translate(new double[] {-CENTER[0],-CENTER[1],-CENTER[2]},false);
         transformPoints(new double[][]{ {Math.cos(angle),0,-Math.sin(angle)},{0,1,0},{Math.sin(angle),0,Math.cos(angle)}});
-        translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
+        translate(new double[] {CENTER[0],CENTER[1],CENTER[2]},true);
     }
 
     /**
@@ -276,9 +309,9 @@ public class Model {
      */
     public void rotateOnZAxis(double angle) {
         final double[] CENTER = getCenter();
-        translate(new double[] {-CENTER[0],-CENTER[1],-CENTER[2]});
+        translate(new double[] {-CENTER[0],-CENTER[1],-CENTER[2]},false);
         transformPoints(new double[][]{ {Math.cos(angle),-Math.sin(angle),0},{Math.sin(angle),Math.cos(angle),0},{0,0,1}});
-        translate(new double[] {CENTER[0],CENTER[1],CENTER[2]});
+        translate(new double[] {CENTER[0],CENTER[1],CENTER[2]},true);
     }
     /**
      * Changes the values of points array using the double[][] parameter. <br>
@@ -321,7 +354,8 @@ public class Model {
                 System.out.println("Applying "+gamma+" to face "+idxFace+
                 		"\nnew values are R : "+baseRGB[0][idxFace]+"*"+gamma+", G:"+baseRGB[0][idxFace]+"*"+gamma+", B:"+baseRGB[0][idxFace]+"*"+gamma);
             }
-        }
+        //this.notifyObservers();
+    }
     /**
      * Returns the norm (consider the distance) of a given vector
      * @param vector double[3] array representing the coordinates of the vector
@@ -408,5 +442,6 @@ public class Model {
         		}
         	}
         }
+        this.notifyObservers();
 	}
 }

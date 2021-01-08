@@ -17,8 +17,8 @@ class MultiThreadTranslateTest {
 		Random rand = new Random();
 		double[] vector = new double[] {rand.nextDouble(),rand.nextDouble(),rand.nextDouble()};
 		
-		crane1.translate(vector);
-		crane2.translate(vector);
+		crane1.translate(vector,false);
+		crane2.translate(vector,false);
 		
 		assertTrue(crane1.points.equals(crane1.points));
 	}
@@ -40,7 +40,7 @@ class MultiThreadTranslateTest {
 		Model crane2 = new Model(new File("exemples/crane.ply"));
 		
 		debut = System.nanoTime();
-		crane1.translate(vector);
+		crane1.translate(vector,false);
 		fin = System.nanoTime();
 		resSansThread = fin - debut;
 		
