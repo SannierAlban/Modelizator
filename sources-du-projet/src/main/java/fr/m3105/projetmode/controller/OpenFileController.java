@@ -64,6 +64,10 @@ public class OpenFileController implements Initializable {
     }
     @FXML
     private JFXTreeTableView<PLY> treeListView;
+    @FXML
+    JFXTextField filterField;
+    @FXML
+    Label size;
 
     public void fileChooser() throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -136,9 +140,12 @@ public class OpenFileController implements Initializable {
             treeListView.setEditable(false);
             treeListView.getColumns().setAll(nameColumn,dateColumn,plyColumn,actionColumn);
 
-            Label size = new Label();
             size.textProperty().bind(Bindings.createStringBinding(()->treeListView.getCurrentItemsCount()+"",
                     treeListView.currentItemsCountProperty()));
+
+            filterField.textProperty().addListener((o,oldVal,newVal)->{
+                treeListView.setPredicate(user -> user.getValue().name.get().contains(newVal));
+            });
 
         } catch (IOException e) {
             e.printStackTrace();
