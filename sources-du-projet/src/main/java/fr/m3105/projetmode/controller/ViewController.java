@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public abstract class ViewController extends ConnectableProperty implements Initializable {
@@ -132,6 +133,7 @@ public abstract class ViewController extends ConnectableProperty implements Init
             System.out.println("Activation des lumières");
             lightsOn = true;
         }else {
+        	((Model)this.getValue()).restoreColor();
         	lightsOn = false;
         }
     }
@@ -218,7 +220,6 @@ public abstract class ViewController extends ConnectableProperty implements Init
      * @return sorted array of faces
      */
     public int[][] sortFace(int[][] faces){
-    	if(lightsOn) {
 	    	int[][] tmpFaces = faces.clone();
 	    	double[][] points = ((Model) this.getValue()).getPoints();
 	    	int lengthRowFaces = faces[0].length;
@@ -241,7 +242,15 @@ public abstract class ViewController extends ConnectableProperty implements Init
 	    	}while(!sorted);
 	    	
 	    	return tmpFaces;
-    	}else return faces;
+    }
+    
+    /**
+     * 
+     * @param lightSourcePoint
+     */
+    public void applyLights(double[] lightSourcePoint) {
+    	if(lightSourcePoint.length!=3) throw new InvalidParameterException();
+    	((Model)this.getValue()).applyLights(lightSourcePoint);
     }
     
     /**
