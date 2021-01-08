@@ -32,7 +32,6 @@ class ModelManipulatorTest {
 		Model m = new Model(pyramid);
 		m.zoom(2);
 		
-		//double[][] pyramidZoomed2 = new double[][] {{0.5,0.5,0},{1.5,2.5,0},{2.5,0.5,0},{1.5,1.5,2}};
 		double[][] pyramidZoomed2 = new double[][] {{0.5,1.5,2.5,1.5},{0.5,2.5,0.5,1.5},{0,0,0,2}};
 		assertTrue(arrayPointEquals(m.getPoints(), pyramidZoomed2,0.25));
 	}
@@ -50,28 +49,12 @@ class ModelManipulatorTest {
 		
 		//verifying an horizontal(x) translation of 2 units
 		double[][] points = new double[][] {{3,3.5,4.5,4,4,3,3.5,4.5},{2,2.5,2.5,2,1,1,1.5,1.5},{0,1,1,0,0,0,1,1}};
-		/*points1.add(new Point(3,2,0));
-		points1.add(new Point(3.5,2.5,1));
-		points1.add(new Point(4.5,2.5,1));
-		points1.add(new Point(4,2,0));
-		points1.add(new Point(4,1,0));
-		points1.add(new Point(3,1,0));
-		points1.add(new Point(3.5,1.5,1));
-		points1.add(new Point(4.5,1.5,1));*/
 		
 		assertTrue(arrayPointEquals(m.getPoints(), points,0.1));
 		
 		//verifying complex translation
 		m.translate(new double[] {-4,10,3});
 		double[][] points2 = new double[][] {{-1,-0.5,0.5,0,0,-1,-0.5,0.5},{12,12.5,12.5,12,11,11,11,11},{3,4,4,3,3,3,4,4}};
-		/*points2.add(new Point(-1,12,3));
-		points2.add(new Point(-0.5,12.5,4));
-		points2.add(new Point(0.5,12.5,4));
-		points2.add(new Point(0,12,3));
-		points2.add(new Point(0,11,3));
-		points2.add(new Point(-1,11,3));
-		points2.add(new Point(-0.5,11.5,4));
-		points2.add(new Point(0.5,11.5,4));*/
 		
 		assertTrue(arrayPointEquals(m.getPoints(), points2,0.1));
 		
@@ -89,16 +72,6 @@ class ModelManipulatorTest {
 		
 		double[][] points = new double[][] {{0.1,0.1,0.1,0.1,4.1,4.1,4.1,4.1,4.1,2.1},{0.054,-1.48,3.748,2.214,0.054,-1.48,3.748,2.597,0.0828,2.214},
 			{0.131,3.825,1.665,5.359,0.131,3.825,1.665,4.436,4.784,5.359}};
-		/*points1.add(new Point(0.1,0.054,0.131));
-		points1.add(new Point(0.1,-1.48,3.825));
-		points1.add(new Point(0.1,3.748,1.665));
-		points1.add(new Point(0.1,2.214,5.359));
-		points1.add(new Point(4.1,0.054,0.131));
-		points1.add(new Point(4.1,-1.48,3.825));
-		points1.add(new Point(4.1,3.748,1.665));
-		points1.add(new Point(4.1,2.597,4.436));
-		points1.add(new Point(4.1,0.828,4.784));
-		points1.add(new Point(2.1,2.214,5.359));*/
 		
 		assertTrue(arrayPointEquals(m.getPoints(),points,0.2));
 	}

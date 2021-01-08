@@ -25,14 +25,19 @@ class ModelLightsTest {
 		assertEquals(Math.sqrt(61), model_de34.getNorm(new double[] {4,6,-3}));
 	}
 
+	/**
+	 * Some tests about normal unitary vector calculations using Model.getNormalUnitVector(int) function 
+	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY THE FILE EXISTS</b>
+	 */
 	@Test
 	void normalVector() {
-		pointEqualsApprox(new double[] {-16.0,0.0,0.0}, model_de34.getNormalUnitVector(0), 0.1);
-		pointEqualsApprox(new double[] {8.5,0.0,0.0}, model_de34.getNormalUnitVector(3), 0.1);
+		pointEqualsApprox(new double[] {-1.0,0.0,0.0}, model_de34.getNormalUnitVector(0), 0.1);
+		pointEqualsApprox(new double[] {1,0.0,0.0}, model_de34.getNormalUnitVector(3), 0.1);
 	}
 	
+	
 	/**
-	 * Some tests about norm vector calculations using Model.determineVector(int,int,int) function 
+	 * Some tests about vector calculations using Model.determineVector(int,int,int) function 
 	 * <b>DISCLAIMER : USES exemples/de34.ply, PLEASE VERIFY THE FILE EXISTS</b>
 	 */
 	@Test
