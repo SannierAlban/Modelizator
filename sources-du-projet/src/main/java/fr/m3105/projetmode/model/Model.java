@@ -297,7 +297,6 @@ public class Model {
             //System.out.println(
             //		"TRANSFORMATION : New coords of Point "+idxPoint+" : coords "+toStringPoint(idxPoint)+" INTO  "+String.format("X : %.3f / Y : %.3f / Z : %.3f",tmpCoords[0],tmpCoords[1],tmpCoords[2]));
             setPoint(idxPoint,new double[]{tmpCoords[0],tmpCoords[1],tmpCoords[2]});
-            if(color) applyLights(new double[] {1,1,0});
         }
     }
     /**
@@ -316,8 +315,8 @@ public class Model {
                 rgbAlpha[0][idxFace]=(int) (baseRGB[0][idxFace]*gamma);
                 rgbAlpha[1][idxFace]=(int) (baseRGB[1][idxFace]*gamma);
                 rgbAlpha[2][idxFace]=(int) (baseRGB[2][idxFace]*gamma);
-                //System.out.println("Applying "+gamma+" to face "+idxFace+
-                //		"\nnew values are R : "+baseRGB[0][idxFace]+"*"+gamma+", G:"+baseRGB[0][idxFace]+"*"+gamma+", B:"+baseRGB[0][idxFace]+"*"+gamma);
+                System.out.println("Applying "+gamma+" to face "+idxFace+
+                		"\nnew values are R : "+baseRGB[0][idxFace]+"*"+gamma+", G:"+baseRGB[0][idxFace]+"*"+gamma+", B:"+baseRGB[0][idxFace]+"*"+gamma);
             }
         }else {
             System.out.println("ERROR : THERE IS NO RGB ON THIS MODEL");
@@ -401,7 +400,13 @@ public class Model {
         return alpha;
     }
 
-    public boolean isRgbSurPoints() {
-        return rgbSurPoints;
-    }
+	public void restoreColor() {
+		if(color) {
+        	for(int idx=0;idx<rgbAlpha[0].length;idx++) {
+        		for(int idxColor=0;idxColor<3;idxColor++) {
+        			rgbAlpha[idxColor][idx] = baseRGB[idxColor][idx];
+        		}
+        	}
+        }
+	}
 }
