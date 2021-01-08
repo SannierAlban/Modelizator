@@ -9,7 +9,7 @@ public class FillFaceController extends ViewController {
         Model model = ((Model) this.getValue());
         int tabLenght = model.getFaces()[0].length;
         int[][] tempFace = sortFace(model.getFaces());
-        if(lightsOn) applyLights(new double[] {-1,-1,0});
+        if(lightsOn) applyLights(new double[] {1,1,1});
         graphicsContext.clearRect(0, 0, graphicsContext.getCanvas().getWidth(), graphicsContext.getCanvas().getHeight());
         for (int k = 0; k < tabLenght; k++) {
             if (model.isColor()){

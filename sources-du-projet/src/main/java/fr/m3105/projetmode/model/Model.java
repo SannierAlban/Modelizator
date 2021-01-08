@@ -57,13 +57,23 @@ public class Model {
                 points[2][i] *= -1;
             }
         }
+        baseRGB = new int[FACES.length][FACES[0].length];
         if(color) {
-        	baseRGB = new int[rgbAlpha.length][rgbAlpha[0].length];
         	for(int idx=0;idx<rgbAlpha[0].length;idx++) {
         		for(int idxColor=0;idxColor<3;idxColor++) {
         			baseRGB[idxColor][idx] = rgbAlpha[idxColor][idx];
         		}
         	}
+        }else {
+        	final int[] DEFAULT_RGB = new int[] {0,0,255};
+        	rgbAlpha = new int[FACES.length][FACES[0].length];
+        	for(int idx=0;idx<FACES[0].length;idx++) {
+        		for(int idxColor=0;idxColor<3;idxColor++) {
+        			rgbAlpha[idxColor][idx] = DEFAULT_RGB[idxColor];
+        			baseRGB[idxColor][idx] = DEFAULT_RGB[idxColor];
+        		}
+        	}
+        	color = true;
         }
     }
 
@@ -124,23 +134,17 @@ public class Model {
         else throw new ArrayIndexOutOfBoundsException();
     }
     
-    public void swapRgbAlpha(int idxA, int idxB){
-    	if(color) {
-	    	final int colLength = rgbAlpha.length;
-	    	for(int idx=0;idx<colLength;idx++) {
-	    		int tmp = rgbAlpha[idx][idxA];
-	    		rgbAlpha[idx][idxA] = rgbAlpha[idx][idxB];
-	    		rgbAlpha[idx][idxB] = tmp;
-	    	}
-    	}
+    public void swapRgb(int idxA, int idxB){
+	    final int colLength = baseRGB.length;
+	    for(int idx=0;idx<colLength;idx++) {
+	    	int tmp = baseRGB[idx][idxA];
+	    	baseRGB[idx][idxA] = baseRGB[idx][idxB];
+	    	baseRGB[idx][idxB] = tmp;
+	    }
     }
 
     public int[][] getFaces() {
         return FACES;
-    }
-
-    public boolean hasColor() {
-        return color;
     }
 
     public boolean hasAlpha() {
@@ -242,7 +246,7 @@ public class Model {
      * Rotates the entire Model on the X axis using the double parameter clockwise<br>
      * More precisely, it overwrites the previous values of the Model.points array<br>
      * WARNING: This method only works with 3d points
-     * @param angle double value representing how much the Model will rotate
+     * @param angle double value (<b>RADIANS</b>) representing how much the Model will rotate
      */
     public void rotateOnXAxis(double angle) {
         final double[] CENTER = getCenter();
@@ -255,7 +259,7 @@ public class Model {
      * Rotates the entire Model on the Y axis using the double parameter clockwise<br>
      * More precisely, it overwrites the previous values of the Model.points array<br>
      * <b>WARNING: This method only works with 3d points</b>
-     * @param angle double value representing how much the Model will rotate
+     * @param angle double value (<b>RADIANS</b>) representing how much the Model will rotate
      */
     public void rotateOnYAxis(double angle) {
         final double[] CENTER = getCenter();
@@ -268,7 +272,7 @@ public class Model {
      * Rotates the entire Model on the Z axis using the double parameter clockwise<br>
      * More precisely, it overwrites the previous values of the Model.points array<br>
      * <b>WARNING: This method only works with 3d points</b>
-     * @param angle double value representing how much the Model will rotate
+     * @param angle double value (<b>RADIANS</b>) representing how much the Model will rotate
      */
     public void rotateOnZAxis(double angle) {
         final double[] CENTER = getCenter();
@@ -305,7 +309,6 @@ public class Model {
      */
     public void applyLights(double[] lightSourcePoint) {
         if(lightSourcePoint.length!=MAX_AXIS) throw new InvalidParameterException();
-        if(color) {
             lightSourcePoint = divideByNorm(lightSourcePoint);
             for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
                 double[] normalVector = getNormalUnitVector(idxFace);
@@ -318,10 +321,7 @@ public class Model {
                 System.out.println("Applying "+gamma+" to face "+idxFace+
                 		"\nnew values are R : "+baseRGB[0][idxFace]+"*"+gamma+", G:"+baseRGB[0][idxFace]+"*"+gamma+", B:"+baseRGB[0][idxFace]+"*"+gamma);
             }
-        }else {
-            System.out.println("ERROR : THERE IS NO RGB ON THIS MODEL");
         }
-    }
     /**
      * Returns the norm (consider the distance) of a given vector
      * @param vector double[3] array representing the coordinates of the vector

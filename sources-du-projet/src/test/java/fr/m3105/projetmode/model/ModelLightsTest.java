@@ -19,7 +19,6 @@ class ModelLightsTest {
 	 */
 	@Test
 	void norm() {
-		assertTrue(model_de34.hasColor());
 		assertEquals(Math.sqrt(10), model_de34.getNorm(new double[] {0,1,3}));
 		assertEquals(Math.sqrt(10), model_de34.getNorm(new double[] {0,-1,-3}));
 		assertEquals(Math.sqrt(61), model_de34.getNorm(new double[] {4,6,-3}));
