@@ -1,11 +1,9 @@
 package fr.m3105.projetmode.controller;
 
 import fr.m3105.projetmode.model.Model;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
 import javafx.scene.paint.Color;
 
-public class FillFaceController extends ViewController {
+public class FaceSegmentController extends ViewController {
     @Override
     public void draw() {
         if (stage.isCamera()) {
@@ -38,8 +36,14 @@ public class FillFaceController extends ViewController {
             double[] y = new double[]{model.getPoint(tempFace[0][k])[1], model.getPoint(tempFace[1][k])[1], model.getPoint(tempFace[2][k])[1]};
             graphicsContext.fillPolygon(x, y, 3);
         }
+        for(int k = 0;k<tabLenght;k++){
+            for(int i = 0;i<3;i++){
+                if(i<2){
+                    graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[i+1][k])[0], model.getPoint(tempFace[i+1][k])[1]);
+                }else{
+                    graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[0][k])[0], model.getPoint(tempFace[0][k])[1]);
+                }
+            }
+        }
     }
 }
-/*
-
- */

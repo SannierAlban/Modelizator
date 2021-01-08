@@ -24,7 +24,7 @@ public abstract class View extends Stage {
         loader.setController(viewController);
         Parent root = loader.load();
         viewController.setStage(this);
-        viewController.setValue(model);
+        viewController.setModel(model);
         viewController.draw();
         this.setScene(new Scene(root));
     }

@@ -13,6 +13,8 @@ public class ControllerFactory {
             return new PointController();
         }else if(controllerName.equals("segment")){
             return new SegmentController();
+        }else if(controllerName.equals("facesegment")){
+            return new FaceSegmentController();
         }else{
             return null;
         }

@@ -46,7 +46,7 @@ class ModelManipulatorTest {
 		//basic cube
 		
 		Model m = new Model(cube);
-		m.translate(new double[] {2,0,0});
+		m.translate(new double[] {2,0,0},false);
 		
 		//verifying an horizontal(x) translation of 2 units
 		double[][] points = new double[][] {{3,3.5,4.5,4,4,3,3.5,4.5},{2,2.5,2.5,2,1,1,1.5,1.5},{0,1,1,0,0,0,1,1}};
@@ -62,7 +62,7 @@ class ModelManipulatorTest {
 		assertTrue(arrayPointEquals(m.getPoints(), points,0.1));
 		
 		//verifying complex translation
-		m.translate(new double[] {-4,10,3});
+		m.translate(new double[] {-4,10,3},false);
 		double[][] points2 = new double[][] {{-1,-0.5,0.5,0,0,-1,-0.5,0.5},{12,12.5,12.5,12,11,11,11,11},{3,4,4,3,3,3,4,4}};
 		/*points2.add(new Point(-1,12,3));
 		points2.add(new Point(-0.5,12.5,4));
@@ -145,8 +145,8 @@ class ModelManipulatorTest {
 	/**
 	 * Given two integers (basically the indexes of the points), this function will return wether or not the 3 coordinates of the two given points at the indexes are exactly identical.<br>
 	 * I highly suggest to use pointsApproxEquals() instead.
-	 * @param idxPoint1 a point to compare
-	 * @param idxPoint2 the other point to compare
+	 * @param point1 a point to compare
+	 * @param point2 the other point to compare
 	 * @return boolean true if the coordinates of the two points are exactly identical, false otherwise
 	 */
 	protected boolean pointsEquals(double[] point1, double[] point2) {
@@ -154,8 +154,8 @@ class ModelManipulatorTest {
 	}
 	/**
 	 * Given two integers (basically the indexes of the points), this function will return wether or not the 3 coordinates of the two given points at the indexes are identical according to a margin of error (the offset).
-	 * @param idxPoint1 a point to compare
-	 * @param idxPoint2 the other point to compare
+	 * @param point1 a point to compare
+	 * @param point2 the other point to compare
 	 * @param offset double value which represents the max offset between the coordinates values of the compared points
 	 * @return boolean true if the coordinates of the two points are exactly identical, false otherwise
 	 */
@@ -171,7 +171,7 @@ class ModelManipulatorTest {
 	}
 	/**
 	 * Returns a String with the 3 coordinates of the parameter
-	 * @param double[3] array representing a point
+	 * @param point array representing a point
 	 * @return String representation of the 3 coordinates
 	 */
 	protected String toStringPoint(double[] point) {
