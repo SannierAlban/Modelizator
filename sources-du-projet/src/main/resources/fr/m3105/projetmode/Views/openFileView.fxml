@@ -34,6 +34,6 @@
       </ImageView>
       <JFXTreeTableView fx:id="treeListView" layoutX="18.0" layoutY="211.0" prefHeight="328.0" prefWidth="758.0" />
       <Label fx:id="size" layoutX="522.0" layoutY="179.0" prefHeight="25.0" prefWidth="40.0" />
-      <JFXTextField fx:id="filterField" layoutX="581.0" layoutY="175.0" />
+      <JFXTextField fx:id="filterField" layoutX="581.0" layoutY="175.0" promptText="Recherche :" />
    </children>
 </AnchorPane>

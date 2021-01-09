@@ -19,11 +19,10 @@ public class FillFaceController extends ViewController {
         int tabLenght = model.getFaces()[0].length;
         sortFace(model.getFaces());
         int[][] tempFace = model.getFaces();
-        
-        if (lightsOn) applyLights(new double[]{0, 1, 0});
+        if (lightsOn) applyLights(new double[]{0, 0, 1.25});
         graphicsContext.clearRect(0, 0, graphicsContext.getCanvas().getWidth(), graphicsContext.getCanvas().getHeight());
         for (int k = 0; k < tabLenght; k++) {
-            int pos = 0;
+              int pos = 0;
             for (int i = 0; i < tabLenght; i++) {
                 if (tempFace[0][k] == model.getFaces()[0][i] && tempFace[1][k] == model.getFaces()[1][i] && tempFace[2][k] == model.getFaces()[2][i]) {
                     pos = i;
@@ -38,6 +37,3 @@ public class FillFaceController extends ViewController {
         }
     }
 }
-/*
-
- */

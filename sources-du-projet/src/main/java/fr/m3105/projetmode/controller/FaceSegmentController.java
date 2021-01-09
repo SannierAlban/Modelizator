@@ -17,7 +17,7 @@ public class FaceSegmentController extends ViewController {
 
     public void dessine(Model model) {
         int tabLenght = model.getFaces()[0].length;
-        int[][] tempFace = sortFace(model.getFaces());
+        int[][] tempFace = model.getFaces();
         if (lightsOn) applyLights(new double[]{-1, -1, 0});
         graphicsContext.clearRect(0, 0, graphicsContext.getCanvas().getWidth(), graphicsContext.getCanvas().getHeight());
         for (int k = 0; k < tabLenght; k++) {

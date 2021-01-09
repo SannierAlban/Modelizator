@@ -374,18 +374,19 @@ public class Model extends Subject {
             lightSourcePoint = divideByNorm(lightSourcePoint);
             for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
                 double[] normalVector = getNormalUnitVector(idxFace);
-                double gamma = 0.0;
-                for(int axis = 0;axis<MAX_AXIS;axis++) gamma+=normalVector[axis]*lightSourcePoint[axis];
-                if(gamma<0) gamma*=-1;
-                rgbAlpha[0][idxFace]=(int) (baseRGB[0][idxFace]*gamma);
-                rgbAlpha[1][idxFace]=(int) (baseRGB[1][idxFace]*gamma);
-                rgbAlpha[2][idxFace]=(int) (baseRGB[2][idxFace]*gamma);
-                System.out.println("Applying "+gamma+" to face "+idxFace+
-                		"\nnew values are R : "+baseRGB[0][idxFace]+"*"+gamma+", G:"+baseRGB[0][idxFace]+"*"+gamma+", B:"+baseRGB[0][idxFace]+"*"+gamma);
+	                double gamma = 0.0;
+	                for(int axis = 0;axis<MAX_AXIS;axis++) gamma+=Math.abs(normalVector[axis])*Math.abs(lightSourcePoint[axis]);
+	                if(gamma<0) gamma*=-1;
+	                //if(gamma <0.8) gamma+=0.2;
+	                rgbAlpha[0][idxFace]=(int) (baseRGB[0][idxFace]*gamma);
+	                rgbAlpha[1][idxFace]=(int) (baseRGB[1][idxFace]*gamma);
+	                rgbAlpha[2][idxFace]=(int) (baseRGB[2][idxFace]*gamma);
+	                //System.out.println("Applying "+gamma+" to face "+idxFace+
+	                //		"\nnew values are R : "+baseRGB[0][idxFace]+"*"+gamma+", G:"+baseRGB[0][idxFace]+"*"+gamma+", B:"+baseRGB[0][idxFace]+"*"+gamma);
             }
-        //this.notifyObservers();
     }
-    /**
+
+	/**
      * Returns the norm (consider the distance) of a given vector
      * @param vector double[3] array representing the coordinates of the vector
      * @return double the norm
