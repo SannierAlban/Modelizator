@@ -7,6 +7,8 @@ import fr.m3105.projetmode.Views.View;
 import fr.m3105.projetmode.model.Model;
 import fr.m3105.projetmode.model.utils.Observer;
 import fr.m3105.projetmode.model.utils.Subject;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -51,6 +53,26 @@ public abstract class ViewController implements Initializable, Observer {
     protected Model model;
 
     public abstract void draw();
+
+    class ModelRun extends Task<Void> {
+        @Override
+        protected Void call() throws Exception {
+            while (isPlaying) {
+                try {
+                    Thread.sleep(35);
+                } catch (InterruptedException e) {
+                    // do nothing
+                }
+                if (isPlaying) {
+                    Platform.runLater(() -> {
+                        model.rotateOnXAxis(3.14159 / 32);
+                        model.rotateOnYAxis(3.14159 / 16);
+                    });
+                }
+            }
+            return null;
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -142,34 +164,29 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public void pause(){
-        isPlaying = false;
         pauseButton.setVisible(false);
         playButton.setVisible(true);
+        stopThread();
     }
 
     public void play(){
         pauseButton.setVisible(true);
         playButton.setVisible(false);
-
         isPlaying = true;
+        startThread();
+    }
 
-        daemonThread = new Thread(() -> {
-            try {
-                while (isPlaying){
-                    try {
-                        Thread.sleep(35);
-                        model.rotateOnXAxis(3.14159/32);
-                        model.rotateOnYAxis(3.14159/16);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }catch (Exception e){
-                daemonThread.interrupt();
-            }
-        });
-        daemonThread.setDaemon(true);
-        daemonThread.start();
+    // start thread
+    public synchronized void startThread() {
+        Task<Void> bg = new ModelRun();
+        Thread taskThread = new Thread(bg);
+        taskThread.setDaemon(true);
+        taskThread.start();
+    }
+
+    // stop thread
+    public synchronized void stopThread() {
+        isPlaying = false;
     }
 
     public int[][] sortFacePasTerribleDeFrancoisMaisBonIlYADesLambdasExpressions(int[][] faces){
@@ -244,7 +261,9 @@ public abstract class ViewController implements Initializable, Observer {
             faces[axis][idxA] = faces[axis][idxB];
             faces[axis][idxB] = tmp;
         }
-        model.swapRgb(idxA,idxB);
+        if(!lightsOn){
+            model.swapRgb(idxA,idxB);
+        }
         return faces;
     }
 
@@ -256,16 +275,6 @@ public abstract class ViewController implements Initializable, Observer {
         cameraView.getController().setModel(model);
     }
 
-//    public void newDraw() throws IOException{
-//        stage.setController((new ControllerFactory()).create("face"),model);
-//        stage.getController().setViews(views);
-//        for (View view: views){
-//            model.detach(view.getController());
-//            view.setController((new ControllerFactory()).create("face"),model);
-//            //stage.getController().attach(view.getController());
-//        }
-//    }
-    //TODO: refaire ces fonctions
     public void drawFace() throws IOException {
         stage.setController((new ControllerFactory()).create("face"),model);
         stage.getController().setViews(views);

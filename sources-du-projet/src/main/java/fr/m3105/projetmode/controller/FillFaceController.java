@@ -36,6 +36,3 @@ public class FillFaceController extends ViewController {
         }
     }
 }
-/*
-
- */
