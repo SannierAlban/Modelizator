@@ -16,7 +16,7 @@ public class Model extends Subject {
     //(with n an int superior to 0 and v an int between 0 and 6)
     //Basically, this array contains n FACES and n*v points, therefore each column contains v references to its respectful points located in the points array.
     //Because this 2d array only contains FACES and references to points, the values of this array don't need to be changed
-    public final int[][] FACES;
+    public int[][] FACES;
 
     private int[][] rgbAlpha;
     private int[][] baseRGB;
@@ -473,4 +473,15 @@ public class Model extends Subject {
         }
         this.notifyObservers();
 	}
+	
+	public int getVertex() {
+		return this.vertex;
+	}
+	
+	public boolean isRgbSurPoints() {
+		return color && this.isRgbSurPoints();
+	}
+//	public void setFaces(int a, int b, int valeur) {
+//		this.FACES[][];
+//	}
 }

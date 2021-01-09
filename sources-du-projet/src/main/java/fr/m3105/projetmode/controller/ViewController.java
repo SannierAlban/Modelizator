@@ -2,6 +2,7 @@ package fr.m3105.projetmode.controller;
 
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
+
 import fr.m3105.projetmode.Views.CameraView;
 import fr.m3105.projetmode.Views.View;
 import fr.m3105.projetmode.model.Model;
@@ -196,29 +197,97 @@ public abstract class ViewController implements Initializable, Observer {
      * @param faces
      * @return sorted array of faces
      */
-    public int[][] sortFace(int[][] faces){
-	    	int[][] tmpFaces = faces.clone();
-	    	double[][] points = model.getPoints();
-	    	int lengthRowFaces = faces[0].length;
-	    	int lengthColFaces = faces.length;
-	    	//trier les int[] (sous forme de colonnes) dans l'ordre croissant
-	    	boolean sorted = false;
-	    	do {
-	    		sorted = true;
-		    	for(int idxFace=0; idxFace<lengthRowFaces-1; idxFace++) {
-		    		double sumA=0.0,sumB=0.0;
-		    		for(int idxPoint=0;idxPoint<lengthColFaces;idxPoint++) {
-		    			sumA+=points[2][tmpFaces[idxPoint][idxFace]];
-		    			sumB+=points[2][tmpFaces[idxPoint][idxFace+1]];
-		    		}
-		    		if(sumA/lengthColFaces>sumB/lengthColFaces) {
-		    			tmpFaces = swap(faces, idxFace, idxFace+1);
-		    			sorted = false;
-		    		}
-		    	}
-	    	}while(!sorted);
-	    	
-	    	return tmpFaces;
+//    public int[][] sortFace(int[][] faces){
+//	    	int[][] tmpFaces = faces.clone();
+//	    	double[][] points = model.getPoints();
+//	    	int lengthRowFaces = faces[0].length;
+//	    	int lengthColFaces = faces.length;
+//	    	//trier les int[] (sous forme de colonnes) dans l'ordre croissant
+//	    	boolean sorted = false;
+//	    	do {
+//	    		sorted = true;
+//		    	for(int idxFace=0; idxFace<lengthRowFaces-1; idxFace++) {
+//		    		double sumA=0.0,sumB=0.0;
+//		    		for(int idxPoint=0;idxPoint<lengthColFaces;idxPoint++) {
+//		    			sumA+=points[2][tmpFaces[idxPoint][idxFace]];
+//		    			sumB+=points[2][tmpFaces[idxPoint][idxFace+1]];
+//		    		}
+//		    		if(sumA/lengthColFaces>sumB/lengthColFaces) {
+//		    			tmpFaces = swap(faces, idxFace, idxFace+1);
+//		    			sorted = false;
+//		    		}
+//		    	}
+//	    	}while(!sorted);
+//	    	
+//	    	return tmpFaces;
+//    }
+    
+//	trie par réference les 2 tableau
+    public void sortFace(int[][] faces){
+//				Array de x,y,z,R,G,B
+    	ArrayList<int[]> facesRGB = new ArrayList<>();
+    	
+    	if(model.isColor()) {
+    		for(int i = 0; i < model.getVertex(); i++) {
+    			int r = model.getRgbAlpha()[0][i];
+    			int g = model.getRgbAlpha()[1][i];
+    			int b = model.getRgbAlpha()[2][i];
+    			facesRGB.add(new int[] {model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i],r,g,b});
+    		}
+    	}
+    	else {
+        	for(int i = 0; i < model.getVertex(); i++)
+        		facesRGB.add(new int[] {model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i]});
+    	}
+    		
+    	Collections.sort(facesRGB, new Comparator<int[]>(){
+    		@Override
+    		public int compare(int[] t1,int[] t2) {
+//    			System.out.println(String.format("t1= [%d][%d][%d]",t1[0],t1[1],t1[2] ));
+//    			System.out.println(String.format("t2= [%d][%d][%d]",t2[0],t2[1],t2[2] ));
+    			double z1T1 = model.getPoints()[2][t1[0]];
+    			double z2T1 = model.getPoints()[2][t1[1]];
+    			double z3T1 = model.getPoints()[2][t1[2]];
+    			
+    			double z1T2 = model.getPoints()[2][t2[0]];
+    			double z2T2 = model.getPoints()[2][t2[1]];
+    			double z3T2 = model.getPoints()[2][t2[2]];
+    			
+    			double sommeT1 = z1T1+z2T1+z3T1;
+    			//System.out.println("m1="+sommeT1);
+    			double sommeT2 = z1T2+z2T2+z3T2;
+    			//System.out.println("m2="+sommeT2);
+
+    			if(sommeT1 - sommeT2 != 0)
+    				return sommeT1 > sommeT2 ? 1 : -1;
+
+    			Double maxT1 = Double.max(z1T1, Double.max(z2T1, z3T1));
+    			Double maxT2 = Double.max(z1T2, Double.max(z2T2, z3T2));
+    			
+    			if(maxT1 - maxT2 != 0)
+    				return maxT1 > maxT2 ? 1 : -1;
+    			return 0;
+    		}
+		});
+    	
+    	int vertexMoinsUn = model.getVertex() - 1;
+    	if(model.isColor()) {
+        	for(int i = 0; i <= vertexMoinsUn; i++) {
+        		model.getFaces()[0][i] = facesRGB.get(vertexMoinsUn - i)[0];
+        		model.getFaces()[1][i] = facesRGB.get(vertexMoinsUn - i)[1];
+        		model.getFaces()[2][i] = facesRGB.get(vertexMoinsUn - i)[2]; 
+        		model.getRgbAlpha()[0][i] = facesRGB.get(vertexMoinsUn - i)[3];
+        		model.getRgbAlpha()[1][i] = facesRGB.get(vertexMoinsUn - i)[4];
+        		model.getRgbAlpha()[2][i] = facesRGB.get(vertexMoinsUn - i)[5];
+        	}
+    	}
+    	else {
+        	for(int i = 0; i <= vertexMoinsUn; i++) {
+        		model.getFaces()[0][i] = facesRGB.get(vertexMoinsUn - i)[0];
+        		model.getFaces()[1][i] = facesRGB.get(vertexMoinsUn - i)[1];
+        		model.getFaces()[2][i] = facesRGB.get(vertexMoinsUn - i)[2]; 
+        	}
+    	}
     }
     
     /**
