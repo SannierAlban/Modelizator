@@ -3,6 +3,7 @@ package fr.m3105.projetmode.model;
 import java.io.File;
 import java.security.InvalidParameterException;
 
+import fr.m3105.projetmode.model.utils.MultiThreadTransformPoints;
 import fr.m3105.projetmode.model.utils.MultiThreadTranslate;
 import fr.m3105.projetmode.model.utils.Subject;
 
@@ -319,7 +320,7 @@ public class Model extends Subject {
      * <b>CURRENTLY APPLY LIGHTS AT THE END</b>
      * @param TRANSFORM_MATRIX
      */
-    private void transformPoints(final double[][] TRANSFORM_MATRIX) {
+    public void transformPoints(final double[][] TRANSFORM_MATRIX) {
         final int length = points[0].length;
         for(int idxPoint=0;idxPoint<length;idxPoint++) {
 
@@ -336,6 +337,34 @@ public class Model extends Subject {
             setPoint(idxPoint,new double[]{tmpCoords[0],tmpCoords[1],tmpCoords[2]});
         }
     }
+    
+    public void transformPointsMultiThread(final double[][] TRANSFORM_MATRIX) {
+    	int nbProco = Runtime.getRuntime().availableProcessors();
+    	int segment = nbDePoints / nbProco;
+    	int start = 0;
+    	int end;
+    	MultiThreadTransformPoints[] multiThread = new MultiThreadTransformPoints[nbProco];
+    	
+    	for(int i = 0; i < nbProco; i++) {
+        	if(i == nbProco - 1)
+        		end = nbDePoints;
+        	else
+        		end = segment * (i+1);
+        	
+    		multiThread[i] = new MultiThreadTransformPoints(points, start, end, TRANSFORM_MATRIX);
+    		multiThread[i].start();
+    		
+    		start = end;
+    	}
+    	for(int i = 0; i < nbProco; i++) {
+	      try {
+	          multiThread[i].join();
+	      } catch (InterruptedException e) {
+	          e.printStackTrace();
+	      }
+    	}
+    }
+    
     /**
      * Applies lights to all FACES
      * @param lightSourcePoint double[3] representing the coordinates of the lightsource point
