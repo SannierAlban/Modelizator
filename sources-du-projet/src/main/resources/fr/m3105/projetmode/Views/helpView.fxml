@@ -93,22 +93,22 @@
             <Image url="@../../images/Keyadd.png" />
          </image>
       </ImageView>
-      <Text layoutX="14.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Translation :" textAlignment="CENTER" wrappingWidth="109.0">
+      <Text layoutX="24.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Déplacer :" wrappingWidth="109.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text layoutX="15.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotation sur les Z :" textAlignment="CENTER" wrappingWidth="127.0">
+      <Text layoutX="24.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pivoter :" wrappingWidth="127.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text layoutX="14.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotation :" textAlignment="CENTER" wrappingWidth="109.0">
+      <Text layoutX="24.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tourner :" wrappingWidth="109.0">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text layoutX="14.0" layoutY="531.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zoom :" textAlignment="CENTER" wrappingWidth="109.0">
+      <Text layoutX="24.0" layoutY="531.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zoomer :" wrappingWidth="109.0">
          <font>
             <Font size="17.0" />
          </font>
@@ -118,7 +118,7 @@
             <Image url="@../../images/javadude.png" />
          </image>
       </ImageView>
-      <Text layoutX="405.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A propos" textAlignment="CENTER" wrappingWidth="404.0">
+      <Text layoutX="405.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="À propos" textAlignment="CENTER" wrappingWidth="404.0">
          <font>
             <Font size="22.0" />
          </font>
@@ -153,7 +153,7 @@
             <Image url="@../../images/tools.png" />
          </image>
       </ImageView>
-      <Text layoutX="523.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Outils utilisé" textAlignment="CENTER" wrappingWidth="109.0">
+      <Text layoutX="523.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Outils utilisés" textAlignment="CENTER" wrappingWidth="109.0">
          <font>
             <Font size="17.0" />
          </font>
