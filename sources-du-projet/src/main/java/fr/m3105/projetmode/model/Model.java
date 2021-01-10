@@ -25,6 +25,8 @@ public class Model extends Subject {
     private boolean alpha;
     private boolean rgbSurPoints;
 
+    private boolean isColored;
+
     private final short MAX_AXIS = 3;
 
     //basic constructor
@@ -47,7 +49,7 @@ public class Model extends Subject {
         nbDePoints = points[0].length;
         FACES = parser.getFaces();
         rgbAlpha = parser.getRgbAlpha();
-
+        isColored = parser.isColor();
         color = parser.isColor();
         alpha = parser.isAlpha();
         rgbSurPoints = parser.isRgbSurPoints();
@@ -67,15 +69,19 @@ public class Model extends Subject {
         		}
         	}
         }else {
-        	final int[] DEFAULT_RGB = new int[] {0,0,255};
-        	rgbAlpha = new int[FACES.length][FACES[0].length];
-        	for(int idx=0;idx<FACES[0].length;idx++) {
-        		for(int idxColor=0;idxColor<3;idxColor++) {
-        			rgbAlpha[idxColor][idx] = DEFAULT_RGB[idxColor];
-        			baseRGB[idxColor][idx] = DEFAULT_RGB[idxColor];
-        		}
-        	}
+            changeColor(0,0,255);
         	color = true;
+        }
+    }
+
+    public void changeColor(int red,int green, int blue){
+        final int[] DEFAULT_RGB = new int[] {red,green,blue};
+        rgbAlpha = new int[FACES.length][FACES[0].length];
+        for(int idx=0;idx<FACES[0].length;idx++) {
+            for(int idxColor=0;idxColor<3;idxColor++) {
+                rgbAlpha[idxColor][idx] = DEFAULT_RGB[idxColor];
+                baseRGB[idxColor][idx] = DEFAULT_RGB[idxColor];
+            }
         }
     }
 
@@ -480,9 +486,21 @@ public class Model extends Subject {
 	}
 	
 	public boolean isRgbSurPoints() {
-		return color && this.isRgbSurPoints();
+		return rgbSurPoints;
 	}
 //	public void setFaces(int a, int b, int valeur) {
 //		this.FACES[][];
 //	}
+
+    public int[][] getBaseRGB() {
+        return baseRGB;
+    }
+
+    public void setBaseRGB(int[][] baseRGB) {
+        this.baseRGB = baseRGB;
+    }
+
+    public boolean isColored() {
+        return isColored;
+    }
 }

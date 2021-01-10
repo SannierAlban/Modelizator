@@ -3,6 +3,7 @@ package fr.m3105.projetmode.Views;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -15,6 +16,7 @@ public class HelpView extends Stage {
         this.initModality(Modality.APPLICATION_MODAL);
         this.setTitle("Aide");
         this.setScene(new Scene(root));
+        this.getIcons().add(new Image(this.getClass().getResourceAsStream("logo.png")));
         this.show();
     }
 }

@@ -17,33 +17,22 @@ public class FaceSegmentController extends ViewController {
 
     public void dessine(Model model) {
         int tabLenght = model.getFaces()[0].length;
-        int[][] tempFace = model.getFaces();
-        if (lightsOn) applyLights(new double[]{-1, -1, 0});
+        int[][] tempFace = sortFace(model.getFaces());
+        if (lightsOn && !stage.isCamera()) applyLights(new double[]{0, 0, 1.25});
         graphicsContext.clearRect(0, 0, graphicsContext.getCanvas().getWidth(), graphicsContext.getCanvas().getHeight());
         for (int k = 0; k < tabLenght; k++) {
-            if (model.isColor()) {
-                int pos = 0;
-                for (int i = 0; i < tabLenght; i++) {
-                    if (tempFace[0][k] == model.getFaces()[0][i] && tempFace[1][k] == model.getFaces()[1][i] && tempFace[2][k] == model.getFaces()[2][i]) {
-                        pos = i;
-                        break;
-                    }
-                }
-                //System.out.println(pos);
-                graphicsContext.setFill(Color.color((double) model.getRgbAlpha()[0][pos] / 255, (double) model.getRgbAlpha()[1][pos] / 255, (double) model.getRgbAlpha()[2][pos] / 255));
-            }
+            if (model.isColor() && !model.isRgbSurPoints())
+                graphicsContext.setFill(Color.color((double) model.getRgbAlpha()[0][k] / 255, (double) model.getRgbAlpha()[1][k] / 255, (double) model.getRgbAlpha()[2][k] / 255));
             double[] x = new double[]{model.getPoint(tempFace[0][k])[0], model.getPoint(tempFace[1][k])[0], model.getPoint(tempFace[2][k])[0]};
             double[] y = new double[]{model.getPoint(tempFace[0][k])[1], model.getPoint(tempFace[1][k])[1], model.getPoint(tempFace[2][k])[1]};
             graphicsContext.fillPolygon(x, y, 3);
-        }
-        for(int k = 0;k<tabLenght;k++){
-            for(int i = 0;i<3;i++){
-                if(i<2){
-                    graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[i+1][k])[0], model.getPoint(tempFace[i+1][k])[1]);
-                }else{
-                    graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[0][k])[0], model.getPoint(tempFace[0][k])[1]);
+                for(int i = 0;i<3;i++){
+                    if(i<2){
+                        graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[i+1][k])[0], model.getPoint(tempFace[i+1][k])[1]);
+                    }else{
+                        graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[0][k])[0], model.getPoint(tempFace[0][k])[1]);
+                    }
                 }
-            }
         }
     }
 }

@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="746.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane layoutX="20.0" layoutY="18.0" prefHeight="648.0" prefWidth="879.0" styleClass="canvas" stylesheets="@main.css">
          <children>
             <Canvas fx:id="mainCanvas" height="648.0" width="879.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="20.0" layoutY="674.0" prefHeight="58.0" prefWidth="879.0" style="-fx-border-color: black; -fx-border-width: 0.33;">
+         <children>
+            <JFXButton layoutX="271.0" layoutY="17.0" onAction="#drawFace" text="Face" />
+            <JFXButton layoutX="356.0" layoutY="17.0" onAction="#drawSegment" text="Segment" />
+            <JFXButton layoutX="449.0" layoutY="17.0" onAction="#drawFaceSegment" text="Face&amp;Segment" />
+            <JFXButton layoutX="564.0" layoutY="17.0" onAction="#drawPoint" text="Point" />
          </children>
       </Pane>
    </children>

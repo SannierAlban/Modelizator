@@ -30,7 +30,7 @@ public abstract class View extends Stage {
     }
 
     public void controllerInitializer() throws IOException {
-        controller = (new ControllerFactory()).create("face");
+        controller = (new ControllerFactory()).create("facesegment");
         loader.setController(controller);
     }
     public abstract boolean isCamera();

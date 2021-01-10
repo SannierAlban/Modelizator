@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,87 +19,133 @@
             <Pane fx:id="mainPane" layoutX="386.0" layoutY="25.0" prefHeight="685.0" prefWidth="938.0" styleClass="canvas" />
             <Canvas fx:id="secondCanvas" height="685.0" layoutX="853.0" layoutY="25.0" onMouseClicked="#pause" width="469.0" />
             <Canvas fx:id="mainCanvas" height="685.0" layoutX="386.0" layoutY="25.0" onMouseClicked="#pause" width="938.0" />
-            <JFXToggleButton fx:id="lightActivation" layoutX="24.0" layoutY="72.0" onAction="#lightAction" text="Lumières" />
-            <JFXToggleButton fx:id="coupeActivation" layoutX="24.0" layoutY="112.0" onAction="#coupeAction" text="Coupe" />
-            <JFXToggleButton layoutX="24.0" layoutY="155.0" text="Futur feature" />
-            <JFXSlider fx:id="coupeSlider" blockIncrement="5.0" indicatorPosition="RIGHT" layoutX="185.0" layoutY="134.0" value="1.0" />
-            <Text layoutX="142.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zoom">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <JFXButton layoutX="108.0" layoutY="245.0" onAction="#deZoom" text="-" />
-            <JFXButton layoutX="193.0" layoutY="245.0" onAction="#zoom" text="+" />
-            <JFXButton fx:id="newScene" layoutX="131.0" layoutY="539.0" onAction="#deuxScene" text="new Scene" />
-            <JFXButton layoutX="41.0" layoutY="331.0" onAction="#drawFace" text="face" />
-            <JFXButton layoutX="130.0" layoutY="331.0" onAction="#drawPoint" text="point" />
-            <JFXButton layoutX="224.0" layoutY="331.0" onAction="#drawSegment" text="segment" />
-            <ImageView layoutX="499.0" layoutY="723.0" onMouseClicked="#translationHaut">
-               <image>
-                  <Image url="@../../images/up_icons.png" />
-               </image>
-            </ImageView>
-            <ImageView layoutX="435.0" layoutY="758.0" onMouseClicked="#translationGauche">
-               <image>
-                  <Image url="@../../images/left_icons.png" />
-               </image>
-            </ImageView>
-            <ImageView layoutX="563.0" layoutY="758.0" onMouseClicked="#translationDroite">
-               <image>
-                  <Image url="@../../images/right_icons.png" />
-               </image>
-            </ImageView>
-            <ImageView layoutX="499.0" layoutY="782.0" onMouseClicked="#translationBas">
-               <image>
-                  <Image url="@../../images/down_icons.png" />
-               </image>
-            </ImageView>
-            <Text layoutX="312.0" layoutY="794.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Translation :">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <ImageView fx:id="playButton" fitHeight="69.0" fitWidth="74.0" layoutX="682.0" layoutY="752.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/play_icons.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="pauseButton" layoutX="693.0" layoutY="763.0" onMouseClicked="#pause">
-               <image>
-                  <Image url="@../../images/pause_icons.png" />
-               </image>
-            </ImageView>
-            <Text layoutX="782.0" layoutY="795.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotation :">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <ImageView layoutX="1035.0" layoutY="762.0" onMouseClicked="#rotateYDroite">
-               <image>
-                  <Image url="@../../images/right_icons.png" />
-               </image>
-            </ImageView>
-            <ImageView layoutX="907.0" layoutY="762.0" onMouseClicked="#rotateYGauche">
-               <image>
-                  <Image url="@../../images/left_icons.png" />
-               </image>
-            </ImageView>
-            <ImageView layoutX="971.0" layoutY="730.0" onMouseClicked="#rotateXHaut">
-               <image>
-                  <Image url="@../../images/up_icons.png" />
-               </image>
-            </ImageView>
-            <ImageView layoutX="971.0" layoutY="787.0" onMouseClicked="#rotateXBas">
-               <image>
-                  <Image url="@../../images/down_icons.png" />
-               </image>
-            </ImageView>
-            <ImageView layoutX="1114.0" layoutY="762.0" onMouseClicked="#rotateZ">
-               <image>
-                  <Image url="@../../images/rotate_icons.png" />
-               </image>
-            </ImageView>
-            <JFXButton layoutX="104.0" layoutY="382.0" onAction="#drawFaceSegment" text="Face+Segment" />
+            <Pane layoutX="386.0" layoutY="716.0" prefHeight="186.0" prefWidth="938.0" style="-fx-border-color: black; -fx-border-width: 0.3;">
+               <children>
+                  <ImageView layoutX="734.0" layoutY="83.0" onMouseClicked="#rotateXBas">
+                     <image>
+                        <Image url="@../../images/down_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="172.0" layoutY="15.0" onMouseClicked="#translationHaut">
+                     <image>
+                        <Image url="@../../images/up_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="108.0" layoutY="47.0" onMouseClicked="#translationGauche">
+                     <image>
+                        <Image url="@../../images/left_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="236.0" layoutY="47.0" onMouseClicked="#translationDroite">
+                     <image>
+                        <Image url="@../../images/right_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="172.0" layoutY="85.0" onMouseClicked="#translationBas">
+                     <image>
+                        <Image url="@../../images/down_icons.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="22.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Translation :">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="playButton" fitHeight="69.0" fitWidth="74.0" layoutX="435.0" layoutY="59.0" onMouseClicked="#play" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/play_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="pauseButton" layoutX="445.0" layoutY="69.0" onMouseClicked="#pause">
+                     <image>
+                        <Image url="@../../images/pause_icons.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="561.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotation :">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <ImageView layoutX="798.0" layoutY="51.0" onMouseClicked="#rotateYDroite">
+                     <image>
+                        <Image url="@../../images/right_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="670.0" layoutY="47.0" onMouseClicked="#rotateYGauche">
+                     <image>
+                        <Image url="@../../images/left_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="734.0" layoutY="15.0" onMouseClicked="#rotateXHaut">
+                     <image>
+                        <Image url="@../../images/up_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="830.0" layoutY="107.0" onMouseClicked="#inverseRotateZ">
+                     <image>
+                        <Image url="@../../images/rotate_icons.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="638.0" layoutY="107.0" onMouseClicked="#rotateZ">
+                     <image>
+                        <Image url="@../../images/rotateLeft.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="22.0" layoutY="25.0" prefHeight="876.0" prefWidth="351.0" style="-fx-border-color: black; -fx-border-width: 0.3;">
+               <children>
+                  <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="36.0" layoutY="54.0">
+                     <image>
+                        <Image url="@../../images/light.png" />
+                     </image>
+                  </ImageView>
+                  <JFXToggleButton layoutX="95.0" layoutY="107.0" text="Futur feature" />
+                  <JFXToggleButton fx:id="lightActivation" layoutX="95.0" layoutY="49.0" onAction="#lightAction" text="Lumières" />
+                  <JFXButton layoutX="144.0" layoutY="364.0" onAction="#drawPoint" text="point" />
+                  <JFXButton layoutX="133.0" layoutY="262.0" onAction="#drawSegment" text="segment" />
+                  <JFXButton layoutX="145.0" layoutY="294.0" onAction="#drawFace" text="face" />
+                  <JFXButton layoutX="118.0" layoutY="328.0" onAction="#drawFaceSegment" text="Face+Segment" />
+                  <JFXButton fx:id="newScene" layoutX="106.0" layoutY="687.0" onAction="#deuxScene" text="Ouvrir une camera" />
+                  <JFXButton layoutX="135.0" layoutY="473.0" onAction="#centerModel" text="Centrer" />
+                  <Text layoutX="146.0" layoutY="548.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zoom">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <ImageView layoutX="185.0" layoutY="566.0" onMouseClicked="#zoom">
+                     <image>
+                        <Image url="@../../images/zoom+.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView layoutX="100.0" layoutY="566.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#deZoom">
+                     <image>
+                        <Image url="@../../images/zoom-.png" />
+                     </image>
+                  </ImageView>
+                  <ColorPicker fx:id="colorPicker" layoutX="94.0" layoutY="796.0" onAction="#changeColor" />
+                  <Text layoutX="63.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changer la couleur du modèle">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="75.0" layoutY="674.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ouvrir un nouvel affichage">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="104.0" layoutY="461.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Centrer le modèle">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="70.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changer le mode d'affichage">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

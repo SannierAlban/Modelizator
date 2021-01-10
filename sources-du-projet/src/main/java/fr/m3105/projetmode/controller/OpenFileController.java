@@ -4,12 +4,10 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import fr.m3105.projetmode.Views.HelpView;
 import fr.m3105.projetmode.Views.MainStage;
+import fr.m3105.projetmode.model.ModelHeader;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,14 +35,14 @@ public class OpenFileController implements Initializable {
     class PLY extends RecursiveTreeObject<PLY> {
         StringProperty name;
         StringProperty date;
-        StringProperty url;
+        IntegerProperty nbfaces;
         JFXButton button;
         File f;
 
-        public PLY(String name, String date, String url,File f) {
+        public PLY(String name, String date, int nbfaces,File f) {
             this.name = new SimpleStringProperty(name) ;
             this.date = new SimpleStringProperty(date) ;
-            this.url = new SimpleStringProperty(url);
+            this.nbfaces = new SimpleIntegerProperty(nbfaces);
             this.button = new JFXButton("Ouvrir");
             this.f = f;
         }
@@ -99,16 +97,13 @@ public class OpenFileController implements Initializable {
             JFXTreeTableColumn<PLY, String> dateColumn = new JFXTreeTableColumn<>("Date");
             dateColumn.setPrefWidth(150);
             dateColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<PLY, String> param) ->{
-                if(dateColumn.validateValue(param)) return (ObservableValue<String>) param.getValue().getValue().date;
+                if(dateColumn.validateValue(param)) return param.getValue().getValue().date;
                 else return dateColumn.getComputedValue(param);
             });
 
-            JFXTreeTableColumn<PLY, String> plyColumn = new JFXTreeTableColumn<>("Url");
+            JFXTreeTableColumn<PLY, Integer> plyColumn = new JFXTreeTableColumn<>("Nombres de faces");
             plyColumn.setPrefWidth(250);
-            plyColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<PLY, String> param) ->{
-                if(plyColumn.validateValue(param)) return param.getValue().getValue().url;
-                else return plyColumn.getComputedValue(param);
-            });
+            plyColumn.setCellValueFactory(plyIntegerCellDataFeatures -> new SimpleObjectProperty<>(plyIntegerCellDataFeatures.getValue().getValue().nbfaces.getValue()));
 
             JFXTreeTableColumn<PLY, JFXButton> actionColumn = new JFXTreeTableColumn<>("Action");
             actionColumn.setPrefWidth(150);
@@ -126,7 +121,8 @@ public class OpenFileController implements Initializable {
                 BasicFileAttributes basicFileAttributes = Files.readAttributes(filePath,BasicFileAttributes.class);
                 DateFormat df = new SimpleDateFormat("dd:MM:yy - HH:mm:ss");
                 Date date = new Date(basicFileAttributes.lastAccessTime().toMillis());
-                PLY ply = new PLY(f.getName(),df.format(date), f.getPath(), f);
+                ModelHeader modelHeader = new ModelHeader(f.getAbsolutePath());
+                PLY ply = new PLY(f.getName(),df.format(date), modelHeader.getNbDeFace(), f);
                 plys.add(ply);
                 ply.prepareButton();
             }

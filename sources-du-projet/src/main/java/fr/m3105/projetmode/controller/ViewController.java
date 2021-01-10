@@ -1,6 +1,5 @@
 package fr.m3105.projetmode.controller;
 
-import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
 
 import fr.m3105.projetmode.Views.CameraView;
@@ -14,8 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.io.File;
@@ -28,27 +27,18 @@ public abstract class ViewController implements Initializable, Observer {
     @FXML
     protected JFXToggleButton lightActivation;
     @FXML
-    protected JFXToggleButton coupeActivation;
-    @FXML
-    protected JFXSlider coupeSlider;
-    @FXML
     protected Canvas mainCanvas;
     @FXML
     protected ImageView playButton;
     @FXML 
     protected ImageView pauseButton;
     @FXML
-    protected Pane mainPane;
-    @FXML
-    protected Pane secondPane;
-    @FXML
-    protected Canvas secondCanvas;
+    protected ColorPicker colorPicker;
 
     protected GraphicsContext graphicsContext;
     protected File file;
     protected View stage;
     protected boolean isPlaying = false;
-    protected Thread daemonThread;
     protected List<View> views = new ArrayList<>();
     boolean lightsOn = false;
     protected Model model;
@@ -57,7 +47,7 @@ public abstract class ViewController implements Initializable, Observer {
 
     class ModelRun extends Task<Void> {
         @Override
-        protected Void call() throws Exception {
+        protected Void call() {
             while (isPlaying) {
                 try {
                     Thread.sleep(35);
@@ -78,8 +68,6 @@ public abstract class ViewController implements Initializable, Observer {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            //MainStage tmpstage = (MainStage) stage;
-            coupeSlider.setVisible(false);
             pauseButton.setVisible(false);
         }catch (Exception e){
 
@@ -92,12 +80,20 @@ public abstract class ViewController implements Initializable, Observer {
         this.stage =stage;
         file = this.stage.getFile();
         model = new Model(file);
+        System.out.println(System.currentTimeMillis());
         model.attach(this);
-        //Permet de créer un affichage en console
+        //Permet de creer un affichage en console
         //model.attach(new ConsoleView(model));
         model.zoom(5);
-        //model.translate(new Vector(mainCanvas.getWidth()/2-model.getCenter().x,mainCanvas.getHeight()/2-model.getCenter().y,0));
+        try{
+            if (model.isColored()){
+                colorPicker.setVisible(false);
+            }
+        }catch (Exception e){
+
+        }
         model.translate(new double[] {mainCanvas.getWidth()/2-model.getCenter()[0],mainCanvas.getHeight()/2-model.getCenter()[1],0},true);
+        System.out.println(System.currentTimeMillis());
     }
 
     public void translationHaut(){
@@ -135,10 +131,12 @@ public abstract class ViewController implements Initializable, Observer {
     public void rotateZ(){
         model.rotateOnZAxis(-3.14159/32);
     }
+    public void inverseRotateZ(){
+        model.rotateOnZAxis(3.14159/32);
+    }
 
     public void lightAction(){
         if (lightActivation.isSelected()){
-            System.out.println("Activation des lumières");
             lightsOn = true;
         }else {
         	model.restoreColor();
@@ -151,17 +149,12 @@ public abstract class ViewController implements Initializable, Observer {
         //m.translate(new Vector(mainCanvas.getWidth()/2-m.getComplexCenter().x,mainCanvas.getHeight()/2-m.getComplexCenter().y,0));
     }
 
-    public void deZoom(){
-        model.zoom(0.8);
+    public void centerModel(){
+        model.translate(new double[] {mainCanvas.getWidth()/2-model.getCenter()[0],mainCanvas.getHeight()/2-model.getCenter()[1],0},true);
     }
 
-    public void coupeAction(){
-        if (coupeActivation.isSelected()){
-            System.out.println("Activation de la coupe");
-            coupeSlider.setVisible(true);
-        }else if(!coupeActivation.isSelected()){
-            coupeSlider.setVisible(false);
-        }
+    public void deZoom(){
+        model.zoom(0.8);
     }
 
     public void pause(){
@@ -177,6 +170,11 @@ public abstract class ViewController implements Initializable, Observer {
         startThread();
     }
 
+    public void changeColor(){
+        model.changeColor((int)(colorPicker.getValue().getRed()*255),(int)(colorPicker.getValue().getGreen()*255),(int)(colorPicker.getValue().getBlue()*255));
+        draw();
+    }
+
     // start thread
     public synchronized void startThread() {
         Task<Void> bg = new ModelRun();
@@ -190,121 +188,82 @@ public abstract class ViewController implements Initializable, Observer {
         isPlaying = false;
     }
 
-    public int[][] sortFacePasTerribleDeFrancoisMaisBonIlYADesLambdasExpressions(int[][] faces){
-        int[][] tmpFaces = faces.clone();
+    public class Face implements Comparable<Face>{
+        int p1;int p2;int p3;int r;int g;int b;
+        public Face(int p1,int p2,int p3,int r,int g,int b){
+            this.p1 = p1;
+            this.p2 = p2;
+            this.p3 = p3;
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+        public Face(int p1,int p2,int p3){
+            this.p1 = p1;
+            this.p2 = p2;
+            this.p3 = p3;
+        }
 
-        Arrays.sort(tmpFaces, (o1, o2) -> {
-            double moyenne1 = model.getPoint(o1[0])[2]+model.getPoint(o1[1])[2]+model.getPoint(o1[2])[2];
-            double moyenne2 = model.getPoint(o2[0])[2]+model.getPoint(o2[1])[2]+model.getPoint(o2[2])[2];
-            moyenne1 = moyenne1/3;
-            moyenne2 = moyenne2/3;
-
-            if (moyenne1 == moyenne2)
-                return 0;
-            if(moyenne1 > moyenne2){
+        public double moyenne(){
+            return (model.getPoint(p1)[2] + model.getPoint(p2)[2] + model.getPoint(p3)[2])/3;
+        }
+        @Override
+        public int compareTo(Face o) {
+            if (this.moyenne() > o.moyenne()) {
+                return -1;
+            } else if (this.moyenne() < o.moyenne()) {
                 return 1;
+            } else {
+                Double maxT1 = Double.max(p1, Double.max(p2, p3));
+                Double maxT2 = Double.max(p1, Double.max(p2, p3));
+                if (maxT1 > maxT2) {
+                    return -1;
+                }else if (maxT1 < maxT2) {
+                    return 1;
+                }
+                return 0;
             }
-            return -1;
-        });
-        return tmpFaces;
+        }
     }
     
-    /**
-     * Returns a copy of the parameter sorted using bubblesort method
-     * @param faces
-     * @return sorted array of faces
-     */
-//    public int[][] sortFace(int[][] faces){
-//	    	int[][] tmpFaces = faces.clone();
-//	    	double[][] points = model.getPoints();
-//	    	int lengthRowFaces = faces[0].length;
-//	    	int lengthColFaces = faces.length;
-//	    	//trier les int[] (sous forme de colonnes) dans l'ordre croissant
-//	    	boolean sorted = false;
-//	    	do {
-//	    		sorted = true;
-//		    	for(int idxFace=0; idxFace<lengthRowFaces-1; idxFace++) {
-//		    		double sumA=0.0,sumB=0.0;
-//		    		for(int idxPoint=0;idxPoint<lengthColFaces;idxPoint++) {
-//		    			sumA+=points[2][tmpFaces[idxPoint][idxFace]];
-//		    			sumB+=points[2][tmpFaces[idxPoint][idxFace+1]];
-//		    		}
-//		    		if(sumA/lengthColFaces>sumB/lengthColFaces) {
-//		    			tmpFaces = swap(faces, idxFace, idxFace+1);
-//		    			sorted = false;
-//		    		}
-//		    	}
-//	    	}while(!sorted);
-//	    	
-//	    	return tmpFaces;
-//    }
-    
 //	trie par r�ference les 2 tableau
-    public void sortFace(int[][] faces){
+    public int[][] sortFace(int[][] faces){
 //				Array de x,y,z,R,G,B
-    	ArrayList<int[]> facesRGB = new ArrayList<>();
+    	List<Face> facesRGB = new ArrayList<>();
     	
-    	if(model.isColor()) {
-    		for(int i = 0; i < model.getVertex(); i++) {
+    	if(model.isColor() && !model.isRgbSurPoints()) {
+    		for(int i = 0; i < model.getFaces()[0].length; i++) {
     			int r = model.getRgbAlpha()[0][i];
     			int g = model.getRgbAlpha()[1][i];
     			int b = model.getRgbAlpha()[2][i];
-    			facesRGB.add(new int[] {model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i],r,g,b});
+    			facesRGB.add(new Face(model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i],r,g,b));
     		}
     	}
     	else {
         	for(int i = 0; i < model.getVertex(); i++)
-        		facesRGB.add(new int[] {model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i]});
+                facesRGB.add(new Face(model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i]));
     	}
-    		
-    	Collections.sort(facesRGB, new Comparator<int[]>(){
-    		@Override
-    		public int compare(int[] t1,int[] t2) {
-//    			System.out.println(String.format("t1= [%d][%d][%d]",t1[0],t1[1],t1[2] ));
-//    			System.out.println(String.format("t2= [%d][%d][%d]",t2[0],t2[1],t2[2] ));
-    			double z1T1 = model.getPoints()[2][t1[0]];
-    			double z2T1 = model.getPoints()[2][t1[1]];
-    			double z3T1 = model.getPoints()[2][t1[2]];
-    			
-    			double z1T2 = model.getPoints()[2][t2[0]];
-    			double z2T2 = model.getPoints()[2][t2[1]];
-    			double z3T2 = model.getPoints()[2][t2[2]];
-    			
-    			double sommeT1 = z1T1+z2T1+z3T1;
-    			//System.out.println("m1="+sommeT1);
-    			double sommeT2 = z1T2+z2T2+z3T2;
-    			//System.out.println("m2="+sommeT2);
-
-    			if(sommeT1 - sommeT2 != 0)
-    				return sommeT1 > sommeT2 ? 1 : -1;
-
-    			Double maxT1 = Double.max(z1T1, Double.max(z2T1, z3T1));
-    			Double maxT2 = Double.max(z1T2, Double.max(z2T2, z3T2));
-    			
-    			if(maxT1 - maxT2 != 0)
-    				return maxT1 > maxT2 ? 1 : -1;
-    			return 0;
-    		}
-		});
-    	
-    	int vertexMoinsUn = model.getVertex() - 1;
+        Collections.sort(facesRGB);
+    	//Collections.shuffle(facesRGB);
+    	//int vertexMoinsUn = model.getVertex() - 1;
     	if(model.isColor()) {
-        	for(int i = 0; i <= vertexMoinsUn; i++) {
-        		model.getFaces()[0][i] = facesRGB.get(vertexMoinsUn - i)[0];
-        		model.getFaces()[1][i] = facesRGB.get(vertexMoinsUn - i)[1];
-        		model.getFaces()[2][i] = facesRGB.get(vertexMoinsUn - i)[2]; 
-        		model.getRgbAlpha()[0][i] = facesRGB.get(vertexMoinsUn - i)[3];
-        		model.getRgbAlpha()[1][i] = facesRGB.get(vertexMoinsUn - i)[4];
-        		model.getRgbAlpha()[2][i] = facesRGB.get(vertexMoinsUn - i)[5];
+        	for(int i = 0; i < facesRGB.size(); i++) {
+        		model.getFaces()[0][i] = facesRGB.get(i).p1;
+        		model.getFaces()[1][i] = facesRGB.get(i).p2;
+        		model.getFaces()[2][i] = facesRGB.get(i).p3;
+        		model.getRgbAlpha()[0][i] = facesRGB.get(i).r;
+        		model.getRgbAlpha()[1][i] = facesRGB.get(i).g;
+        		model.getRgbAlpha()[2][i] = facesRGB.get(i).b;
         	}
     	}
     	else {
-        	for(int i = 0; i <= vertexMoinsUn; i++) {
-        		model.getFaces()[0][i] = facesRGB.get(vertexMoinsUn - i)[0];
-        		model.getFaces()[1][i] = facesRGB.get(vertexMoinsUn - i)[1];
-        		model.getFaces()[2][i] = facesRGB.get(vertexMoinsUn - i)[2]; 
+        	for(int i = 0; i <= facesRGB.size(); i++) {
+        		model.getFaces()[0][i] = facesRGB.get(i).p1;
+        		model.getFaces()[1][i] = facesRGB.get(i).p2;
+        		model.getFaces()[2][i] = facesRGB.get(i).p3;
         	}
     	}
+    	return model.FACES;
     }
     
     /**
@@ -314,26 +273,6 @@ public abstract class ViewController implements Initializable, Observer {
     public void applyLights(double[] lightSourcePoint) {
     	if(lightSourcePoint.length!=3) throw new InvalidParameterException();
     	model.applyLights(lightSourcePoint);
-    }
-    
-    /**
-     * Swaps two columns of the faces array 
-     * @param faces
-     * @param idxA
-     * @param idxB
-     * @return faces array with idxA and idxB swaped
-     */
-    private int[][] swap(int[][] faces,int idxA,int idxB){
-        //JE SAIS JE RENVOIE LE PARAM, JE SAIS QUE C'EST PAS CLEAN CODE
-        for(int axis=0;axis<3;axis++) {
-            int tmp = faces[axis][idxA];
-            faces[axis][idxA] = faces[axis][idxB];
-            faces[axis][idxB] = tmp;
-        }
-        if(!lightsOn){
-            model.swapRgb(idxA,idxB);
-        }
-        return faces;
     }
 
 	//TODO: ici faire une fonction setModel pour passer le model
@@ -348,12 +287,6 @@ public abstract class ViewController implements Initializable, Observer {
         stage.setController((new ControllerFactory()).create("face"),model);
         stage.getController().setViews(views);
         model.attach(stage.getController());
-        for (View view: views){
-            model.detach(view.getController());
-            view.setController((new ControllerFactory()).create("face"),model);
-            model.attach(stage.getController());
-            stage.getController().model.attach(view.getController());
-        }
         draw();
     }
 
@@ -361,24 +294,12 @@ public abstract class ViewController implements Initializable, Observer {
         stage.setController((new ControllerFactory()).create("point"),model);
         stage.getController().setViews(views);
         model.attach(stage.getController());
-        for (View view: views){
-            model.detach(view.getController());
-            view.setController((new ControllerFactory()).create("point"),model);
-            model.attach(stage.getController());
-            stage.getController().model.attach(view.getController());
-        }
         draw();
     }
     public void drawSegment() throws IOException {
         stage.setController((new ControllerFactory()).create("segment"),model);
         stage.getController().setViews(views);
         model.attach(stage.getController());
-        for (View view: views){
-            model.detach(view.getController());
-            view.setController((new ControllerFactory()).create("segment"),model);
-            model.attach(stage.getController());
-            stage.getController().model.attach(view.getController());
-        }
         draw();
     }
 
@@ -386,12 +307,6 @@ public abstract class ViewController implements Initializable, Observer {
         stage.setController((new ControllerFactory()).create("facesegment"),model);
         stage.getController().setViews(views);
         model.attach(stage.getController());
-        for (View view: views){
-            model.detach(view.getController());
-            view.setController((new ControllerFactory()).create("facesegment"),model);
-            model.attach(stage.getController());
-            stage.getController().model.attach(view.getController());
-        }
         draw();
     }
 
