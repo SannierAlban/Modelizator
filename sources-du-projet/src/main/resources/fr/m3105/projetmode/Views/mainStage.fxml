@@ -11,12 +11,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane onKeyPressed="#keyDetected" prefHeight="800.0" prefWidth="1200.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane layoutX="4.0" layoutY="1.0" prefHeight="906.0" prefWidth="1344.0">
          <children>
             <Pane fx:id="mainPane" layoutX="386.0" layoutY="25.0" prefHeight="685.0" prefWidth="938.0" styleClass="canvas" />
-            <Canvas fx:id="mainCanvas" height="685.0" layoutX="386.0" layoutY="25.0" width="938.0" />
+            <Canvas fx:id="mainCanvas" height="675.0" layoutX="391.0" layoutY="30.0" width="928.0" />
             <Pane layoutX="386.0" layoutY="716.0" prefHeight="186.0" prefWidth="938.0" style="-fx-border-color: black; -fx-border-width: 0.3;">
                <children>
                   <ImageView layoutX="734.0" layoutY="83.0" onMouseClicked="#rotateXBas">

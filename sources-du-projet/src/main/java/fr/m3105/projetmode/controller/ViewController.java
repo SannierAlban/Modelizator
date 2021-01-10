@@ -9,12 +9,15 @@ import fr.m3105.projetmode.model.utils.Observer;
 import fr.m3105.projetmode.model.utils.Subject;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 import java.io.File;
@@ -84,7 +87,7 @@ public abstract class ViewController implements Initializable, Observer {
         model.attach(this);
         //Permet de creer un affichage en console
         //model.attach(new ConsoleView(model));
-        model.zoom(5);
+        model.zoom(6);
         try{
             if (model.isColored()){
                 colorPicker.setVisible(false);
@@ -92,7 +95,7 @@ public abstract class ViewController implements Initializable, Observer {
         }catch (Exception e){
 
         }
-        model.translate(new double[] {mainCanvas.getWidth()/2-model.getCenter()[0],mainCanvas.getHeight()/2-model.getCenter()[1],0},true);
+        centerModel();
         System.out.println(System.currentTimeMillis());
     }
 
@@ -113,26 +116,26 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public void rotateXBas(){
-        model.rotateOnXAxis(-3.14159/32);
+        model.rotateOnXAxis(-3.14159/64);
     }
 
     public void rotateXHaut(){
-        model.rotateOnXAxis(3.14159/32);
+        model.rotateOnXAxis(3.14159/64);
     }
 
     public void rotateYDroite(){
-        model.rotateOnYAxis(-3.14159/32);
+        model.rotateOnYAxis(-3.14159/64);
     }
 
     public void rotateYGauche(){
-        model.rotateOnYAxis(3.14159/32);
+        model.rotateOnYAxis(3.14159/64);
     }
 
     public void rotateZ(){
-        model.rotateOnZAxis(-3.14159/32);
+        model.rotateOnZAxis(-3.14159/64);
     }
     public void inverseRotateZ(){
-        model.rotateOnZAxis(3.14159/32);
+        model.rotateOnZAxis(3.14159/64);
     }
 
     public void lightAction(){
@@ -148,8 +151,7 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public void zoom(){
-        model.zoom(1.2);
-        //m.translate(new Vector(mainCanvas.getWidth()/2-m.getComplexCenter().x,mainCanvas.getHeight()/2-m.getComplexCenter().y,0));
+        model.zoom(1.1);
     }
 
     public void centerModel(){
@@ -157,7 +159,7 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public void deZoom(){
-        model.zoom(0.8);
+        model.zoom(0.9);
     }
 
     public void pause(){
@@ -254,7 +256,7 @@ public abstract class ViewController implements Initializable, Observer {
         Collections.sort(facesRGB);
     	//Collections.shuffle(facesRGB);
     	//int vertexMoinsUn = model.getVertex() - 1;
-    	if(model.isColor()) {
+    	if(model.isColor() && !model.isRgbSurPoints()) {
         	for(int i = 0; i < facesRGB.size(); i++) {
         		model.getFaces()[0][i] = facesRGB.get(i).p1;
         		model.getFaces()[1][i] = facesRGB.get(i).p2;
@@ -338,5 +340,32 @@ public abstract class ViewController implements Initializable, Observer {
     public void setModel(Model model) {
         this.model = model;
         draw();
+    }
+
+    public void keyDetected(KeyEvent event){
+        if (event.getCode().equals(KeyCode.ADD))
+            zoom();
+        if (event.getCode().equals(KeyCode.SUBTRACT))
+            deZoom();
+        if (event.getCode().equals(KeyCode.Z))
+            translationHaut();
+        if (event.getCode().equals(KeyCode.Q))
+            translationGauche();
+        if (event.getCode().equals(KeyCode.S))
+            translationBas();
+        if (event.getCode().equals(KeyCode.D))
+            translationDroite();
+        if (event.getCode().equals(KeyCode.A))
+            rotateZ();
+        if (event.getCode().equals(KeyCode.E))
+            inverseRotateZ();
+        if (event.getCode().equals(KeyCode.I))
+            rotateXHaut();
+        if (event.getCode().equals(KeyCode.J))
+            rotateYGauche();
+        if (event.getCode().equals(KeyCode.K))
+            rotateXBas();
+        if (event.getCode().equals(KeyCode.L))
+            rotateYDroite();
     }
 }

@@ -210,6 +210,25 @@ public class Model extends Subject {
         return new double[] {(xmin+xmax)/2,(ymin+ymax)/2,(zmin+zmax)/2};
     }
 
+    public double getXMax(){
+        double xmax = 0;
+        for(int i=0;i<points[0].length;i++) {
+            double[] tmp = {points[0][i],points[1][i],points[2][i]};
+            if(tmp[0]<=xmax){
+                xmax = tmp[0];
+            }
+        }
+        return xmax*-1;
+    }
+    public double getYMax(){
+        double yMax = 0;
+        for(int i=0;i<points[0].length;i++) {
+            double[] tmp = {points[0][i],points[1][i],points[2][i]};
+            if(tmp[1]<=yMax) yMax = tmp[1];
+        }
+        return yMax*-1;
+    }
+
     /**
      * Returns the center of the Model. The center is calculated using the average points coordinates
      * @return Point Representing the center of the Model
