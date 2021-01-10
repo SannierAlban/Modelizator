@@ -9,7 +9,9 @@
 # Répartition du travail :
 
 François : Création de l'intégralité de l'interface utilisateur, des caméras, gestion de l'affichage et hiérarchie du projet (MCV). Source inépuisable d'inspiration, "Tel le jour faiblit, François est toujours très très clair"
+
 Lohan : Architecture du projet, débug, maquette, lumières et manipulations du modèle (Zoom, translation, rotation, centre). "là où y'a de l'ombre, il existe heureusement le scalaire du vecteur normal à la face et du vecteur lumière"
+
 Alban : Création intégrale du Parser, implémentation de multithreading, travaux sur le GraphicContext. "Quand Alban parse, les ply trépassent"
 
 # Description :
