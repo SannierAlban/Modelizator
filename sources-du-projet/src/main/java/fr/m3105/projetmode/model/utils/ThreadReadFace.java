@@ -7,6 +7,11 @@ import java.io.IOException;
 
 import fr.m3105.projetmode.model.Parser;
 
+/**
+ * useful class to create a thread only to fill the table faces of a parser
+ *
+ *
+ */
 public class ThreadReadFace extends Thread{
 	
 	Parser parser;
@@ -71,7 +76,11 @@ public class ThreadReadFace extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * with a space between each word
+	 * @return return the next string in the file (no comment) 
+	 * @throws ErreurFichierException
+	 */
 	private String readPLYLigne() throws ErreurFichierException {
 		String ret = null;
 		StringBuilder stringBuilder = new StringBuilder();
