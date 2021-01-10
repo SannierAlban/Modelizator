@@ -473,13 +473,11 @@ public class Model extends Subject {
     }
 
 	public void restoreColor() {
-		if(color) {
-        	for(int idx=0;idx<rgbAlpha[0].length;idx++) {
-        		for(int idxColor=0;idxColor<3;idxColor++) {
-        			rgbAlpha[idxColor][idx] = baseRGB[idxColor][idx];
-        		}
-        	}
-        }
+            this.rgbAlpha = new int[this.getBaseRGB().length][];
+            for (int i = 0; i < this.baseRGB.length; ++i) {
+                this.rgbAlpha[i] = new int[this.baseRGB[i].length];
+                System.arraycopy(this.baseRGB[i], 0, this.baseRGB[i], 0, this.baseRGB[i].length);
+            }
         this.notifyObservers();
 	}
 	
