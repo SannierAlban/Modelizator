@@ -6,8 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import fr.m3105.projetmode.model.Parser;
-import fr.m3105.projetmode.utils.ErreurFichierException;
 
+/**
+ * useful class to create a thread only to fill the table points of a parser
+ * 
+ *	
+ */
 public class ThreadReadPoints extends Thread {
 	
 	Parser parser;
@@ -47,7 +51,7 @@ public class ThreadReadPoints extends Thread {
 			str = null;
 			try {
 				str = readPLYLigne();
-			} catch (ErreurFichierException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			//System.out.println("str :"+str);
@@ -81,9 +85,9 @@ public class ThreadReadPoints extends Thread {
 	 * with a space between each word
 	 * @return return the next string in the file (no comment)
 	 */
-	private String readPLYLigne() throws ErreurFichierException {
+	private String readPLYLigne(){
 		String ret = null;
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 		try {
 			do {
 				ligneEnCour++;
@@ -91,15 +95,15 @@ public class ThreadReadPoints extends Thread {
 			}while(ret.contains("comment")); //si c'est un commentaire passe la ligne
 			
 			if(ret.isBlank())
-				throw new ErreurFichierException("la ligne :"+ligneEnCour+" es vide");
+				System.out.println("la ligne :"+ligneEnCour+" es vide");
 			
 			String[]tabRet = ret.split(" ");
 			
 			for (int i = 0; i < tabRet.length; i++) {
 				if(!tabRet[i].isBlank()) {
-					stringBuilder.append(tabRet[i]);
+					sb.append(tabRet[i]);
 					if(i != tabRet.length - 1) {
-						stringBuilder.append(" ");
+						sb.append(" ");
 					}
 				}
 			}
@@ -108,6 +112,6 @@ public class ThreadReadPoints extends Thread {
 		catch (Exception e) {
 			//System.out.println("parser err3 ligne en cour ="+ligneEnCour+" message erreur:"+e.getMessage());
 		}
-		return stringBuilder.toString();
+		return sb.toString();
 	}
 }
