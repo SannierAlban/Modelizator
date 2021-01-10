@@ -2,6 +2,7 @@ package fr.m3105.projetmode.model;
 
 import java.io.File;
 import java.security.InvalidParameterException;
+import java.util.Arrays;
 
 import fr.m3105.projetmode.model.utils.MultiThreadTransformPoints;
 import fr.m3105.projetmode.model.utils.MultiThreadTranslate;
@@ -473,11 +474,11 @@ public class Model extends Subject {
     }
 
 	public void restoreColor() {
-            this.rgbAlpha = new int[this.getBaseRGB().length][];
-            for (int i = 0; i < this.baseRGB.length; ++i) {
-                this.rgbAlpha[i] = new int[this.baseRGB[i].length];
-                System.arraycopy(this.baseRGB[i], 0, this.baseRGB[i], 0, this.baseRGB[i].length);
+        for(int idx=0;idx<rgbAlpha[0].length;idx++) {
+            for(int idxColor=0;idxColor<3;idxColor++) {
+                rgbAlpha[idxColor][idx] = baseRGB[idxColor][idx];
             }
+        }
         this.notifyObservers();
 	}
 	
