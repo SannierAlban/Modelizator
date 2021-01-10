@@ -19,6 +19,7 @@ public class CameraView extends View {
         this.setTitle("Camera View");
         this.setScene(new Scene(root));
         this.getIcons().add(new Image(this.getClass().getResourceAsStream("logo.png")));
+        this.setResizable(false);
         this.show();
     }
 

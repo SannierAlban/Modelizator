@@ -17,6 +17,7 @@ public class HelpView extends Stage {
         this.setTitle("Aide");
         this.setScene(new Scene(root));
         this.getIcons().add(new Image(this.getClass().getResourceAsStream("logo.png")));
+        this.setResizable(false);
         this.show();
     }
 }

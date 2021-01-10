@@ -1,40 +1,221 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="740.0" prefWidth="778.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="531.0" prefWidth="404.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="404.0" style="-fx-background-color: #4FBFFE;">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Aide" textAlignment="CENTER" wrappingWidth="404.0">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Text>
-               </children>
-            </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." textAlignment="CENTER" wrappingWidth="384.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" top="50.0" />
-               </VBox.margin>
-            </Text>
-         </children>
-      </VBox>
-      <ImageView fitHeight="63.0" fitWidth="61.0" layoutX="172.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="63.0" fitWidth="61.0" layoutX="375.0" layoutY="665.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/help_icons.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="203.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aide" textAlignment="CENTER" wrappingWidth="404.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <ImageView layoutX="14.0" layoutY="14.0">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="209.0" layoutY="55.0">
+         <image>
+            <Image url="@../../images/clavier.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="31.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contrôle" textAlignment="CENTER" wrappingWidth="404.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <ImageView layoutX="209.0" layoutY="161.0">
+         <image>
+            <Image url="@../../images/keyz.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="154.0" layoutY="210.0">
+         <image>
+            <Image url="@../../images/keyq.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="209.0" layoutY="210.0">
+         <image>
+            <Image url="@../../images/keyS.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="263.0" layoutY="210.0">
+         <image>
+            <Image url="@../../images/keyD.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="263.0" layoutY="299.0">
+         <image>
+            <Image url="@../../images/keyE.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="154.0" layoutY="299.0">
+         <image>
+            <Image url="@../../images/keyA.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="263.0" layoutY="409.0">
+         <image>
+            <Image url="@../../images/KeyL.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="209.0" layoutY="409.0">
+         <image>
+            <Image url="@../../images/keyK.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="154.0" layoutY="409.0">
+         <image>
+            <Image url="@../../images/keyJ.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="209.0" layoutY="361.0">
+         <image>
+            <Image url="@../../images/keyI.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="153.0" layoutY="500.0">
+         <image>
+            <Image url="@../../images/keyMinus.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="262.0" layoutY="500.0">
+         <image>
+            <Image url="@../../images/Keyadd.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="14.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Translation :" textAlignment="CENTER" wrappingWidth="109.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="15.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotation sur les Z :" textAlignment="CENTER" wrappingWidth="127.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotation :" textAlignment="CENTER" wrappingWidth="109.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="531.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zoom :" textAlignment="CENTER" wrappingWidth="109.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="583.0" layoutY="66.0">
+         <image>
+            <Image url="@../../images/javadude.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="405.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A propos" textAlignment="CENTER" wrappingWidth="404.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <ImageView layoutX="456.0" layoutY="186.0">
+         <image>
+            <Image url="@../../images/team.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="523.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L'équipe :" textAlignment="CENTER" wrappingWidth="109.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="523.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alban Sannier" textAlignment="CENTER" wrappingWidth="109.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="504.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="François Deroubaix" textAlignment="CENTER" wrappingWidth="146.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="523.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lohan Calot" textAlignment="CENTER" wrappingWidth="109.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ImageView layoutX="456.0" layoutY="372.0">
+         <image>
+            <Image url="@../../images/tools.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="523.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Outils utilisé" textAlignment="CENTER" wrappingWidth="109.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ImageView layoutX="456.0" layoutY="433.0">
+         <image>
+            <Image url="@../../images/discord.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="523.0" layoutY="433.0">
+         <image>
+            <Image url="@../../images/git.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="583.0" layoutY="433.0">
+         <image>
+            <Image url="@../../images/gitlab.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="708.0" layoutY="433.0">
+         <image>
+            <Image url="@../../images/linux.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="646.0" layoutY="433.0">
+         <image>
+            <Image url="@../../images/windows.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="496.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fait avec           et avec " wrappingWidth="223.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="40.0" fitWidth="39.0" layoutX="756.0" layoutY="686.0">
+         <image>
+            <Image url="@../../images/opensource.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="39.0" layoutX="569.0" layoutY="561.0">
+         <image>
+            <Image url="@../../images/coueur.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="670.0" layoutY="550.0">
+         <image>
+            <Image url="@../../images/java.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="603.0" layoutY="712.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projet Opensource" wrappingWidth="164.0">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ImageView layoutX="553.0" layoutY="489.0">
+         <image>
+            <Image url="@../../images/intellij.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="45.0" fitWidth="48.0" layoutX="615.0" layoutY="491.0">
+         <image>
+            <Image url="@../../images/eclipse.png" />
          </image>
       </ImageView>
    </children>

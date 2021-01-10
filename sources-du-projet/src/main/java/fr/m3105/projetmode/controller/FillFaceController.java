@@ -54,13 +54,6 @@ public class FillFaceController extends ViewController {
             double[] pointsX = new double[]{model.getPoint(tempFace[0][k])[0], model.getPoint(tempFace[1][k])[0], model.getPoint(tempFace[2][k])[0]};
             double[] pointsY = new double[]{model.getPoint(tempFace[0][k])[1], model.getPoint(tempFace[1][k])[1], model.getPoint(tempFace[2][k])[1]};
             graphicsContext.fillPolygon(pointsX, pointsY, 3);
-            for(int i = 0;i< tempFace.length;i++){
-                if(i<tempFace.length-1){
-                    graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[i+1][k])[0], model.getPoint(tempFace[i+1][k])[1]);
-                }else{
-                    graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[0][k])[0], model.getPoint(tempFace[0][k])[1]);
-                }
-            }
         }
     }
 }

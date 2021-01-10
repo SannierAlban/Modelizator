@@ -49,8 +49,9 @@ public abstract class ViewController implements Initializable, Observer {
     protected View stage;
     protected boolean isPlaying = false;
     protected List<View> views = new ArrayList<>();
-    boolean lightsOn = false;
+    protected boolean lightsOn = false;
     protected Model model;
+    protected Task<Void> modelRun;
 
     public abstract void draw();
 
@@ -62,14 +63,13 @@ public abstract class ViewController implements Initializable, Observer {
         protected Void call() {
             while (isPlaying) {
                 try {
-                    Thread.sleep(35);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     // do nothing
                 }
                 if (isPlaying) {
                     Platform.runLater(() -> {
-                        model.rotateOnXAxis(3.14159 / 32);
-                        model.rotateOnYAxis(3.14159 / 16);
+                        model.rotateOnYAxis(3.14159 / 32);
                     });
                 }
             }
@@ -201,7 +201,7 @@ public abstract class ViewController implements Initializable, Observer {
      * Fonction qui permet de démarrer un thread d'animation de type ModelRun
      */
     public synchronized void startThread() {
-        Task<Void> modelRun = new ModelRun();
+        modelRun= new ModelRun();
         Thread taskThread = new Thread(modelRun);
         taskThread.setDaemon(true);
         taskThread.start();
@@ -212,6 +212,7 @@ public abstract class ViewController implements Initializable, Observer {
      */
     public synchronized void stopThread() {
         isPlaying = false;
+        modelRun.cancel(true);
     }
 
     /**
@@ -332,6 +333,9 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public void drawFace() throws IOException {
+        lightsOn = false;
+        model.restoreColor();
+        draw();
         stage.setController((new ControllerFactory()).create("face"),model);
         stage.getController().setViews(views);
         model.attach(stage.getController());
@@ -339,12 +343,18 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public void drawPoint() throws IOException {
+        lightsOn = false;
+        model.restoreColor();
+        draw();
         stage.setController((new ControllerFactory()).create("point"),model);
         stage.getController().setViews(views);
         model.attach(stage.getController());
         draw();
     }
     public void drawSegment() throws IOException {
+        lightsOn = false;
+        model.restoreColor();
+        draw();
         stage.setController((new ControllerFactory()).create("segment"),model);
         stage.getController().setViews(views);
         model.attach(stage.getController());
@@ -352,6 +362,9 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public void drawFaceSegment() throws IOException {
+        lightsOn = false;
+        model.restoreColor();
+        draw();
         stage.setController((new ControllerFactory()).create("facesegment"),model);
         stage.getController().setViews(views);
         model.attach(stage.getController());
