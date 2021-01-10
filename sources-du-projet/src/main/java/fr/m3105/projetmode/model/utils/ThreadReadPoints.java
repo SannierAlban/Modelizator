@@ -13,7 +13,14 @@ public class ThreadReadPoints extends Thread {
 	int ligneEnCour;
 	BufferedReader reader;
 	int premiereLigne;
-	
+	/**
+	 * 
+	 * @param parser
+	 * @param path of the file you need to parse
+	 * @param ligneEnCour useful for error messages
+	 * @param premiereLigne position of the last line of the header
+	 * @throws FileNotFoundException
+	 */
 	public ThreadReadPoints(Parser parser,String path, int ligneEnCour,int premiereLigne) throws FileNotFoundException {
 		super();
 		this.parser = parser;
@@ -70,7 +77,11 @@ public class ThreadReadPoints extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * with a space between each word
+	 * @return return the next string in the file (no comment) 
+	 * @throws ErreurFichierException
+	 */
 	private String readPLYLigne() throws ErreurFichierException {
 		String ret = null;
 		StringBuilder sb = new StringBuilder();

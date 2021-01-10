@@ -8,29 +8,55 @@ import fr.m3105.projetmode.model.utils.ErreurFichierException;
 import fr.m3105.projetmode.model.utils.ThreadReadFace;
 import fr.m3105.projetmode.model.utils.ThreadReadPoints;
 
-
+/**
+ * 
+ * class use to parse a ply file
+ *
+ */
 public class Parser {
 	
 	private int ligneEnCour;
 	
-	//number of points in the model
+	/**
+	 * number of points in the model
+	 */
 	private int vertex;
+	/**
+	 * number of faces
+	 */
 	private int nbFaces;
-	
-	//true if there's color in the file
+	/**
+	 * true if there's color in the file
+	 */
 	private boolean color;
-	//true if there's alpha in the file
+	/**
+	 * true if there's alpha in the file
+	 */
 	private boolean alpha;
-	//true if the colors are indexed to the dots
+	/**
+	 * true if the colors are indexed to the dots
+	 */
 	private boolean rgbSurPoints;
-	//[0=x, 1=y, 2=z][0 - vertex]
+	/**
+	 * [0=x, 1=y, 2=z][0 - vertex]
+	 */
 	private double[][] points;
+	/**
+	 * [point n1,point n2,point n3,][nbFaces]
+	 */
 	private int[][] faces;
+	/**
+	 * [r,g,b,alpha(only if bool alpha is true)]
+	 */
 	private int[][] rgbAlpha;
 	
 	BufferedReader reader;
 	
-	
+	/**
+	 * 
+	 * @param path is the file that will be parse
+	 * @param real if you just want the information : don't fill faces, points and rgbAlpha
+	 */
 	public Parser(String path,boolean onlyHeader) {
 		try {
 			ligneEnCour = 0;
@@ -69,7 +95,10 @@ public class Parser {
 		}
 
 	}
-	
+	/**
+	 * 	initializes the rgb table takes into account having alpha in the ply file
+	 * @param rgbAlphaSurPoints true if the colors are indexed to the dots
+	 */
 	public void rgbAlphaInit(boolean rgbAlphaSurPoints) {
 		int nombreDElements = 3;
 		if(alpha)
@@ -139,6 +168,11 @@ public class Parser {
 			throw new ErreurFichierException("Format Incorecte :["+line+"] ligne "+ligneEnCour);
 	}
 	
+	/**
+	 * with a space between each word
+	 * @return return the next string in the file (no comment) 
+	 * @throws ErreurFichierException
+	 */
 	private String readPLYLigne() throws ErreurFichierException {
 		String ret = null;
 		StringBuilder sb = new StringBuilder();
