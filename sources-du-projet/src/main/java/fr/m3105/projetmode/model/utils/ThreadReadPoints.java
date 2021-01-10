@@ -52,7 +52,7 @@ public class ThreadReadPoints extends Thread {
 			str = null;
 			try {
 				str = readPLYLigne();
-			} catch (ErreurFichierException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			//System.out.println("str :"+str);
@@ -87,7 +87,7 @@ public class ThreadReadPoints extends Thread {
 	 * @return return the next string in the file (no comment) 
 	 * @throws ErreurFichierException
 	 */
-	private String readPLYLigne() throws ErreurFichierException {
+	private String readPLYLigne(){
 		String ret = null;
 		StringBuilder sb = new StringBuilder();
 		try {
@@ -97,7 +97,7 @@ public class ThreadReadPoints extends Thread {
 			}while(ret.contains("comment")); //si c'est un commentaire passe la ligne
 			
 			if(ret.isBlank())
-				throw new ErreurFichierException("la ligne :"+ligneEnCour+" es vide");
+				System.out.println("la ligne :"+ligneEnCour+" es vide");
 			
 			String[]tabRet = ret.split(" ");
 			
