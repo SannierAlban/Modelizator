@@ -75,8 +75,9 @@ class ModelManipulatorTest {
 		
 		assertTrue(arrayPointEquals(m.getPoints(),points,0.2));
 	}
+	
 	/**
-	 * A junit-test concerning Model rotations<br>
+	 * A junit-test concerning Model center calculations
 	 */
 	@Test
 	void testCenter() {
