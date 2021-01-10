@@ -32,9 +32,8 @@ public class Parser {
 	
 	
 	public Parser(String path,boolean onlyHeader) {
-		try {
+		try(FileReader fileReader = new FileReader(path);) {
 			ligneEnCour = 0;
-			FileReader fileReader = new FileReader(path);
 			reader = new BufferedReader(fileReader);
 			
 			readTwoFirstLineHeader();
@@ -141,7 +140,7 @@ public class Parser {
 	
 	private String readPLYLigne() throws ErreurFichierException {
 		String ret = null;
-		StringBuilder sb = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder();
 		try {
 			do {
 				ligneEnCour++;
@@ -155,9 +154,9 @@ public class Parser {
 			
 			for (int i = 0; i < tabRet.length; i++) {
 				if(!tabRet[i].isBlank()) {
-					sb.append(tabRet[i]);
+					stringBuilder.append(tabRet[i]);
 					if(i != tabRet.length - 1) {
-						sb.append(" ");
+						stringBuilder.append(" ");
 					}
 				}
 			}
@@ -166,7 +165,7 @@ public class Parser {
 		catch (Exception e) {
 			//System.out.println("parser err3 nbFaces="+nbFaces+"ligne en cour ="+ligneEnCour+" message erreur:"+e.getMessage());
 		}
-		return sb.toString();
+		return stringBuilder.toString();
 	}
 
 	public int getVertex() {

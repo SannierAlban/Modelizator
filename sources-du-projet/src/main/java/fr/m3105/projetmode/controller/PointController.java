@@ -1,6 +1,5 @@
 package fr.m3105.projetmode.controller;
 
-import fr.m3105.projetmode.model.Model;
 import javafx.scene.paint.Color;
 
 public class PointController extends ViewController{

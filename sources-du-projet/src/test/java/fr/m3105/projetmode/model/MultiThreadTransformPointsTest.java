@@ -20,8 +20,8 @@ class MultiThreadTransformPointsTest {
 											{rand.nextDouble(),rand.nextDouble(),rand.nextDouble()},
 											{rand.nextDouble(),rand.nextDouble(),rand.nextDouble()}};
 		
-		crane1.transformPoints(matrix);
-		crane2.transformPointsMultiThread(matrix);
+		crane1.transformPointsOld(matrix);
+		crane2.transformPoints(matrix);
 		
 		assertTrue(pointsEquals(crane1.points, crane2.points));
 	}
@@ -52,7 +52,7 @@ class MultiThreadTransformPointsTest {
 		
 		debut = System.nanoTime();
 		for(int nbDeIte = 0; nbDeIte < 1000; nbDeIte++) {
-			crane2.transformPointsMultiThread(matrix);
+			crane2.transformPoints(matrix);
 		}
 		fin = System.nanoTime();
 		resAvecThread = fin - debut;

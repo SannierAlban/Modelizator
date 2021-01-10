@@ -8,8 +8,8 @@ import java.util.Arrays;
 
 public class ConsoleView implements Observer {
     Model model;
-    public ConsoleView(Model m){
-        model = m;
+    public ConsoleView(Model model){
+        this.model = model;
     }
     @Override
     public void update(Subject subj) {

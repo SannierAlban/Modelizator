@@ -15,7 +15,7 @@ public class SegmentController extends ViewController{
         int[][] tempFace = model.getFaces();
         for(int k = 0;k<tabLenght;k++){
             for(int i = 0;i<3;i++){
-                if(i<2){
+                if(i< tempFace.length-1){
                     graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[i+1][k])[0], model.getPoint(tempFace[i+1][k])[1]);
                 }else{
                     graphicsContext.strokeLine(model.getPoint(tempFace[i][k])[0], model.getPoint(tempFace[i][k])[1], model.getPoint(tempFace[0][k])[0], model.getPoint(tempFace[0][k])[1]);

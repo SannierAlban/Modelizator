@@ -32,26 +32,26 @@ import java.util.ResourceBundle;
 
 public class OpenFileController implements Initializable {
 
-    class PLY extends RecursiveTreeObject<PLY> {
+    class PLYFile extends RecursiveTreeObject<PLYFile> {
         StringProperty name;
         StringProperty date;
         IntegerProperty nbfaces;
         JFXButton button;
-        File f;
+        File file;
 
-        public PLY(String name, String date, int nbfaces,File f) {
+        public PLYFile(String name, String date, int nbfaces, File file) {
             this.name = new SimpleStringProperty(name) ;
             this.date = new SimpleStringProperty(date) ;
             this.nbfaces = new SimpleIntegerProperty(nbfaces);
             this.button = new JFXButton("Ouvrir");
-            this.f = f;
+            this.file = file;
         }
 
         public void prepareButton(){
             button.setButtonType(JFXButton.ButtonType.RAISED);
             button.setOnAction(actionEvent -> {
                 try {
-                    new MainStage(f);
+                    new MainStage(file);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -59,7 +59,7 @@ public class OpenFileController implements Initializable {
         }
     }
     @FXML
-    private JFXTreeTableView<PLY> treeListView;
+    private JFXTreeTableView<PLYFile> treeListView;
     @FXML
     JFXTextField filterField;
     @FXML
@@ -70,7 +70,6 @@ public class OpenFileController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PLY file","*.ply"));
         File temFile = fileChooser.showOpenDialog(null);
         if (temFile != null){
-            System.out.println(temFile.getAbsolutePath());
             new MainStage(temFile);
         }
     }
@@ -87,47 +86,46 @@ public class OpenFileController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
 
-            JFXTreeTableColumn<PLY, String> nameColumn = new JFXTreeTableColumn<>("Name");
+            JFXTreeTableColumn<PLYFile, String> nameColumn = new JFXTreeTableColumn<>("Name");
             nameColumn.setPrefWidth(150);
-            nameColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<PLY, String> param) ->{
+            nameColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<PLYFile, String> param) ->{
                 if(nameColumn.validateValue(param)) return param.getValue().getValue().name;
                 else return nameColumn.getComputedValue(param);
             });
 
-            JFXTreeTableColumn<PLY, String> dateColumn = new JFXTreeTableColumn<>("Date");
+            JFXTreeTableColumn<PLYFile, String> dateColumn = new JFXTreeTableColumn<>("Date");
             dateColumn.setPrefWidth(150);
-            dateColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<PLY, String> param) ->{
+            dateColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<PLYFile, String> param) ->{
                 if(dateColumn.validateValue(param)) return param.getValue().getValue().date;
                 else return dateColumn.getComputedValue(param);
             });
 
-            JFXTreeTableColumn<PLY, Integer> plyColumn = new JFXTreeTableColumn<>("Nombres de faces");
+            JFXTreeTableColumn<PLYFile, Integer> plyColumn = new JFXTreeTableColumn<>("Nombres de faces");
             plyColumn.setPrefWidth(250);
             plyColumn.setCellValueFactory(plyIntegerCellDataFeatures -> new SimpleObjectProperty<>(plyIntegerCellDataFeatures.getValue().getValue().nbfaces.getValue()));
 
-            JFXTreeTableColumn<PLY, JFXButton> actionColumn = new JFXTreeTableColumn<>("Action");
+            JFXTreeTableColumn<PLYFile, JFXButton> actionColumn = new JFXTreeTableColumn<>("Action");
             actionColumn.setPrefWidth(150);
             actionColumn.setCellValueFactory(cellData->
                     new SimpleObjectProperty<>(cellData.getValue().getValue().button));
 
-            ObservableList<PLY> plys = FXCollections.observableArrayList();
+            ObservableList<PLYFile> plys = FXCollections.observableArrayList();
             File dir = new File("exemples");
             String[] extensions = new String[] {"ply"};
-            System.out.println("get from : " + dir.getCanonicalPath());
             List<File> files = (List<File>) FileUtils.listFiles(dir,extensions,true);
 
             for (File f : files){
                 Path filePath = f.toPath();
                 BasicFileAttributes basicFileAttributes = Files.readAttributes(filePath,BasicFileAttributes.class);
-                DateFormat df = new SimpleDateFormat("dd:MM:yy - HH:mm:ss");
+                DateFormat dateFormat = new SimpleDateFormat("dd:MM:yy - HH:mm:ss");
                 Date date = new Date(basicFileAttributes.lastAccessTime().toMillis());
                 ModelHeader modelHeader = new ModelHeader(f.getAbsolutePath());
-                PLY ply = new PLY(f.getName(),df.format(date), modelHeader.getNbDeFace(), f);
+                PLYFile ply = new PLYFile(f.getName(),dateFormat.format(date), modelHeader.getNbDeFace(), f);
                 plys.add(ply);
                 ply.prepareButton();
             }
 
-            final TreeItem<PLY> root = new RecursiveTreeItem<>(plys, RecursiveTreeObject::getChildren);
+            final TreeItem<PLYFile> root = new RecursiveTreeItem<>(plys, RecursiveTreeObject::getChildren);
 
             treeListView.setRoot(root);
             treeListView.setShowRoot(false);

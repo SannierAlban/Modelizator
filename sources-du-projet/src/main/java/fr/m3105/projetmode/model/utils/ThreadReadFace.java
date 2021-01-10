@@ -1,7 +1,6 @@
 package fr.m3105.projetmode.model.utils;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -75,7 +74,7 @@ public class ThreadReadFace extends Thread{
 	
 	private String readPLYLigne() throws ErreurFichierException {
 		String ret = null;
-		StringBuilder sb = new StringBuilder();
+		StringBuilder stringBuilder = new StringBuilder();
 		try {
 			do {
 				ligneEnCour++;
@@ -89,9 +88,9 @@ public class ThreadReadFace extends Thread{
 			
 			for (int i = 0; i < tabRet.length; i++) {
 				if(!tabRet[i].isBlank()) {
-					sb.append(tabRet[i]);
+					stringBuilder.append(tabRet[i]);
 					if(i != tabRet.length - 1) {
-						sb.append(" ");
+						stringBuilder.append(" ");
 					}
 				}
 			}
@@ -100,6 +99,6 @@ public class ThreadReadFace extends Thread{
 		catch (Exception e) {
 			//System.out.println("parser err3 ligne en cour ="+ligneEnCour+" message erreur:"+e.getMessage());
 		}
-		return sb.toString();
+		return stringBuilder.toString();
 	}
 }

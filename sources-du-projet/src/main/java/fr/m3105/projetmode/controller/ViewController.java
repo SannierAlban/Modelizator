@@ -9,7 +9,6 @@ import fr.m3105.projetmode.model.utils.Observer;
 import fr.m3105.projetmode.model.utils.Subject;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -83,7 +82,6 @@ public abstract class ViewController implements Initializable, Observer {
         this.stage =stage;
         file = this.stage.getFile();
         model = new Model(file);
-        System.out.println(System.currentTimeMillis());
         model.attach(this);
         //Permet de creer un affichage en console
         //model.attach(new ConsoleView(model));
@@ -96,7 +94,6 @@ public abstract class ViewController implements Initializable, Observer {
 
         }
         centerModel();
-        System.out.println(System.currentTimeMillis());
     }
 
     public void translationHaut(){
@@ -145,7 +142,6 @@ public abstract class ViewController implements Initializable, Observer {
         }else {
             lightsOn = false;
         	model.restoreColor();
-            System.out.println("desac");
         	draw();
         }
     }
@@ -181,8 +177,8 @@ public abstract class ViewController implements Initializable, Observer {
 
     // start thread
     public synchronized void startThread() {
-        Task<Void> bg = new ModelRun();
-        Thread taskThread = new Thread(bg);
+        Task<Void> modelRun = new ModelRun();
+        Thread taskThread = new Thread(modelRun);
         taskThread.setDaemon(true);
         taskThread.start();
     }
@@ -193,36 +189,36 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public class Face implements Comparable<Face>{
-        int p1;int p2;int p3;int r1;int g1;int b1;int r2;int g2;int b2;
-        public Face(int p1,int p2,int p3,int r1,int g1,int b1,int r2,int g2,int b2){
-            this.p1 = p1;
-            this.p2 = p2;
-            this.p3 = p3;
-            this.r1 = r1;
-            this.g1 = g1;
-            this.b1 = b1;
-            this.r2 = r2;
-            this.g2 = g2;
-            this.b2 = b2;
+        int point1;int point2;int point3;int redRGBAlpha;int greenRGBAlpha;int blueRGBAlpha;int redBaseRGB;int greenBaseRGB;int blueBaseRGB;
+        public Face(int point1, int point2, int point3, int redRGBAlpha, int greenRGBAlpha, int blueRGBAlpha, int redBaseRGB, int greenBaseRGB, int blueBaseRGB){
+            this.point1 = point1;
+            this.point2 = point2;
+            this.point3 = point3;
+            this.redRGBAlpha = redRGBAlpha;
+            this.greenRGBAlpha = greenRGBAlpha;
+            this.blueRGBAlpha = blueRGBAlpha;
+            this.redBaseRGB = redBaseRGB;
+            this.greenBaseRGB = greenBaseRGB;
+            this.blueBaseRGB = blueBaseRGB;
         }
-        public Face(int p1,int p2,int p3){
-            this.p1 = p1;
-            this.p2 = p2;
-            this.p3 = p3;
+        public Face(int point1, int point2, int point3){
+            this.point1 = point1;
+            this.point2 = point2;
+            this.point3 = point3;
         }
 
         public double moyenne(){
-            return (model.getPoint(p1)[2] + model.getPoint(p2)[2] + model.getPoint(p3)[2])/3;
+            return (model.getPoint(point1)[2] + model.getPoint(point2)[2] + model.getPoint(point3)[2])/3;
         }
         @Override
-        public int compareTo(Face o) {
-            if (this.moyenne() > o.moyenne()) {
+        public int compareTo(Face otherFace) {
+            if (this.moyenne() > otherFace.moyenne()) {
                 return -1;
-            } else if (this.moyenne() < o.moyenne()) {
+            } else if (this.moyenne() < otherFace.moyenne()) {
                 return 1;
             } else {
-                Double maxT1 = Double.max(p1, Double.max(p2, p3));
-                Double maxT2 = Double.max(p1, Double.max(p2, p3));
+                Double maxT1 = Double.max(point1, Double.max(point2, point3));
+                Double maxT2 = Double.max(point1, Double.max(point2, point3));
                 if (maxT1 > maxT2) {
                     return -1;
                 }else if (maxT1 < maxT2) {
@@ -240,13 +236,13 @@ public abstract class ViewController implements Initializable, Observer {
     	
     	if(model.isColor() && !model.isRgbSurPoints()) {
     		for(int i = 0; i < model.getFaces()[0].length; i++) {
-    			int r1 = model.getRgbAlpha()[0][i];
-    			int g1 = model.getRgbAlpha()[1][i];
-    			int b1 = model.getRgbAlpha()[2][i];
-                int r2 = model.getBaseRGB()[0][i];
-                int g2 = model.getBaseRGB()[1][i];
-                int b2 = model.getBaseRGB()[2][i];
-    			facesRGB.add(new Face(model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i],r1,g1,b1,r2,g2,b2));
+    			int redRGBAlpha = model.getRgbAlpha()[0][i];
+    			int greenRGBAlpha = model.getRgbAlpha()[1][i];
+    			int blueRGBAlpha = model.getRgbAlpha()[2][i];
+                int redBaseRGB = model.getBaseRGB()[0][i];
+                int greenBaseRGB = model.getBaseRGB()[1][i];
+                int blueBaseRGB = model.getBaseRGB()[2][i];
+    			facesRGB.add(new Face(model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i],redRGBAlpha,greenRGBAlpha,blueRGBAlpha,redBaseRGB,greenBaseRGB,blueBaseRGB));
     		}
     	}
     	else {
@@ -258,25 +254,25 @@ public abstract class ViewController implements Initializable, Observer {
     	//int vertexMoinsUn = model.getVertex() - 1;
     	if(model.isColor() && !model.isRgbSurPoints()) {
         	for(int i = 0; i < facesRGB.size(); i++) {
-        		model.getFaces()[0][i] = facesRGB.get(i).p1;
-        		model.getFaces()[1][i] = facesRGB.get(i).p2;
-        		model.getFaces()[2][i] = facesRGB.get(i).p3;
-        		model.getRgbAlpha()[0][i] = facesRGB.get(i).r1;
-        		model.getRgbAlpha()[1][i] = facesRGB.get(i).g1;
-        		model.getRgbAlpha()[2][i] = facesRGB.get(i).b1;
-                model.getBaseRGB()[0][i] = facesRGB.get(i).r2;
-                model.getBaseRGB()[1][i] = facesRGB.get(i).g2;
-                model.getBaseRGB()[2][i] = facesRGB.get(i).b2;
+        		model.getFaces()[0][i] = facesRGB.get(i).point1;
+        		model.getFaces()[1][i] = facesRGB.get(i).point2;
+        		model.getFaces()[2][i] = facesRGB.get(i).point3;
+        		model.getRgbAlpha()[0][i] = facesRGB.get(i).redRGBAlpha;
+        		model.getRgbAlpha()[1][i] = facesRGB.get(i).greenRGBAlpha;
+        		model.getRgbAlpha()[2][i] = facesRGB.get(i).blueRGBAlpha;
+                model.getBaseRGB()[0][i] = facesRGB.get(i).redBaseRGB;
+                model.getBaseRGB()[1][i] = facesRGB.get(i).greenBaseRGB;
+                model.getBaseRGB()[2][i] = facesRGB.get(i).blueBaseRGB;
         	}
     	}
     	else {
-        	for(int i = 0; i <= facesRGB.size(); i++) {
-        		model.getFaces()[0][i] = facesRGB.get(i).p1;
-        		model.getFaces()[1][i] = facesRGB.get(i).p2;
-        		model.getFaces()[2][i] = facesRGB.get(i).p3;
+        	for(int i = 0; i < facesRGB.size(); i++) {
+        		model.getFaces()[0][i] = facesRGB.get(i).point1;
+        		model.getFaces()[1][i] = facesRGB.get(i).point2;
+        		model.getFaces()[2][i] = facesRGB.get(i).point3;
         	}
     	}
-    	return model.FACES;
+    	return model.faces;
     }
     
     /**

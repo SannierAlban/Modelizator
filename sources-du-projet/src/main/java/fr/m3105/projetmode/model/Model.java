@@ -21,7 +21,7 @@ public class Model extends Subject {
     //(with n an int superior to 0 and v an int between 0 and 6)
     //Basically, this array contains n FACES and n*v points, therefore each column contains v references to its respectful points located in the points array.
     //Because this 2d array only contains FACES and references to points, the values of this array don't need to be changed
-    public int[][] FACES;
+    public int[][] faces;
 
     private int[][] rgbAlpha;
     private int[][] baseRGB;
@@ -35,7 +35,7 @@ public class Model extends Subject {
 
     /**
      * basic constructor, the parameter file represents the ply file that will be loaded
-     * @param File
+     * @param file
      */
     public Model(File file){
         this(file,true);
@@ -44,17 +44,17 @@ public class Model extends Subject {
     /**
      * ALTERNATIVE CONSTRUCTOR<br>
      * Just a cheap solution of a constructor which don't invert the coordinates
-     * @param f File object representing the .ply source
+     * @param file File object representing the .ply source
      * @param invert if true, all coordinates will be inverted <b>only useful for test purposes</b>
      */
-    public Model(File f, boolean invert){
-        Parser parser = new Parser(f.getPath(), false);
+    public Model(File file, boolean invert){
+        Parser parser = new Parser(file.getPath(), false);
         vertex = parser.getVertex();
         nbFaces = parser.getNbFaces();
 
         points = parser.getPoints();
         nbDePoints = points[0].length;
-        FACES = parser.getFaces();
+        faces = parser.getFaces();
         rgbAlpha = parser.getRgbAlpha();
         isColored = parser.isColor();
         color = parser.isColor();
@@ -67,7 +67,7 @@ public class Model extends Subject {
                 points[2][i] *= -1;
             }
         }
-        baseRGB = new int[FACES.length][FACES[0].length];
+        baseRGB = new int[faces.length][faces[0].length];
         if(isColored) {
         	for(int idx=0;idx<rgbAlpha[0].length;idx++) {
         		for(int idxColor=0;idxColor<3;idxColor++) {
@@ -88,8 +88,8 @@ public class Model extends Subject {
      */
     public void changeColor(int red,int green, int blue){
         final int[] DEFAULT_RGB = new int[] {red,green,blue};
-        this.rgbAlpha = new int[FACES.length][FACES[0].length];
-        for(int idx=0;idx<FACES[0].length;idx++) {
+        this.rgbAlpha = new int[faces.length][faces[0].length];
+        for(int idx = 0; idx< faces[0].length; idx++) {
             for(int idxColor=0;idxColor<3;idxColor++) {
                 rgbAlpha[idxColor][idx] = DEFAULT_RGB[idxColor];
                 baseRGB[idxColor][idx] = DEFAULT_RGB[idxColor];
@@ -104,7 +104,7 @@ public class Model extends Subject {
      */
     public Model(double[][] points) {
         this.points = points;
-        this.FACES = new int[0][0];
+        this.faces = new int[0][0];
     }
 
     /**
@@ -117,10 +117,10 @@ public class Model extends Subject {
             this.points[i] = new double[model.points[i].length];
             System.arraycopy(model.points[i], 0, this.points[i], 0, this.points[i].length);
         }
-        this.FACES = new int[model.FACES.length][];
-        for (int i = 0; i < model.FACES.length; ++i) {
-            this.FACES[i] = new int[model.FACES[i].length];
-            System.arraycopy(model.FACES[i], 0, this.FACES[i], 0, this.FACES[i].length);
+        this.faces = new int[model.faces.length][];
+        for (int i = 0; i < model.faces.length; ++i) {
+            this.faces[i] = new int[model.faces[i].length];
+            System.arraycopy(model.faces[i], 0, this.faces[i], 0, this.faces[i].length);
         }
         this.nbDePoints = model.nbDePoints;
         this.baseRGB = model.baseRGB;
@@ -146,15 +146,15 @@ public class Model extends Subject {
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder("Model [vertex=" + vertex + ", nbFaces=" + nbFaces + ", PATH=]\nPOINTS :\n");
-        int pointsLength=points[0].length,facesLength=FACES[0].length;
+        int pointsLength=points[0].length,facesLength= faces[0].length;
         for(int idxPoint=0;idxPoint<pointsLength;idxPoint++) {
             res.append("point "+idxPoint+" [x = "+points[0][idxPoint]+" | y = "+points[1][idxPoint]+" | z = "+points[2][idxPoint]+"]\n");
         }
-        int nbFacesPoints = FACES.length;
+        int nbFacesPoints = faces.length;
         for(int idxFace=0;idxFace<facesLength;idxFace++) {
             String tmp = "face "+idxFace+" [";
             for(int idxFacesPoint=0;idxFacesPoint<nbFacesPoints;idxFacesPoint++) {
-                tmp+=" idx_p"+idxFacesPoint+" = "+FACES[idxFacesPoint][idxFace];
+                tmp+=" idx_p"+idxFacesPoint+" = "+ faces[idxFacesPoint][idxFace];
             }
             res.append(tmp+"]\n");
         }
@@ -202,12 +202,12 @@ public class Model extends Subject {
     }
 
     public int[] getFace(int idxFace) {
-        if(idxFace<points[0].length) return new int[] {FACES[0][idxFace],FACES[1][idxFace],FACES[2][idxFace]};
+        if(idxFace<points[0].length) return new int[] {faces[0][idxFace], faces[1][idxFace], faces[2][idxFace]};
         else throw new ArrayIndexOutOfBoundsException();
     }
 
     public int[][] getFaces() {
-        return FACES;
+        return faces;
     }
     
     public int[][] getRgbAlpha() {
@@ -216,25 +216,6 @@ public class Model extends Subject {
 
     public boolean isColor() {
         return color;
-    }
-
-    /**
-     * Returns the center of the Model. The method consists of creating a virtual container of all the points and returning the center of this container <br>
-     * <b>WARNING : This method shouldn't be used using a basic and precise Model, else the Point returned won't approach the real center of the Model</b>
-     * @return Point Representing the center of the Model
-     */
-    public double[] getComplexCenter() {
-        double xmin = 0,xmax = 0,ymin = 0,ymax = 0,zmin = 0,zmax = 0;
-        for(int i=0;i<points.length;i++) {
-            double[] tmp = {points[0][i],points[1][i],points[2][i]};
-            if(tmp[0]<=xmin) xmin = tmp[0];
-            if(tmp[1]<=ymin) ymin = tmp[1];
-            if(tmp[2]<=zmin) zmin = tmp[2];
-            if(tmp[0]>=xmax) xmax = tmp[0];
-            if(tmp[1]>=ymax) ymax = tmp[1];
-            if(tmp[2]>=zmax) zmax = tmp[2];
-        }
-        return new double[] {(xmin+xmax)/2,(ymin+ymax)/2,(zmin+zmax)/2};
     }
 
     public double getXMax(){
@@ -375,7 +356,7 @@ public class Model extends Subject {
      * <b>CURRENTLY APPLY LIGHTS AT THE END</b>
      * @param TRANSFORM_MATRIX
      */
-    public void transformPoints(final double[][] TRANSFORM_MATRIX) {
+    public void transformPointsOld(final double[][] TRANSFORM_MATRIX) {
         final int length = points[0].length;
         for(int idxPoint=0;idxPoint<length;idxPoint++) {
 
@@ -393,7 +374,7 @@ public class Model extends Subject {
         }
     }
     
-    public void transformPointsMultiThread(final double[][] TRANSFORM_MATRIX) {
+    public void transformPoints(final double[][] TRANSFORM_MATRIX) {
     	int nbProco = Runtime.getRuntime().availableProcessors();
     	int segment = nbDePoints / nbProco;
     	int start = 0;
@@ -427,7 +408,7 @@ public class Model extends Subject {
     public void applyLights(double[] lightSourcePoint) {
         if(lightSourcePoint.length!=MAX_AXIS) throw new InvalidParameterException();
             lightSourcePoint = divideByNorm(lightSourcePoint);
-            final int LENGTH = FACES[0].length;
+            final int LENGTH = faces[0].length;
             for(int idxFace=0;idxFace<LENGTH;idxFace++) {
                 double[] normalVector = getNormalUnitVector(idxFace);
 	                double gamma = 0.0;
@@ -491,10 +472,10 @@ public class Model extends Subject {
      * @return double[3] the vector of the two points
      */
     public double[] determineVector(int idxFace, int idxPointA, int idxPointB) {
-        if(idxFace>FACES[0].length || idxPointA>MAX_AXIS || idxPointB>MAX_AXIS) throw new InvalidParameterException();
-        return new double[]{points[0][FACES[idxPointB][idxFace]]-points[0][FACES[idxPointA][idxFace]],
-                points[1][FACES[idxPointB][idxFace]]-points[1][FACES[idxPointA][idxFace]],
-                points[2][FACES[idxPointB][idxFace]]-points[2][FACES[idxPointA][idxFace]]};
+        if(idxFace> faces[0].length || idxPointA>MAX_AXIS || idxPointB>MAX_AXIS) throw new InvalidParameterException();
+        return new double[]{points[0][faces[idxPointB][idxFace]]-points[0][faces[idxPointA][idxFace]],
+                points[1][faces[idxPointB][idxFace]]-points[1][faces[idxPointA][idxFace]],
+                points[2][faces[idxPointB][idxFace]]-points[2][faces[idxPointA][idxFace]]};
     }
 
     /**

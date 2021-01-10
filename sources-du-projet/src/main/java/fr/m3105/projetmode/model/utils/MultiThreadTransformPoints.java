@@ -3,10 +3,10 @@ package fr.m3105.projetmode.model.utils;
 public class MultiThreadTransformPoints extends Thread{
 
 	private double points[][];
-	private int min;
-	private int max;
+	private final int min;
+	private final int max;
 	
-	private double[][] transform_matrix;
+	private final double[][] transform_matrix;
 	private final int MAX_AXIS = 3;
 	
     public MultiThreadTransformPoints(double[][] points, int start, int end, double[][] transform_matrix) {

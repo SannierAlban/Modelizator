@@ -5,19 +5,19 @@ package fr.m3105.projetmode.model;
  */
 public class ModelHeader {
 
-	private int nbDePoint;
-	private int nbDeFace;
+	private final int nbDePoint;
+	private final int nbDeFace;
 	
-	private boolean color;
-	private boolean alpha;
+	private final boolean color;
+	private final boolean alpha;
 	
 	public ModelHeader(String path) {
-		Parser p = new Parser(path, true);
-		nbDePoint = p.getVertex();
-		nbDeFace = p.getNbFaces();
+		Parser parser = new Parser(path, true);
+		nbDePoint = parser.getVertex();
+		nbDeFace = parser.getNbFaces();
 		
-		color = p.isColor();
-		alpha = p.isAlpha();
+		color = parser.isColor();
+		alpha = parser.isAlpha();
 	}
 
 	@Override
