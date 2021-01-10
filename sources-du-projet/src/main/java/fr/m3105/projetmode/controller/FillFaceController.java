@@ -7,9 +7,9 @@ public class FillFaceController extends ViewController {
     @Override
     public void draw() {
         if (stage.isCamera()) {
-            Model bidule = new Model(this.model);
-            bidule.rotateOnYAxis(Math.PI);
-            dessine(bidule);
+            Model cameraModel = new Model(this.model);
+            cameraModel.rotateOnYAxis(Math.PI);
+            dessine(cameraModel);
         } else {
             dessine(this.model);
         }

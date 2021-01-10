@@ -110,6 +110,7 @@ public class Model extends Subject {
         this.alpha = model.alpha;
         this.baseRGB = model.baseRGB;
         this.color = model.color;
+        this.isColored = model.isColored;
         this.nbFaces = model.nbFaces;
         if (model.rgbAlpha != null){
             this.rgbAlpha = new int[model.rgbAlpha.length][];

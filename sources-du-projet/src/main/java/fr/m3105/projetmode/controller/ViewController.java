@@ -138,9 +138,11 @@ public abstract class ViewController implements Initializable, Observer {
     public void lightAction(){
         if (lightActivation.isSelected()){
             lightsOn = true;
+            draw();
         }else {
         	model.restoreColor();
         	lightsOn = false;
+        	draw();
         }
     }
 
@@ -239,7 +241,7 @@ public abstract class ViewController implements Initializable, Observer {
     		}
     	}
     	else {
-        	for(int i = 0; i < model.getVertex(); i++)
+        	for(int i = 0; i < model.getFaces()[0].length; i++)
                 facesRGB.add(new Face(model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i]));
     	}
         Collections.sort(facesRGB);
