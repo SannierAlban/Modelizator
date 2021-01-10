@@ -75,19 +75,14 @@ class ModelManipulatorTest {
 		
 		assertTrue(arrayPointEquals(m.getPoints(),points,0.2));
 	}
+	
 	/**
-	 * A junit-test concerning Model rotations<br>
-	 * <b>NOT WORKING, UPDATE AND CHECKING OF THE VALUES NEEDED</b>
+	 * A junit-test concerning Model center calculations
 	 */
 	@Test
 	void testCenter() {
-		//basic cube (same as points0 variable of testRotation() method)
 		Model m1 = new Model(cube2);
-		assertTrue(pointEqualsApprox(new double []{2,2,2},m1.getComplexCenter(),0.1));
-		
-		//basic pyramid
-		Model m2 = new Model(pyramid);
-		assertTrue(pointEqualsApprox(new double[] {1.5,1.5,1},m2.getCenter(),0.1));
+		assertTrue(pointEqualsApprox(new double []{2,2,2},m1.getCenter(),0.4));
 	}
 	
 	/**

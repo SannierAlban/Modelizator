@@ -233,7 +233,7 @@ public abstract class ViewController implements Initializable, Observer {
         }
     }
     
-//	trie par réference les 2 tableau
+//	trie par rï¿½ference les 2 tableau
     public int[][] sortFace(int[][] faces){
 //				Array de x,y,z,R,G,B
     	List<Face> facesRGB = new ArrayList<>();

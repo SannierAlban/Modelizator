@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import fr.m3105.projetmode.model.utils.ErreurFichierException;
+import fr.m3105.projetmode.model.utils.ThreadReadFace;
+import fr.m3105.projetmode.model.utils.ThreadReadPoints;
 
 
 public class Parser {
@@ -32,19 +34,33 @@ public class Parser {
 	public Parser(String path,boolean onlyHeader) {
 		try {
 			ligneEnCour = 0;
-			reader = new BufferedReader(new FileReader(path));
+			FileReader fileReader = new FileReader(path);
+			reader = new BufferedReader(fileReader);
 			
 			readTwoFirstLineHeader();
 			readFlexibleHeader();
 			
+			int finHeader = ligneEnCour;
+			//System.out.println(path + "  finHeader :"+finHeader);
+			
 			if(!onlyHeader) {
 				points = new double [3][vertex];
 				faces = new int [3][nbFaces];
-				
-				readPoints();
-				readFaces();
+				ThreadReadPoints threadReadPoints = new ThreadReadPoints(this, path,ligneEnCour,finHeader);
+				threadReadPoints.start();
+
+				ThreadReadFace threadReadFace = new ThreadReadFace(this, path, ligneEnCour, finHeader);
+				threadReadFace.start();
+				try {
+					threadReadPoints.join();
+					threadReadFace.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
+			fileReader.close();
 		}
+
 		catch (IOException e) {
 			System.out.println("parser 1"+e.getMessage());
 		}
@@ -54,7 +70,7 @@ public class Parser {
 
 	}
 	
-	void rgbAlphaInit(boolean rgbAlphaSurPoints) {
+	public void rgbAlphaInit(boolean rgbAlphaSurPoints) {
 		int nombreDElements = 3;
 		if(alpha)
 			nombreDElements++;
@@ -72,67 +88,15 @@ public class Parser {
 		}
 	}
 	
-	private void readFaces() throws ErreurFichierException {
-		String line = readPLYLigne();
-		String [] tabLine;
-		int lineIdx = 0;
-
-		while(line != null && lineIdx < nbFaces){
-			tabLine = line.split(" ");
-			if(Integer.parseInt(tabLine[0]) != 3)
-				throw new ErreurFichierException("Ligne "+ligneEnCour+": faces non composer de 3 points");
-			
-			faces[0][lineIdx] = Integer.parseInt(tabLine[1]);
-			faces[1][lineIdx] = Integer.parseInt(tabLine[2]);
-			faces[2][lineIdx] = Integer.parseInt(tabLine[3]);
-			
-			if(color && !rgbSurPoints)
-				putRGB(tabLine, 4, lineIdx);
-			
-			line = readPLYLigne();
-			lineIdx++;
-		}
-	}
-	
-	void putRGB(String[] strTab,int firstIdx, int lineIdx) {
+	public void putRGB(String[] strTab,int firstIdx, int lineIdx) {
 		rgbAlpha[0][lineIdx] = (int)Integer.parseInt(strTab[firstIdx]);
 		rgbAlpha[1][lineIdx] = (int)Integer.parseInt(strTab[firstIdx+1]);
 		rgbAlpha[2][lineIdx] = (int)Integer.parseInt(strTab[firstIdx+2]);
 		if(alpha)
 			rgbAlpha[3][lineIdx] = Integer.parseInt(strTab[firstIdx+3]);
 	}
-	
-	private void readPoints() throws IOException, ErreurFichierException {
-		double[] xyz = new double[3];
-		String str;
-		String[] strTab;
-		
-		boolean gate = true;
-		
-		for(int lineIdx = 0; lineIdx < vertex; lineIdx++) {
-			str = readPLYLigne();
-			strTab = str.split(" ");
-			
-			if(gate) {
-				if(color && strTab.length >= 6)
-					rgbAlphaInit(true);
-				else if(color)
-					rgbAlphaInit(false);
-				gate = false;
-			}
-			
-			for (int i = 0; i < strTab.length && i < 3; i++) {
-				xyz[i] = Double.parseDouble(strTab[i]);
-			}
-			putXYZInPoints(xyz, lineIdx);
-			
-			if(color && rgbSurPoints) {
-				putRGB(strTab,3,lineIdx);
-			}
-		}
-	}
 
-	private void putXYZInPoints(double[] xyz, int lineIdx) {
+	public void putXYZInPoints(double[] xyz, int lineIdx) {
 		points[0][lineIdx] = xyz[0];
 		points[1][lineIdx] = xyz[1];
 		points[2][lineIdx] = xyz[2];
@@ -177,6 +141,7 @@ public class Parser {
 	
 	private String readPLYLigne() throws ErreurFichierException {
 		String ret = null;
+		StringBuilder sb = new StringBuilder();
 		try {
 			do {
 				ligneEnCour++;
@@ -187,22 +152,21 @@ public class Parser {
 				throw new ErreurFichierException("la ligne :"+ligneEnCour+" es vide");
 			
 			String[]tabRet = ret.split(" ");
-			ret = "";
 			
-			for (String s : tabRet) {
-				if(!s.isBlank()) {
-					ret += s+" ";
+			for (int i = 0; i < tabRet.length; i++) {
+				if(!tabRet[i].isBlank()) {
+					sb.append(tabRet[i]);
+					if(i != tabRet.length - 1) {
+						sb.append(" ");
+					}
 				}
-
-
 			}
-			ret = ret.substring(0,ret.length()-1);
 			
 		}
 		catch (Exception e) {
-			//System.out.println("parser3 = "+e.getMessage());
+			//System.out.println("parser err3 nbFaces="+nbFaces+"ligne en cour ="+ligneEnCour+" message erreur:"+e.getMessage());
 		}
-		return ret;
+		return sb.toString();
 	}
 
 	public int getVertex() {
