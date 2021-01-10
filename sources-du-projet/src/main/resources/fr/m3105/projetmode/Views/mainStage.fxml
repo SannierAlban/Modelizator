@@ -15,10 +15,8 @@
    <children>
       <Pane layoutX="4.0" layoutY="1.0" prefHeight="906.0" prefWidth="1344.0">
          <children>
-            <Pane fx:id="secondPane" layoutX="853.0" layoutY="25.0" prefHeight="685.0" prefWidth="469.0" styleClass="canvas" />
             <Pane fx:id="mainPane" layoutX="386.0" layoutY="25.0" prefHeight="685.0" prefWidth="938.0" styleClass="canvas" />
-            <Canvas fx:id="secondCanvas" height="685.0" layoutX="853.0" layoutY="25.0" onMouseClicked="#pause" width="469.0" />
-            <Canvas fx:id="mainCanvas" height="685.0" layoutX="386.0" layoutY="25.0" onMouseClicked="#pause" width="938.0" />
+            <Canvas fx:id="mainCanvas" height="685.0" layoutX="386.0" layoutY="25.0" width="938.0" />
             <Pane layoutX="386.0" layoutY="716.0" prefHeight="186.0" prefWidth="938.0" style="-fx-border-color: black; -fx-border-width: 0.3;">
                <children>
                   <ImageView layoutX="734.0" layoutY="83.0" onMouseClicked="#rotateXBas">

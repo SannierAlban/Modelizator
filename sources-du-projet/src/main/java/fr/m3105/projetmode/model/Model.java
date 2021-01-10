@@ -7,6 +7,11 @@ import fr.m3105.projetmode.model.utils.MultiThreadTransformPoints;
 import fr.m3105.projetmode.model.utils.MultiThreadTranslate;
 import fr.m3105.projetmode.model.utils.Subject;
 
+/**
+ * Une classe contenant toutes les données et opérations mathématiques à propos du Modèle qui sera affiché par la vue.
+ * @author Francois DEROUBAIX, Alban SANNIER, Lohan CALOT
+ *
+ */
 public class Model extends Subject {
 
     private int vertex;
@@ -22,16 +27,18 @@ public class Model extends Subject {
     private int[][] baseRGB;
 
     private boolean color;
-    private boolean alpha;
     private boolean rgbSurPoints;
 
     private boolean isColored;
 
     private final short MAX_AXIS = 3;
 
-    //basic constructor
-    public Model(File f){
-        this(f,true);
+    /**
+     * basic constructor, the parameter file represents the ply file that will be loaded
+     * @param File
+     */
+    public Model(File file){
+        this(file,true);
     }
 
     /**
@@ -51,7 +58,6 @@ public class Model extends Subject {
         rgbAlpha = parser.getRgbAlpha();
         isColored = parser.isColor();
         color = parser.isColor();
-        alpha = parser.isAlpha();
         rgbSurPoints = parser.isRgbSurPoints();
         int tempLength = this.points[0].length;
         if(invert) {
@@ -62,7 +68,7 @@ public class Model extends Subject {
             }
         }
         baseRGB = new int[FACES.length][FACES[0].length];
-        if(color) {
+        if(isColored) {
         	for(int idx=0;idx<rgbAlpha[0].length;idx++) {
         		for(int idxColor=0;idxColor<3;idxColor++) {
         			baseRGB[idxColor][idx] = rgbAlpha[idxColor][idx];
@@ -73,10 +79,16 @@ public class Model extends Subject {
         	color = true;
         }
     }
-
+    
+    /**
+     * <b>INITIATES THE COLORS OF THE MODEL</b>
+     * @param red
+     * @param green
+     * @param blue
+     */
     public void changeColor(int red,int green, int blue){
         final int[] DEFAULT_RGB = new int[] {red,green,blue};
-        rgbAlpha = new int[FACES.length][FACES[0].length];
+        this.rgbAlpha = new int[FACES.length][FACES[0].length];
         for(int idx=0;idx<FACES[0].length;idx++) {
             for(int idxColor=0;idxColor<3;idxColor++) {
                 rgbAlpha[idxColor][idx] = DEFAULT_RGB[idxColor];
@@ -95,6 +107,10 @@ public class Model extends Subject {
         this.FACES = new int[0][0];
     }
 
+    /**
+     * A constructor that copies the data of the given parameter
+     * @param model The model that will be copied
+     */
     public Model(Model model){
         this.points = new double[model.points.length][];
         for (int i = 0; i < model.points.length; ++i) {
@@ -107,7 +123,6 @@ public class Model extends Subject {
             System.arraycopy(model.FACES[i], 0, this.FACES[i], 0, this.FACES[i].length);
         }
         this.nbDePoints = model.nbDePoints;
-        this.alpha = model.alpha;
         this.baseRGB = model.baseRGB;
         this.color = model.color;
         this.isColored = model.isColored;
@@ -157,40 +172,53 @@ public class Model extends Subject {
         return points;
     }
 
-    private boolean setPoint(int idxPoint, double[] newCoordinates) {
+    private void setPoint(int idxPoint, double[] newCoordinates) {
         final int length = newCoordinates.length;
         if(idxPoint<points[0].length && length==MAX_AXIS) {
             for(int axis=0;axis<length;axis++) {
                 points[axis][idxPoint] = newCoordinates[axis];
             }
-        }else return false;
-        return true;
+        }
+    }
+
+	public int getVertex() {
+		return this.vertex;
+	}
+	
+	public boolean isRgbSurPoints() {
+		return rgbSurPoints;
+	}
+
+    public int[][] getBaseRGB() {
+        return baseRGB;
+    }
+
+    public void setBaseRGB(int[][] baseRGB) {
+        for(int line=0;line<baseRGB.length;line++) {
+        	for(int col=0;col<baseRGB[0].length;col++) {
+            	this.baseRGB[line][col] = baseRGB[line][col];
+            }
+        }
     }
 
     public int[] getFace(int idxFace) {
         if(idxFace<points[0].length) return new int[] {FACES[0][idxFace],FACES[1][idxFace],FACES[2][idxFace]};
         else throw new ArrayIndexOutOfBoundsException();
     }
-    
-    public void swapRgb(int idxA, int idxB){
-	    final int colLength = baseRGB.length;
-	    for(int idx=0;idx<colLength;idx++) {
-	    	int tmp = baseRGB[idx][idxA];
-	    	baseRGB[idx][idxA] = baseRGB[idx][idxB];
-	    	baseRGB[idx][idxB] = tmp;
-	    }
-    }
 
     public int[][] getFaces() {
         return FACES;
     }
+    
+    public int[][] getRgbAlpha() {
+        return rgbAlpha;
+    }
 
-    public boolean hasAlpha() {
-        return alpha;
+    public boolean isColor() {
+        return color;
     }
 
     /**
-     * OLD AND ODDLY UNACCURATE<br>
      * Returns the center of the Model. The method consists of creating a virtual container of all the points and returning the center of this container <br>
      * <b>WARNING : This method shouldn't be used using a basic and precise Model, else the Point returned won't approach the real center of the Model</b>
      * @return Point Representing the center of the Model
@@ -380,12 +408,12 @@ public class Model extends Subject {
     public void applyLights(double[] lightSourcePoint) {
         if(lightSourcePoint.length!=MAX_AXIS) throw new InvalidParameterException();
             lightSourcePoint = divideByNorm(lightSourcePoint);
-            for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
+            final int LENGTH = FACES[0].length;
+            for(int idxFace=0;idxFace<LENGTH;idxFace++) {
                 double[] normalVector = getNormalUnitVector(idxFace);
 	                double gamma = 0.0;
 	                for(int axis = 0;axis<MAX_AXIS;axis++) gamma+=Math.abs(normalVector[axis])*Math.abs(lightSourcePoint[axis]);
 	                if(gamma<0) gamma*=-1;
-	                //if(gamma <0.8) gamma+=0.2;
 	                rgbAlpha[0][idxFace]=(int) (baseRGB[0][idxFace]*gamma);
 	                rgbAlpha[1][idxFace]=(int) (baseRGB[1][idxFace]*gamma);
 	                rgbAlpha[2][idxFace]=(int) (baseRGB[2][idxFace]*gamma);
@@ -460,47 +488,17 @@ public class Model extends Subject {
         return "[Point "+idxPoint+" "+String.format("X : %.3f / Y : %.3f / Z : %.3f",points[0][idxPoint],points[1][idxPoint],points[2][idxPoint])+"]";
     }
 
-    public int[][] getRgbAlpha() {
-        return rgbAlpha;
-    }
-
-    public boolean isColor() {
-        return color;
-    }
-
-    public boolean isAlpha() {
-        return alpha;
-    }
+   
 
 	public void restoreColor() {
-		if(color) {
-        	for(int idx=0;idx<rgbAlpha[0].length;idx++) {
-        		for(int idxColor=0;idxColor<3;idxColor++) {
-        			rgbAlpha[idxColor][idx] = baseRGB[idxColor][idx];
-        		}
-        	}
+        for(int idx=0;idx<rgbAlpha[0].length;idx++) {
+            for(int idxColor=0;idxColor<3;idxColor++) {
+                rgbAlpha[idxColor][idx] = baseRGB[idxColor][idx];
+            }
         }
         this.notifyObservers();
 	}
 	
-	public int getVertex() {
-		return this.vertex;
-	}
-	
-	public boolean isRgbSurPoints() {
-		return rgbSurPoints;
-	}
-//	public void setFaces(int a, int b, int valeur) {
-//		this.FACES[][];
-//	}
-
-    public int[][] getBaseRGB() {
-        return baseRGB;
-    }
-
-    public void setBaseRGB(int[][] baseRGB) {
-        this.baseRGB = baseRGB;
-    }
 
     public boolean isColored() {
         return isColored;

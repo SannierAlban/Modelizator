@@ -140,8 +140,9 @@ public abstract class ViewController implements Initializable, Observer {
             lightsOn = true;
             draw();
         }else {
+            lightsOn = false;
         	model.restoreColor();
-        	lightsOn = false;
+            System.out.println("desac");
         	draw();
         }
     }
@@ -190,14 +191,17 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public class Face implements Comparable<Face>{
-        int p1;int p2;int p3;int r;int g;int b;
-        public Face(int p1,int p2,int p3,int r,int g,int b){
+        int p1;int p2;int p3;int r1;int g1;int b1;int r2;int g2;int b2;
+        public Face(int p1,int p2,int p3,int r1,int g1,int b1,int r2,int g2,int b2){
             this.p1 = p1;
             this.p2 = p2;
             this.p3 = p3;
-            this.r = r;
-            this.g = g;
-            this.b = b;
+            this.r1 = r1;
+            this.g1 = g1;
+            this.b1 = b1;
+            this.r2 = r2;
+            this.g2 = g2;
+            this.b2 = b2;
         }
         public Face(int p1,int p2,int p3){
             this.p1 = p1;
@@ -227,17 +231,20 @@ public abstract class ViewController implements Initializable, Observer {
         }
     }
     
-//	trie par réference les 2 tableau
+//	trie par rï¿½ference les 2 tableau
     public int[][] sortFace(int[][] faces){
 //				Array de x,y,z,R,G,B
     	List<Face> facesRGB = new ArrayList<>();
     	
     	if(model.isColor() && !model.isRgbSurPoints()) {
     		for(int i = 0; i < model.getFaces()[0].length; i++) {
-    			int r = model.getRgbAlpha()[0][i];
-    			int g = model.getRgbAlpha()[1][i];
-    			int b = model.getRgbAlpha()[2][i];
-    			facesRGB.add(new Face(model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i],r,g,b));
+    			int r1 = model.getRgbAlpha()[0][i];
+    			int g1 = model.getRgbAlpha()[1][i];
+    			int b1 = model.getRgbAlpha()[2][i];
+                int r2 = model.getBaseRGB()[0][i];
+                int g2 = model.getBaseRGB()[1][i];
+                int b2 = model.getBaseRGB()[2][i];
+    			facesRGB.add(new Face(model.getFaces()[0][i],model.getFaces()[1][i],model.getFaces()[2][i],r1,g1,b1,r2,g2,b2));
     		}
     	}
     	else {
@@ -252,9 +259,12 @@ public abstract class ViewController implements Initializable, Observer {
         		model.getFaces()[0][i] = facesRGB.get(i).p1;
         		model.getFaces()[1][i] = facesRGB.get(i).p2;
         		model.getFaces()[2][i] = facesRGB.get(i).p3;
-        		model.getRgbAlpha()[0][i] = facesRGB.get(i).r;
-        		model.getRgbAlpha()[1][i] = facesRGB.get(i).g;
-        		model.getRgbAlpha()[2][i] = facesRGB.get(i).b;
+        		model.getRgbAlpha()[0][i] = facesRGB.get(i).r1;
+        		model.getRgbAlpha()[1][i] = facesRGB.get(i).g1;
+        		model.getRgbAlpha()[2][i] = facesRGB.get(i).b1;
+                model.getBaseRGB()[0][i] = facesRGB.get(i).r2;
+                model.getBaseRGB()[1][i] = facesRGB.get(i).g2;
+                model.getBaseRGB()[2][i] = facesRGB.get(i).b2;
         	}
     	}
     	else {
