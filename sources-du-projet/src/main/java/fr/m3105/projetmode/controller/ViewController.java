@@ -172,7 +172,6 @@ public abstract class ViewController implements Initializable, Observer {
 
     public void changeColor(){
         model.changeColor((int)(colorPicker.getValue().getRed()*255),(int)(colorPicker.getValue().getGreen()*255),(int)(colorPicker.getValue().getBlue()*255));
-        draw();
     }
 
     // start thread

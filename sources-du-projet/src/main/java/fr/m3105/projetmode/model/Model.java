@@ -83,6 +83,7 @@ public class Model extends Subject {
                 baseRGB[idxColor][idx] = DEFAULT_RGB[idxColor];
             }
         }
+        notifyObservers();
     }
 
     /**
