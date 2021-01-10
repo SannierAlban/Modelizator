@@ -1,4 +1,6 @@
-package fr.m3105.projetmode.model.utils;
+package fr.m3105.projetmode.utils;
+
+import fr.m3105.projetmode.utils.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,7 @@ import java.security.InvalidParameterException;
 
 import fr.m3105.projetmode.model.utils.MultiThreadTransformPoints;
 import fr.m3105.projetmode.model.utils.MultiThreadTranslate;
-import fr.m3105.projetmode.model.utils.Subject;
+import fr.m3105.projetmode.utils.Subject;
 
 /**
  * Une classe contenant toutes les données et opérations mathématiques à propos du Modèle qui sera affiché par la vue.

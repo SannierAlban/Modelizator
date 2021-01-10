@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import fr.m3105.projetmode.model.Parser;
+import fr.m3105.projetmode.utils.ErreurFichierException;
 
 /**
  * useful class to create a thread only to fill the table faces of a parser

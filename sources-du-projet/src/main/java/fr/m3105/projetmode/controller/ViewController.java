@@ -5,8 +5,8 @@ import com.jfoenix.controls.JFXToggleButton;
 import fr.m3105.projetmode.Views.CameraView;
 import fr.m3105.projetmode.Views.View;
 import fr.m3105.projetmode.model.Model;
-import fr.m3105.projetmode.model.utils.Observer;
-import fr.m3105.projetmode.model.utils.Subject;
+import fr.m3105.projetmode.utils.Observer;
+import fr.m3105.projetmode.utils.Subject;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -121,11 +121,11 @@ public abstract class ViewController implements Initializable, Observer {
     }
 
     public void rotateYDroite(){
-        model.rotateOnYAxis(-3.14159/64);
+        model.rotateOnYAxis(3.14159/64);
     }
 
     public void rotateYGauche(){
-        model.rotateOnYAxis(3.14159/64);
+        model.rotateOnYAxis(-3.14159/64);
     }
 
     public void rotateZ(){

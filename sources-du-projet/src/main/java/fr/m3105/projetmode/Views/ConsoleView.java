@@ -1,8 +1,8 @@
 package fr.m3105.projetmode.Views;
 
 import fr.m3105.projetmode.model.Model;
-import fr.m3105.projetmode.model.utils.Observer;
-import fr.m3105.projetmode.model.utils.Subject;
+import fr.m3105.projetmode.utils.Observer;
+import fr.m3105.projetmode.utils.Subject;
 
 import java.util.Arrays;
 

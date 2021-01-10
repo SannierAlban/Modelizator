@@ -9,6 +9,7 @@ public class FillFaceController extends ViewController {
         if (stage.isCamera()) {
             Model cameraModel = new Model(this.model);
             cameraModel.rotateOnYAxis(Math.PI);
+            graphicsContext.setStroke(Color.RED);
             dessine(cameraModel);
         } else {
             dessine(this.model);

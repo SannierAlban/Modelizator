@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import fr.m3105.projetmode.model.Parser;
+import fr.m3105.projetmode.utils.ErreurFichierException;
 
 public class ThreadReadPoints extends Thread {
 	

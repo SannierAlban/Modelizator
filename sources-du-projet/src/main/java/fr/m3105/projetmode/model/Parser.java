@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import fr.m3105.projetmode.model.utils.ErreurFichierException;
+import fr.m3105.projetmode.utils.ErreurFichierException;
 import fr.m3105.projetmode.model.utils.ThreadReadFace;
 import fr.m3105.projetmode.model.utils.ThreadReadPoints;
 
