@@ -79,8 +79,7 @@ public class ThreadReadFace extends Thread{
 	}
 	/**
 	 * with a space between each word
-	 * @return return the next string in the file (no comment) 
-	 * @throws ErreurFichierException
+	 * @return return the next string in the file (no comment)
 	 */
 	private String readPLYLigne() throws ErreurFichierException {
 		String ret = null;

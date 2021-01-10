@@ -15,10 +15,10 @@
       </Pane>
       <Pane layoutX="20.0" layoutY="674.0" prefHeight="58.0" prefWidth="879.0" style="-fx-border-color: black; -fx-border-width: 0.33;">
          <children>
-            <JFXButton layoutX="595.0" layoutY="19.0" onAction="#drawFace" text="Face" />
-            <JFXButton layoutX="205.0" layoutY="19.0" onAction="#drawSegment" text="Segment" />
-            <JFXButton layoutX="293.0" layoutY="19.0" onAction="#drawFaceSegment" text="Face&amp;Segment" />
-            <JFXButton layoutX="505.0" layoutY="17.0" onAction="#drawPoint" text="Point" />
+            <JFXButton layoutX="595.0" layoutY="19.0" onAction="#drawFace" style="-jfx-button-type: RAISED; -fx-background-color: lightblue; -fx-text-fill: white;" text="Face" />
+            <JFXButton layoutX="205.0" layoutY="19.0" onAction="#drawSegment" style="-jfx-button-type: RAISED; -fx-background-color: lightblue; -fx-text-fill: white;" text="Segment" />
+            <JFXButton layoutX="293.0" layoutY="19.0" onAction="#drawFaceSegment" style="-jfx-button-type: RAISED; -fx-background-color: lightblue; -fx-text-fill: white;" text="Face&amp;Segment" />
+            <JFXButton layoutX="505.0" layoutY="17.0" onAction="#drawPoint" style="-jfx-button-type: RAISED; -fx-background-color: lightblue; -fx-text-fill: white;" text="Point" />
             <ImageView fitHeight="38.0" fitWidth="40.0" layoutX="420.0" layoutY="12.0">
                <image>
                   <Image url="@../../images/Camera.png" />

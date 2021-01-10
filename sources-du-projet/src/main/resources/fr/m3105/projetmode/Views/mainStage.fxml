@@ -93,51 +93,50 @@
             </Pane>
             <Pane layoutX="22.0" layoutY="25.0" prefHeight="876.0" prefWidth="351.0" style="-fx-border-color: black; -fx-border-width: 0.3;">
                <children>
-                  <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="36.0" layoutY="54.0">
+                  <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="58.0" layoutY="86.0">
                      <image>
                         <Image url="@../../images/light.png" />
                      </image>
                   </ImageView>
-                  <JFXToggleButton layoutX="95.0" layoutY="107.0" text="Futur feature" />
-                  <JFXToggleButton fx:id="lightActivation" layoutX="95.0" layoutY="49.0" onAction="#lightAction" text="Lumières" />
-                  <JFXButton layoutX="144.0" layoutY="364.0" onAction="#drawPoint" text="point" />
-                  <JFXButton layoutX="133.0" layoutY="262.0" onAction="#drawSegment" text="segment" />
-                  <JFXButton layoutX="145.0" layoutY="294.0" onAction="#drawFace" text="face" />
-                  <JFXButton layoutX="118.0" layoutY="328.0" onAction="#drawFaceSegment" text="Face+Segment" />
-                  <JFXButton fx:id="newScene" layoutX="106.0" layoutY="687.0" onAction="#deuxScene" text="Ouvrir une camera" />
-                  <JFXButton layoutX="135.0" layoutY="473.0" onAction="#centerModel" text="Centrer" />
-                  <Text layoutX="146.0" layoutY="548.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zoom">
+                  <JFXToggleButton fx:id="lightActivation" layoutX="117.0" layoutY="81.0" onAction="#lightAction" text="Lumières" />
+                  <JFXButton layoutX="213.0" layoutY="303.0" onAction="#drawPoint" prefHeight="25.0" prefWidth="95.0" style="-jfx-button-type: RAISED; -fx-background-color: lightblue; -fx-text-fill: white;" text="point" />
+                  <JFXButton layoutX="46.0" layoutY="220.0" onAction="#drawSegment" prefHeight="25.0" prefWidth="95.0" style="-jfx-button-type: RAISED; -fx-background-color: lightblue; -fx-text-fill: white;" text="segment" />
+                  <JFXButton layoutX="213.0" layoutY="220.0" onAction="#drawFace" prefHeight="25.0" prefWidth="95.0" style="-jfx-button-type: RAISED; -fx-background-color: lightblue; -fx-text-fill: white;" text="face" />
+                  <JFXButton layoutX="46.0" layoutY="303.0" onAction="#drawFaceSegment" prefHeight="25.0" prefWidth="95.0" style="-jfx-button-type: RAISED; -fx-background-color: lightblue; -fx-text-fill: white;" text="Face+Segment" />
+                  <JFXButton fx:id="newScene" layoutX="106.0" layoutY="670.0" onAction="#deuxScene" prefHeight="48.0" prefWidth="114.0" style="-jfx-button-type: RAISED; -fx-background-color: lightblue; -fx-text-fill: white;" text="Ouvrir une camera" />
+                  <JFXButton layoutX="122.0" layoutY="426.0" onAction="#centerModel" prefHeight="40.0" prefWidth="86.0" style="-jfx-button-type: RAISED; -fx-text-fill: white; -fx-background-color: lightgreen;" text="Centrer" />
+                  <Text layoutX="145.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zoom">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <ImageView layoutX="185.0" layoutY="566.0" onMouseClicked="#zoom">
+                  <ImageView layoutX="185.0" layoutY="547.0" onMouseClicked="#zoom">
                      <image>
                         <Image url="@../../images/zoom+.png" />
                      </image>
                   </ImageView>
-                  <ImageView layoutX="100.0" layoutY="566.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#deZoom">
+                  <ImageView layoutX="100.0" layoutY="547.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#deZoom">
                      <image>
                         <Image url="@../../images/zoom-.png" />
                      </image>
                   </ImageView>
-                  <ColorPicker fx:id="colorPicker" layoutX="94.0" layoutY="796.0" onAction="#changeColor" />
-                  <Text layoutX="63.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changer la couleur du modèle">
+                  <ColorPicker fx:id="colorPicker" layoutX="93.0" layoutY="773.0" onAction="#changeColor" />
+                  <Text fx:id="textChangeColor" layoutX="63.0" layoutY="743.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changer la couleur du modèle">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Text layoutX="75.0" layoutY="674.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ouvrir un nouvel affichage">
+                  <Text layoutX="75.0" layoutY="657.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ouvrir un nouvel affichage">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Text layoutX="104.0" layoutY="461.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Centrer le modèle">
+                  <Text layoutX="104.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Centrer le modèle">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <Text layoutX="70.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changer le mode d'affichage">
+                  <Text layoutX="80.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changer le mode d'affichage">
                      <font>
                         <Font size="15.0" />
                      </font>

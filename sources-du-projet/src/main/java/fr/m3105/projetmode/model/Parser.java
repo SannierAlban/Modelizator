@@ -55,10 +55,10 @@ public class Parser {
 	/**
 	 * 
 	 * @param path is the file that will be parse
-	 * @param real if you just want the information : don't fill faces, points and rgbAlpha
+	 * @param onlyHeader if you just want the information : don't fill faces, points and rgbAlpha
 	 */
 	public Parser(String path,boolean onlyHeader) {
-		try(FileReader fileReader = new FileReader(path);) {
+		try(FileReader fileReader = new FileReader(path)) {
 			ligneEnCour = 0;
 			reader = new BufferedReader(fileReader);
 			
@@ -169,8 +169,7 @@ public class Parser {
 	
 	/**
 	 * with a space between each word
-	 * @return return the next string in the file (no comment) 
-	 * @throws ErreurFichierException
+	 * @return return the next string in the file (no comment)
 	 */
 	private String readPLYLigne() throws ErreurFichierException {
 		String ret = null;

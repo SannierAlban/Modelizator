@@ -35,7 +35,7 @@ public class Model extends Subject {
 
     /**
      * basic constructor, the parameter file represents the ply file that will be loaded
-     * @param file
+     * @param file : fichier qui sera utiliser pour le parsing
      */
     public Model(File file){
         this(file,true);
@@ -82,9 +82,9 @@ public class Model extends Subject {
     
     /**
      * <b>INITIATES THE COLORS OF THE MODEL</b>
-     * @param red
-     * @param green
-     * @param blue
+     * @param red : composante rouge
+     * @param green : composante verte
+     * @param blue : composante bleu
      */
     public void changeColor(int red,int green, int blue){
         final int[] DEFAULT_RGB = new int[] {red,green,blue};
@@ -100,7 +100,7 @@ public class Model extends Subject {
 
     /**
      * DO NOT USE : FOR TEST PURPOSES WITHOUT USE OF THE FACES
-     * @param points
+     * @param points : tableau de points servant à généré un modèle
      */
     public Model(double[][] points) {
         this.points = points;
@@ -258,6 +258,7 @@ public class Model extends Subject {
      * Translates the Model using a Vector<br>
      * More precisely, it overwrites the previous values of the Model.points array<br>
      * @param vector v representing the directions and distance all the points will translate
+     * @param notify : true if you want to draw, false if is just for calculated
      */
     public void translate(double[] vector,boolean notify) {
         final int length = points[0].length;
@@ -354,7 +355,7 @@ public class Model extends Subject {
      * Changes the values of points array using the double[][] parameter. <br>
      * More precisely, this function overwrites the points array using a matricial multiplication of points and the parameter<br>
      * <b>CURRENTLY APPLY LIGHTS AT THE END</b>
-     * @param TRANSFORM_MATRIX
+     * @param TRANSFORM_MATRIX : matrix used for transform
      */
     public void transformPointsOld(final double[][] TRANSFORM_MATRIX) {
         final int length = points[0].length;

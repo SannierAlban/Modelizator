@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,10 @@ import java.net.URL;
 import java.security.InvalidParameterException;
 import java.util.*;
 
+/**
+ * ViewController est le controller principale de notre application
+ * il gère l'affichage mais aussi la partie interraction utilisateur
+ */
 public abstract class ViewController implements Initializable, Observer {
     @FXML
     protected JFXToggleButton lightActivation;
@@ -36,6 +41,8 @@ public abstract class ViewController implements Initializable, Observer {
     protected ImageView pauseButton;
     @FXML
     protected ColorPicker colorPicker;
+    @FXML
+    protected Text textChangeColor;
 
     protected GraphicsContext graphicsContext;
     protected File file;
@@ -47,6 +54,9 @@ public abstract class ViewController implements Initializable, Observer {
 
     public abstract void draw();
 
+    /**
+     * Class interne permetant de gérer les threads avec javafx pour réaliser une animation
+     */
     class ModelRun extends Task<Void> {
         @Override
         protected Void call() {
@@ -67,6 +77,10 @@ public abstract class ViewController implements Initializable, Observer {
         }
     }
 
+    /**
+     * Fonction d'initialisation du controller
+     * Permet de gérer la différence entre une vue normal et une vue camera.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -78,6 +92,10 @@ public abstract class ViewController implements Initializable, Observer {
         graphicsContext.setFill(Color.BLUE);
     }
 
+    /**
+     *
+     * @param stage : View à qui le controller sera attribué
+     */
     public void setStage(View stage){
         this.stage =stage;
         file = this.stage.getFile();
@@ -89,6 +107,7 @@ public abstract class ViewController implements Initializable, Observer {
         try{
             if (model.isColored()){
                 colorPicker.setVisible(false);
+                textChangeColor.setVisible(false);
             }
         }catch (Exception e){
 
@@ -135,6 +154,9 @@ public abstract class ViewController implements Initializable, Observer {
         model.rotateOnZAxis(3.14159/64);
     }
 
+    /**
+     * Fonction qui gère la lumière (activation, désactivation et restoration de couleur)
+     */
     public void lightAction(){
         if (lightActivation.isSelected()){
             lightsOn = true;
@@ -175,7 +197,9 @@ public abstract class ViewController implements Initializable, Observer {
         model.changeColor((int)(colorPicker.getValue().getRed()*255),(int)(colorPicker.getValue().getGreen()*255),(int)(colorPicker.getValue().getBlue()*255));
     }
 
-    // start thread
+    /**
+     * Fonction qui permet de démarrer un thread d'animation de type ModelRun
+     */
     public synchronized void startThread() {
         Task<Void> modelRun = new ModelRun();
         Thread taskThread = new Thread(modelRun);
@@ -183,11 +207,16 @@ public abstract class ViewController implements Initializable, Observer {
         taskThread.start();
     }
 
-    // stop thread
+    /**
+     * Permet de stopper un thread ModelRun
+     */
     public synchronized void stopThread() {
         isPlaying = false;
     }
 
+    /**
+     * Class interne qui permet de gérer les faces et qui permet de les tier
+     */
     public class Face implements Comparable<Face>{
         int point1;int point2;int point3;int redRGBAlpha;int greenRGBAlpha;int blueRGBAlpha;int redBaseRGB;int greenBaseRGB;int blueBaseRGB;
         public Face(int point1, int point2, int point3, int redRGBAlpha, int greenRGBAlpha, int blueRGBAlpha, int redBaseRGB, int greenBaseRGB, int blueBaseRGB){
@@ -207,6 +236,10 @@ public abstract class ViewController implements Initializable, Observer {
             this.point3 = point3;
         }
 
+        /**
+         * fait permettant de calculer la moyenne des Z
+         * @return moyenne des points sur la composante z
+         */
         public double moyenne(){
             return (model.getPoint(point1)[2] + model.getPoint(point2)[2] + model.getPoint(point3)[2])/3;
         }
@@ -228,8 +261,12 @@ public abstract class ViewController implements Initializable, Observer {
             }
         }
     }
-    
-//	trie par r�ference les 2 tableau
+
+    /**
+     * Fonction des trie qui va trier les faces selon leurs moyenne des Z et qui va en même tant trier les tableaux de couleurs
+     * @param faces : tableau à trier
+     * @return tableau trié
+     */
     public int[][] sortFace(int[][] faces){
 //				Array de x,y,z,R,G,B
     	List<Face> facesRGB = new ArrayList<>();
@@ -277,14 +314,16 @@ public abstract class ViewController implements Initializable, Observer {
     
     /**
      * Applies lights to the associated Model
-     * @param lightSourcePoint
+     * @param lightSourcePoint : point source de la lumière
      */
     public void applyLights(double[] lightSourcePoint) {
     	if(lightSourcePoint.length!=3) throw new InvalidParameterException();
     	model.applyLights(lightSourcePoint);
     }
 
-	//TODO: ici faire une fonction setModel pour passer le model
+    /**
+     * Fonction qui lance une vue de type caméra
+     */
 	public void deuxScene() throws IOException {
         View cameraView = new CameraView(this.file);
         views.add(cameraView);

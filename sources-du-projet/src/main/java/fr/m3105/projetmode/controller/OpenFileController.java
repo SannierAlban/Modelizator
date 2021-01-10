@@ -30,8 +30,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller de la partie ouverture de fichier, cette class aussi la création et l'affichage de certains composant.
+ */
 public class OpenFileController implements Initializable {
-
+    /**
+     * Classe interne permettant de stocké et trié les fichiers PLY
+     */
     class PLYFile extends RecursiveTreeObject<PLYFile> {
         StringProperty name;
         StringProperty date;
@@ -47,6 +52,9 @@ public class OpenFileController implements Initializable {
             this.file = file;
         }
 
+        /**
+         * Permet d'instancier chaque bouton de la liste
+         */
         public void prepareButton(){
             button.setButtonType(JFXButton.ButtonType.RAISED);
             button.setOnAction(actionEvent -> {
@@ -65,6 +73,10 @@ public class OpenFileController implements Initializable {
     @FXML
     Label size;
 
+    /**
+     * Fonction permettant de récupérer et de lancer un fichier via l'explorateur de fichier
+     * Utilisation de la librarie org.apache.commons.io.
+     */
     public void fileChooser() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PLY file","*.ply"));
@@ -74,6 +86,9 @@ public class OpenFileController implements Initializable {
         }
     }
 
+    /**
+     * Fonction permettant d'afficher la model d'help
+     */
     public void openHelpView() throws Exception {
         new HelpView();
     }
@@ -82,6 +97,10 @@ public class OpenFileController implements Initializable {
         Platform.exit();
     }
 
+
+    /**
+     * Fonction permettant de généré les composants de notre fenêtre avant l'affichage
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {

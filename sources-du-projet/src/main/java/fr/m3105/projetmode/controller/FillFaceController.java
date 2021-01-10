@@ -3,8 +3,14 @@ package fr.m3105.projetmode.controller;
 import fr.m3105.projetmode.model.Model;
 import javafx.scene.paint.Color;
 
+/**
+ * FillFaceController permet d'afficher le modèle avec des faces.
+ */
 public class FillFaceController extends ViewController {
     @Override
+    /**
+     * La fonction draw permet de dispatcher sur les fonctions de dessin suivant si l'on est sur une camera ou sur la fenetre principale.
+     */
     public void draw() {
         if (stage.isCamera()) {
             Model cameraModel = new Model(this.model);
@@ -16,6 +22,10 @@ public class FillFaceController extends ViewController {
         }
     }
 
+    /**
+     * Fonction qui permet de dessiner le modèle dans un graphicsContext.
+     * @param model : Modèle qui sera dessiner
+     */
     public void dessine(Model model) {
         int tabLenght = model.getFaces()[0].length;
         int[][] tempFace = sortFace(model.getFaces());
@@ -29,7 +39,10 @@ public class FillFaceController extends ViewController {
             graphicsContext.fillPolygon(pointsX, pointsY, 3);
         }
     }
-
+    /**
+     * Fonction qui permet de dessiner le modèle dans un graphicsContext en sens inverse (notamment pour l'utilisation de la caméra
+     * @param model : Modèle qui sera dessiner
+     */
     public void dessineInverse(Model model) {
         int tabLenght = model.getFaces()[0].length;
         int[][] tempFace = sortFace(model.getFaces());

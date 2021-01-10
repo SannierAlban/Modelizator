@@ -2,6 +2,9 @@ package fr.m3105.projetmode.controller;
 
 import javafx.scene.paint.Color;
 
+/**
+ * PointController permet de dessiner notre modèle grâce à des points
+ */
 public class PointController extends ViewController{
     @Override
     public void draw() {

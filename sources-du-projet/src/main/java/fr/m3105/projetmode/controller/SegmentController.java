@@ -2,6 +2,9 @@ package fr.m3105.projetmode.controller;
 
 import javafx.scene.paint.Color;
 
+/**
+ * SegmentController permet de dessiner notre modèle avec des segments.
+ */
 public class SegmentController extends ViewController{
     @Override
     public void draw() {
