@@ -10,7 +10,7 @@ public class FaceSegmentController extends ViewController {
             Model cameraModel = new Model(this.model);
             cameraModel.rotateOnYAxis(3.14159);
             sortFace(cameraModel.getFaces());
-            dessineInerve(cameraModel);
+            dessineInverse(cameraModel);
         } else {
             dessine(this.model);
         }
@@ -37,7 +37,7 @@ public class FaceSegmentController extends ViewController {
         }
     }
 
-    public void dessineInerve(Model model) {
+    public void dessineInverse(Model model) {
         int tabLenght = model.getFaces()[0].length;
         int[][] tempFace = sortFace(model.getFaces());
         if (lightsOn && !stage.isCamera()) applyLights(new double[]{0, 0, 1.25});
