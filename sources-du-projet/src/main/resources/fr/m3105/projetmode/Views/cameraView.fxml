@@ -10,7 +10,7 @@
    <children>
       <Pane layoutX="20.0" layoutY="18.0" prefHeight="648.0" prefWidth="879.0" styleClass="canvas" stylesheets="@main.css">
          <children>
-            <Canvas fx:id="mainCanvas" height="648.0" width="879.0" />
+            <Canvas fx:id="mainCanvas" height="638.0" layoutX="5.0" layoutY="5.0" width="869.0" />
          </children>
       </Pane>
       <Pane layoutX="20.0" layoutY="674.0" prefHeight="58.0" prefWidth="879.0" style="-fx-border-color: black; -fx-border-width: 0.33;">

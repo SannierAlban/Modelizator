@@ -33,7 +33,7 @@ class ModelManipulatorTest {
 		m.zoom(2);
 		
 		double[][] pyramidZoomed2 = new double[][] {{0.5,1.5,2.5,1.5},{0.5,2.5,0.5,1.5},{0,0,0,2}};
-		assertTrue(arrayPointEquals(m.getPoints(), pyramidZoomed2,0.25));
+		assertTrue(arrayPointEquals(m.getPoints(), pyramidZoomed2,0.5));
 	}
 	
 	/**

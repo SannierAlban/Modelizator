@@ -10,8 +10,8 @@ class MultiThreadTransformPointsTest {
 
 	@Test
 	void testSurCraneValide() {
-		Model crane1 = new Model(new File("exemples/appel.ply"));
-		Model crane2 = new Model(new File("exemples/appel.ply"));
+		Model crane1 = new Model(new File("exemples/apple.ply"));
+		Model crane2 = new Model(new File("exemples/apple.ply"));
 		
 		Random rand = new Random();
 		double[] vector = new double[] {rand.nextDouble(),rand.nextDouble(),rand.nextDouble()};
