@@ -62,7 +62,7 @@ public class Model extends Subject {
             }
         }
         baseRGB = new int[FACES.length][FACES[0].length];
-        if(color) {
+        if(isColored) {
         	for(int idx=0;idx<rgbAlpha[0].length;idx++) {
         		for(int idxColor=0;idxColor<3;idxColor++) {
         			baseRGB[idxColor][idx] = rgbAlpha[idxColor][idx];
@@ -76,7 +76,7 @@ public class Model extends Subject {
 
     public void changeColor(int red,int green, int blue){
         final int[] DEFAULT_RGB = new int[] {red,green,blue};
-        rgbAlpha = new int[FACES.length][FACES[0].length];
+        this.rgbAlpha = new int[FACES.length][FACES[0].length];
         for(int idx=0;idx<FACES[0].length;idx++) {
             for(int idxColor=0;idxColor<3;idxColor++) {
                 rgbAlpha[idxColor][idx] = DEFAULT_RGB[idxColor];
@@ -380,12 +380,12 @@ public class Model extends Subject {
     public void applyLights(double[] lightSourcePoint) {
         if(lightSourcePoint.length!=MAX_AXIS) throw new InvalidParameterException();
             lightSourcePoint = divideByNorm(lightSourcePoint);
-            for(int idxFace=0;idxFace<FACES[0].length;idxFace++) {
+            final int LENGTH = FACES[0].length;
+            for(int idxFace=0;idxFace<LENGTH;idxFace++) {
                 double[] normalVector = getNormalUnitVector(idxFace);
 	                double gamma = 0.0;
 	                for(int axis = 0;axis<MAX_AXIS;axis++) gamma+=Math.abs(normalVector[axis])*Math.abs(lightSourcePoint[axis]);
 	                if(gamma<0) gamma*=-1;
-	                //if(gamma <0.8) gamma+=0.2;
 	                rgbAlpha[0][idxFace]=(int) (baseRGB[0][idxFace]*gamma);
 	                rgbAlpha[1][idxFace]=(int) (baseRGB[1][idxFace]*gamma);
 	                rgbAlpha[2][idxFace]=(int) (baseRGB[2][idxFace]*gamma);
@@ -473,7 +473,7 @@ public class Model extends Subject {
     }
 
 	public void restoreColor() {
-		if(color) {
+		if(isColored) {
         	for(int idx=0;idx<rgbAlpha[0].length;idx++) {
         		for(int idxColor=0;idxColor<3;idxColor++) {
         			rgbAlpha[idxColor][idx] = baseRGB[idxColor][idx];
@@ -499,7 +499,11 @@ public class Model extends Subject {
     }
 
     public void setBaseRGB(int[][] baseRGB) {
-        this.baseRGB = baseRGB;
+        for(int line=0;line<baseRGB.length;line++) {
+        	for(int col=0;col<baseRGB[0].length;col++) {
+            	this.baseRGB[line][col] = baseRGB[line][col];
+            }
+        }
     }
 
     public boolean isColored() {
